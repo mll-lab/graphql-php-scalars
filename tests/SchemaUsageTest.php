@@ -14,7 +14,7 @@ class SchemaUsageTest extends \PHPUnit\Framework\TestCase
         // Make sure to instantiate the class only once
         // See http://webonyx.github.io/graphql-php/type-system/#type-registry
         $email = new Email();
-        
+
         $schemaConfig = new SchemaConfig();
         $schemaConfig->setQuery(
             new ObjectType([
@@ -25,9 +25,9 @@ class SchemaUsageTest extends \PHPUnit\Framework\TestCase
                 ],
             ])
         );
-        
+
         $schema = new Schema($schemaConfig);
-        
+
         $this->assertEmpty($schema->validate());
     }
 }

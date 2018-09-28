@@ -6,11 +6,8 @@ namespace Tests;
 
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
-use GraphQL\Language\AST\IntValueNode;
-use GraphQL\Language\AST\NodeKind;
 use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\Email;
-use MLL\GraphQLScalars\Regex;
 
 class EmailTest extends \PHPUnit\Framework\TestCase
 {
@@ -19,7 +16,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessageRegExp('/^The given value .* can not be serialized\./');
 
-        (new Email)->serialize(
+        (new Email())->serialize(
             new class() {
             }
         );
@@ -29,13 +26,13 @@ class EmailTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given string foo is not a valid Email.');
-        
-        (new Email)->serialize('foo');
+
+        (new Email())->serialize('foo');
     }
 
     public function testSerializePassesWhenEmailIsInvalid()
     {
-        $serializedResult = (new Email)->serialize('foo@bar');
+        $serializedResult = (new Email())->serialize('foo@bar');
 
         $this->assertSame('foo@bar', $serializedResult);
     }
@@ -45,14 +42,14 @@ class EmailTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given string "foo" is not a valid Email.');
 
-        (new Email)->parseValue('foo');
+        (new Email())->parseValue('foo');
     }
 
     public function testParseValuePassesIfEmailIsValid()
     {
         $this->assertSame(
             'foo@bar',
-            (new Email)->parseValue('foo@bar')
+            (new Email())->parseValue('foo@bar')
         );
     }
 
@@ -61,14 +58,14 @@ class EmailTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given string "foo" is not a valid Email.');
 
-        (new Email)->parseLiteral(new StringValueNode(['value' => 'foo']));
+        (new Email())->parseLiteral(new StringValueNode(['value' => 'foo']));
     }
-    
+
     public function testParseLiteralPassesIfEmailIsValid()
     {
         $this->assertSame(
             'foo@bar',
-            (new Email)->parseLiteral(new StringValueNode(['value' => 'foo@bar']))
+            (new Email())->parseLiteral(new StringValueNode(['value' => 'foo@bar']))
         );
     }
 }

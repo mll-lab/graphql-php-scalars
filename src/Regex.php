@@ -19,7 +19,7 @@ abstract class Regex extends ScalarType
      * @return string
      */
     abstract protected function regex(): string;
-    
+
     /**
      * This factory method allows you to create a Regex scalar in a one-liner.
      *
@@ -82,7 +82,7 @@ abstract class Regex extends ScalarType
     public function parseValue($value): string
     {
         $stringValue = assertString($value, Error::class);
-    
+
         if (!$this->matchesRegex($stringValue)) {
             $safeValue = Utils::printSafeJson($stringValue);
 
@@ -110,7 +110,7 @@ abstract class Regex extends ScalarType
     public function parseLiteral($valueNode, array $variables = null): string
     {
         $value = assertStringLiteral($valueNode);
-    
+
         if (!$this->matchesRegex($value)) {
             $safeValue = Utils::printSafeJson($value);
 

@@ -20,7 +20,7 @@ abstract class StringScalar extends ScalarType
      * @return bool
      */
     abstract protected function isValid(string $stringValue): bool;
-    
+
     /**
      * @param string $name The name that the scalar type will have in the schema.
      * @param string|null $description A description for the type.
@@ -28,7 +28,7 @@ abstract class StringScalar extends ScalarType
      *
      * @return StringScalar
      */
-    public static function make(string $name, string $description = null, callable $isValid): StringScalar
+    public static function make(string $name, string $description = null, callable $isValid): self
     {
         $instance = new class() extends StringScalar {
             /**
@@ -43,14 +43,14 @@ abstract class StringScalar extends ScalarType
                 return call_user_func($this->isValid, $stringValue);
             }
         };
-    
+
         $instance->name = $name;
         $instance->description = $description;
         $instance->isValid = $isValid;
-    
+
         return $instance;
     }
-    
+
     /**
      * Serializes an internal value to include in a response.
      *
@@ -68,7 +68,7 @@ abstract class StringScalar extends ScalarType
 
         return $stringValue;
     }
-    
+
     /**
      * Parses an externally provided value (query variable) to use as an input.
      *
@@ -81,15 +81,16 @@ abstract class StringScalar extends ScalarType
     public function parseValue($value): string
     {
         $stringValue = assertString($value, Error::class);
-        
-        if(!$this->isValid($stringValue)) {
+
+        if (!$this->isValid($stringValue)) {
             $safeValue = Utils::printSafeJson($stringValue);
+
             throw new Error("The given string {$safeValue} is not a valid {$this->tryInferName()}.");
         }
 
         return $stringValue;
     }
-    
+
     /**
      * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
      *
@@ -108,9 +109,10 @@ abstract class StringScalar extends ScalarType
     public function parseLiteral($valueNode, array $variables = null): string
     {
         $stringValue = assertStringLiteral($valueNode);
-    
-        if(!$this->isValid($stringValue)) {
+
+        if (!$this->isValid($stringValue)) {
             $safeValue = Utils::printSafeJson($stringValue);
+
             throw new Error("The given string {$safeValue} is not a valid {$this->tryInferName()}.", $valueNode);
         }
 

@@ -11,7 +11,7 @@ class Email extends StringScalar
 {
     /** @var string */
     public $description = 'A valid RFC 5321 compliant email.';
-    
+
     /**
      * Check if the given string is a valid email.
      *
@@ -21,9 +21,9 @@ class Email extends StringScalar
      */
     protected function isValid(string $stringValue): bool
     {
-        return (new EmailValidator)->isValid(
+        return (new EmailValidator())->isValid(
             $stringValue,
-            new RFCValidation
+            new RFCValidation()
         );
     }
 }

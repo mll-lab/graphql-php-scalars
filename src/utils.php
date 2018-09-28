@@ -25,15 +25,16 @@ function canBeString($value): bool
 /**
  * @param $valueNode
  *
- * @return string
  * @throws Error
+ *
+ * @return string
  */
 function assertStringLiteral($valueNode): string
 {
     if (!$valueNode instanceof StringValueNode) {
         throw new Error("Query error: Can only parse strings got: {$valueNode->kind}", [$valueNode]);
     }
-    
+
     return $valueNode->value;
 }
 
@@ -49,9 +50,9 @@ function assertString($value, string $exceptionClass): string
 {
     if (!canBeString($value)) {
         $safeValue = Utils::printSafe($value);
-        
+
         throw new $exceptionClass("The given value {$safeValue} can not be serialized.");
     }
-    
+
     return strval($value);
 }

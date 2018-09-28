@@ -17,3 +17,38 @@ A collection of custom scalar types for usage with https://github.com/webonyx/gr
 
 You can use the provided Scalars just like any other type in your schema definition.
 Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example. 
+
+### The Regex Scalar
+
+The `Regex` class allows you to define a custom scalar that validates that the given
+value matches a regular expression.
+
+The quickest way to define a custom scalar is the `make` factory method. Just provide
+a name and a regular expression and you will receive a ready-to-use custom regex scalar.
+
+```php
+<?php
+
+use MLL\GraphQLScalars\Regex;
+
+$hexValue = Regex::make('HexValue', '/^#?([a-f0-9]{6}|[a-f0-9]{3})$/');
+
+$hexValue instanceof \GraphQL\Type\Definition\ScalarType; // true
+```
+
+You may also define your regex scalar as a class.
+
+```php
+<?php
+
+use MLL\GraphQLScalars\Regex;
+
+// The name is implicitly set through the class name here
+class HexValue extends Regex
+{
+    protected function regex() : string
+    {
+        return '/^#?([a-f0-9]{6}|[a-f0-9]{3})$/';
+    }
+}
+```

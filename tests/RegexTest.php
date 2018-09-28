@@ -1,65 +1,173 @@
 <?php
 
 declare(strict_types=1);
+
+namespace Tests;
+
+use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
+use GraphQL\Language\AST\IntValueNode;
+use GraphQL\Language\AST\NodeKind;
+use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\Regex;
 
 class RegexTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var Regex */
-    protected $fooRegexScalar;
-
-    public function setUp()
+    public function regexClassProvider()
     {
-        $this->fooRegexScalar = new class() extends Regex {
-            /**
-             * Return the Regex that the values are validated against.
-             *
-             * Must be a valid
-             *
-             * @return string
-             */
-            protected function regex(): string
-            {
-                return '/foo/';
-            }
-        };
+        return [
+            [
+                new class() extends Regex
+                {
+                    public $name = 'Foo';
+                    
+                    /**
+                     * Return the Regex that the values are validated against.
+                     *
+                     * Must be a valid
+                     *
+                     * @return string
+                     */
+                    protected function regex(): string
+                    {
+                        return '/foo/';
+                    }
+                },
+            ],
+            [
+                new Foo
+            ],
+            [
+                Regex::make('Foo', '/foo/')
+            ]
+        ];
     }
-
-    public function testSerializeThrowsIfUnserializableValueIsGiven()
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testCreateNamedRegexClass(Regex $regex)
+    {
+        $this->assertSame('Foo', $regex->name);
+    }
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testSerializeThrowsIfUnserializableValueIsGiven(Regex $regex)
     {
         $this->expectException(InvariantViolation::class);
-
-        $this->fooRegexScalar->serialize(
-            new class() {
+        
+        $regex->serialize(
+            new class()
+            {
             }
         );
     }
-
-    public function testSerializeThrowsIfRegexIsNotMatched()
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testSerializeThrowsIfRegexIsNotMatched(Regex $regex)
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessageRegExp('/did not match the regex/');
-
-        $this->fooRegexScalar->serialize('bar');
+        
+        $regex->serialize('bar');
     }
-
-    public function testSerializePassesWhenRegexMatches()
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testSerializePassesWhenRegexMatches(Regex $regex)
     {
-        $serializedResult = $this->fooRegexScalar->serialize('foo');
+        $serializedResult = $regex->serialize('foo');
+        
         $this->assertSame('foo', $serializedResult);
     }
-
-    public function testSerializePassesForStringableObject()
+    
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testSerializePassesForStringableObject(Regex $regex)
     {
-        $serializedResult = $this->fooRegexScalar->serialize(
-            new class() {
+        $serializedResult = $regex->serialize(
+            new class()
+            {
                 public function __toString(): string
                 {
                     return 'Contains foo right?';
                 }
             }
         );
+        
         $this->assertSame('Contains foo right?', $serializedResult);
+    }
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testParseValueThrowsIfValueCantBeString(Regex $regex)
+    {
+        $this->expectException(Error::class);
+        $this->expectExceptionMessageRegExp('/can not be serialized/');
+        
+        $regex->parseValue(new class{});
+    }
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testParseValueThrowsIfValueDoesNotMatch(Regex $regex)
+    {
+        $this->expectException(Error::class);
+        $this->expectExceptionMessageRegExp('/did not match the regex/');
+        
+        $regex->parseValue('');
+    }
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testParseValuePassesOnMatch(Regex $regex)
+    {
+        $this->assertSame(
+            'foo',
+            $regex->parseValue('foo')
+        );
+    }
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testParseLiteralThrowsIfNotString(Regex $regex)
+    {
+        $this->expectException(Error::class);
+        $this->expectExceptionMessageRegExp('/'. NodeKind::INT.'/');
+        
+        $regex->parseLiteral(new IntValueNode([]));
+    }
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testParseLiteralThrowsIfValueDoesNotMatch(Regex $regex)
+    {
+        $this->expectException(Error::class);
+        $this->expectExceptionMessageRegExp('/did not match the regex/');
+        
+        $regex->parseLiteral(new StringValueNode(['value' => 'asdf']));
+    }
+    
+    /**
+     * @dataProvider regexClassProvider
+     */
+    public function testParseLiteralPassesOnMatch(Regex $regex)
+    {
+        $this->assertSame(
+            'foo',
+            $regex->parseLiteral(new StringValueNode(['value' => 'foo']))
+        );
     }
 }

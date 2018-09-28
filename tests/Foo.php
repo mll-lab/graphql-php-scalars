@@ -9,7 +9,7 @@ use MLL\GraphQLScalars\Regex;
 class Foo extends Regex
 {
     public $description = 'Bar';
-    
+
     /**
      * Return the Regex that the values are validated against.
      *

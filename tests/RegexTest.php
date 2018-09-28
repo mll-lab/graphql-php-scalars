@@ -19,7 +19,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
             [
                 new class() extends Regex {
                     public $name = 'Foo';
-                    
+
                     public $description = 'Bar';
 
                     /**
@@ -36,10 +36,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
                 },
             ],
             [
-                new class([
-                    'name' => 'Foo',
-                    'description' => 'Bar',
-                ]) extends Regex {
+                new class(['name' => 'Foo', 'description' => 'Bar']) extends Regex {
                     /**
                      * Return the Regex that the values are validated against.
                      *

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace MLL\GraphQLScalars;
 
 /**
+ * Check if a value can be serialized to a string.
+ *
  * @param $value
  *
  * @return bool

@@ -19,16 +19,17 @@ abstract class Regex extends ScalarType
      * @return string
      */
     abstract protected function regex(): string;
-
+    
     /**
      * This factory method allows you to create a Regex scalar in a one-liner.
      *
-     * @param string $name
-     * @param string $regex
+     * @param string $name The name that the scalar type will have in the schema.
+     * @param string|null $description A description for the type.
+     * @param string $regex The regular expression that is validated against.
      *
      * @return Regex
      */
-    public static function make(string $name, string $regex): self
+    public static function make(string $name, string $description = null, string $regex): self
     {
         $regexClass = new class() extends Regex {
             /**
@@ -45,6 +46,7 @@ abstract class Regex extends ScalarType
         };
 
         $regexClass->name = $name;
+        $regexClass->description = $description;
         $regexClass->regex = $regex;
 
         return $regexClass;

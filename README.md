@@ -18,6 +18,16 @@ A collection of custom scalar types for usage with https://github.com/webonyx/gr
 You can use the provided Scalars just like any other type in your schema definition.
 Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example. 
 
+## Simple Scalars
+
+This package comes with a bunch of scalars that are ready-to-use and just work out of the box.
+
+### Email
+
+The Email scalar validates that a given value is a RFC 5321 compliant email.
+
+## Advanced Scalars
+
 ### The Regex Scalar
 
 The `Regex` class allows you to define a custom scalar that validates that the given
@@ -31,9 +41,11 @@ a name and a regular expression and you will receive a ready-to-use custom regex
 
 use MLL\GraphQLScalars\Regex;
 
-$hexValue = Regex::make('HexValue', '/^#?([a-f0-9]{6}|[a-f0-9]{3})$/');
-
-$hexValue instanceof \GraphQL\Type\Definition\ScalarType; // true
+$hexValue = Regex::make(
+    'HexValue',
+    'A hexadecimal color is specified with: #RRGGBB, where RR (red), GG (green) and BB (blue) are hexadecimal integers between 00 and FF specifying the intensity of the color.',
+    '/^#?([a-f0-9]{6}|[a-f0-9]{3})$/'
+);
 ```
 
 You may also define your regex scalar as a class.
@@ -46,9 +58,39 @@ use MLL\GraphQLScalars\Regex;
 // The name is implicitly set through the class name here
 class HexValue extends Regex
 {
+    public $description = 'A hexadecimal color is specified with: #RRGGBB, where RR (red), GG (green) and BB (blue) are hexadecimal integers between 00 and FF specifying the intensity of the color.';
+    
     protected function regex() : string
     {
         return '/^#?([a-f0-9]{6}|[a-f0-9]{3})$/';
     }
 }
 ```
+
+### The StringBase Scalar
+
+The `StringScalar` encapsulate all the boilerplate associated with creating a string-based Scalar type.
+It does the proper string checking for you and let's you focus on the minimal logic that is specific to your use case.
+
+All you have to specify is a function that checks if the given string is valid. Use the factory method
+to generate an instance on the fly.
+
+```php
+<?php
+
+use MLL\GraphQLScalars\StringScalar;
+
+$coolName = StringScalar::make(
+    'CoolName',
+    'A name that is most definitely cool.',
+    function(string $name): bool {
+        return in_array($name, [
+           'Vladar',
+           'Benedikt',
+           'Christopher',
+        ]);
+    }
+);
+```
+
+Or you may simply extend the class, check out the implementation of the [Email](src/Email.php) scalar to see how.

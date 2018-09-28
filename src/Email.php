@@ -4,67 +4,26 @@ declare(strict_types=1);
 
 namespace MLL\GraphQLScalars;
 
-use GraphQL\Error\InvariantViolation;
-use GraphQL\Language\AST\Node;
-use GraphQL\Type\Definition\ScalarType;
+use Egulias\EmailValidator\EmailValidator;
+use Egulias\EmailValidator\Validation\RFCValidation;
 
-class Email extends ScalarType
+class Email extends StringScalar
 {
+    /** @var string */
+    public $description = 'A valid RFC 5321 compliant email.';
+    
     /**
-     * Serializes an internal value to include in a response.
+     * Check if the given string is a valid email.
      *
-     * @param string $value
+     * @param string $stringValue
      *
-     * @return string
+     * @return bool
      */
-    public function serialize($value): string
+    protected function isValid(string $stringValue): bool
     {
-        if (!canBeString($value)) {
-            $valueClass = get_class($value);
-
-            throw new InvariantViolation("The given value of class $valueClass can not be serialized.");
-        }
-
-        $stringValue = strval($value);
-
-        if (!$this->matchesRegex($stringValue)) {
-            throw new InvariantViolation("The given string $stringValue did not match the regex {$this->regex()}");
-        }
-
-        return $stringValue;
-    }
-
-    /**
-     * Parses an externally provided value (query variable) to use as an input.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function parseValue($value)
-    {
-        // TODO implement validation
-
-        return $value;
-    }
-
-    /**
-     * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
-     *
-     * E.g.
-     * {
-     *   user(email: "user@example.com")
-     * }
-     *
-     * @param Node $valueNode
-     * @param array $variables
-     *
-     * @return mixed
-     */
-    public function parseLiteral($valueNode, array $variables = null)
-    {
-        // TODO implement validation
-
-        return $valueNode->value;
+        return (new EmailValidator)->isValid(
+            $stringValue,
+            new RFCValidation
+        );
     }
 }

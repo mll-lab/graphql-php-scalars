@@ -13,7 +13,8 @@
   "require": {
     "php": ">=7.0",
     "webonyx/graphql-php": "^0.12.6",
-    "spatie/regex": "^1.3"
+    "spatie/regex": "^1.3",
+    "egulias/email-validator": "^2.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^6|^7.3"

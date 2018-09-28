@@ -17,10 +17,9 @@ class RegexTest extends \PHPUnit\Framework\TestCase
     {
         return [
             [
-                new class() extends Regex
-                {
+                new class() extends Regex {
                     public $name = 'Foo';
-                    
+
                     /**
                      * Return the Regex that the values are validated against.
                      *
@@ -35,14 +34,14 @@ class RegexTest extends \PHPUnit\Framework\TestCase
                 },
             ],
             [
-                new Foo
+                new Foo(),
             ],
             [
-                Regex::make('Foo', '/foo/')
-            ]
+                Regex::make('Foo', '/foo/'),
+            ],
         ];
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */
@@ -50,21 +49,20 @@ class RegexTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertSame('Foo', $regex->name);
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */
     public function testSerializeThrowsIfUnserializableValueIsGiven(Regex $regex)
     {
         $this->expectException(InvariantViolation::class);
-        
+
         $regex->serialize(
-            new class()
-            {
+            new class() {
             }
         );
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */
@@ -72,39 +70,37 @@ class RegexTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessageRegExp('/did not match the regex/');
-        
+
         $regex->serialize('bar');
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */
     public function testSerializePassesWhenRegexMatches(Regex $regex)
     {
         $serializedResult = $regex->serialize('foo');
-        
+
         $this->assertSame('foo', $serializedResult);
     }
-    
-    
+
     /**
      * @dataProvider regexClassProvider
      */
     public function testSerializePassesForStringableObject(Regex $regex)
     {
         $serializedResult = $regex->serialize(
-            new class()
-            {
+            new class() {
                 public function __toString(): string
                 {
                     return 'Contains foo right?';
                 }
             }
         );
-        
+
         $this->assertSame('Contains foo right?', $serializedResult);
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */
@@ -112,10 +108,11 @@ class RegexTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageRegExp('/can not be serialized/');
-        
-        $regex->parseValue(new class{});
+
+        $regex->parseValue(new class() {
+        });
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */
@@ -123,10 +120,10 @@ class RegexTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageRegExp('/did not match the regex/');
-        
+
         $regex->parseValue('');
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */
@@ -137,18 +134,18 @@ class RegexTest extends \PHPUnit\Framework\TestCase
             $regex->parseValue('foo')
         );
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */
     public function testParseLiteralThrowsIfNotString(Regex $regex)
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageRegExp('/'. NodeKind::INT.'/');
-        
+        $this->expectExceptionMessageRegExp('/'.NodeKind::INT.'/');
+
         $regex->parseLiteral(new IntValueNode([]));
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */
@@ -156,10 +153,10 @@ class RegexTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageRegExp('/did not match the regex/');
-        
+
         $regex->parseLiteral(new StringValueNode(['value' => 'asdf']));
     }
-    
+
     /**
      * @dataProvider regexClassProvider
      */

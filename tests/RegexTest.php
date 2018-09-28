@@ -19,7 +19,27 @@ class RegexTest extends \PHPUnit\Framework\TestCase
             [
                 new class() extends Regex {
                     public $name = 'Foo';
+                    
+                    public $description = 'Bar';
 
+                    /**
+                     * Return the Regex that the values are validated against.
+                     *
+                     * Must be a valid
+                     *
+                     * @return string
+                     */
+                    protected function regex(): string
+                    {
+                        return '/foo/';
+                    }
+                },
+            ],
+            [
+                new class([
+                    'name' => 'Foo',
+                    'description' => 'Bar',
+                ]) extends Regex {
                     /**
                      * Return the Regex that the values are validated against.
                      *
@@ -37,7 +57,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
                 new Foo(),
             ],
             [
-                Regex::make('Foo', '/foo/'),
+                Regex::make('Foo', 'Bar', '/foo/'),
             ],
         ];
     }
@@ -48,6 +68,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
     public function testCreateNamedRegexClass(Regex $regex)
     {
         $this->assertSame('Foo', $regex->name);
+        $this->assertSame('Bar', $regex->description);
     }
 
     /**

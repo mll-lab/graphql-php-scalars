@@ -11,7 +11,12 @@ namespace MLL\GraphQLScalars;
  *
  * @return bool
  */
-function canBeString($value)           : bool
+function canBeString($value)
+
+
+
+: bool
+
 {
     return $value === null
         || is_scalar($value)

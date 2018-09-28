@@ -20,20 +20,21 @@ abstract class Regex extends ScalarType
      */
     public function serialize($value): string
     {
-        if(!canBeString($value)){
+        if (!canBeString($value)) {
             $valueClass = get_class($value);
+
             throw new InvariantViolation("The given value of class $valueClass can not be serialized.");
         }
-        
+
         $stringValue = strval($value);
-        
-        if(!$this->matchesRegex($stringValue)){
+
+        if (!$this->matchesRegex($stringValue)) {
             throw new InvariantViolation("The given string $stringValue did not match the regex {$this->regex()}");
         }
-        
+
         return $stringValue;
     }
-    
+
     /**
      * Parses an externally provided value (query variable) to use as an input.
      *
@@ -44,10 +45,10 @@ abstract class Regex extends ScalarType
     public function parseValue($value)
     {
         // TODO implement validation
-        
+
         return $value;
     }
-    
+
     /**
      * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
      *
@@ -64,10 +65,10 @@ abstract class Regex extends ScalarType
     public function parseLiteral($valueNode, array $variables = null)
     {
         // TODO implement validation
-        
+
         return $valueNode->value;
     }
-    
+
     /**
      * @param string $value
      *
@@ -80,7 +81,7 @@ abstract class Regex extends ScalarType
             $value
         )->hasMatch();
     }
-    
+
     /**
      * Return the Regex that the values are validated against.
      *

@@ -1,5 +1,5 @@
 {
-  "name": "graphql-php-scalars",
+  "name": "mll-lab/graphql-php-scalars",
   "description": "A collection of custom scalar types for usage with https://github.com/webonyx/graphql-php",
   "license": "MIT",
   "keywords": ["graphql", "php"],

@@ -7,7 +7,6 @@ namespace MLL\GraphQLScalars;
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\Node;
-use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
 use Spatie\Regex\Regex as RegexValidator;
@@ -60,13 +59,7 @@ abstract class Regex extends ScalarType
      */
     public function serialize($value): string
     {
-        if (!canBeString($value)) {
-            $safeValue = Utils::printSafe($value);
-
-            throw new InvariantViolation("The given value {$safeValue} can not be serialized.");
-        }
-
-        $stringValue = strval($value);
+        $stringValue = assertString($value, InvariantViolation::class);
 
         if (!$this->matchesRegex($stringValue)) {
             throw new InvariantViolation("The given string $stringValue did not match the regex {$this->regex()}");
@@ -86,14 +79,8 @@ abstract class Regex extends ScalarType
      */
     public function parseValue($value): string
     {
-        if (!canBeString($value)) {
-            $safeValue = Utils::printSafe($value);
-
-            throw new Error("The given value {$safeValue} can not be serialized.");
-        }
-
-        $stringValue = strval($value);
-
+        $stringValue = assertString($value, Error::class);
+    
         if (!$this->matchesRegex($stringValue)) {
             $safeValue = Utils::printSafeJson($stringValue);
 
@@ -120,12 +107,8 @@ abstract class Regex extends ScalarType
      */
     public function parseLiteral($valueNode, array $variables = null): string
     {
-        if (!$valueNode instanceof StringValueNode) {
-            throw new Error("Query error: Can only parse strings got: {$valueNode->kind}", [$valueNode]);
-        }
-
-        $value = $valueNode->value;
-
+        $value = assertStringLiteral($valueNode);
+    
         if (!$this->matchesRegex($value)) {
             $safeValue = Utils::printSafeJson($value);
 

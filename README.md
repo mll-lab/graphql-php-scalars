@@ -24,7 +24,13 @@ This package comes with a bunch of scalars that are ready-to-use and just work o
 
 ### Email
 
-The Email scalar validates that a given value is a RFC 5321 compliant email.
+A RFC 5321 compliant email.
+
+### Mixed
+
+Loose type that allows any value. Be careful when passing in large Int or Float literals,
+as they may not be parsed correctly on the server side. Use String literals if you are
+dealing with really large numbers to be on the safe side.
 
 ## Advanced Scalars
 

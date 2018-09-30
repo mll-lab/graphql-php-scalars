@@ -10,7 +10,7 @@ use Egulias\EmailValidator\Validation\RFCValidation;
 class Email extends StringScalar
 {
     /** @var string */
-    public $description = 'A valid RFC 5321 compliant email.';
+    public $description = 'A RFC 5321 compliant email.';
 
     /**
      * Check if the given string is a valid email.

@@ -22,11 +22,11 @@ Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example.
 
 This package comes with a bunch of scalars that are ready-to-use and just work out of the box.
 
-### Email
+### [Email](src/Email.php)
 
 A RFC 5321 compliant email.
 
-### Mixed
+### [Mixed](src/Mixed.php)
 
 Loose type that allows any value. Be careful when passing in large Int or Float literals,
 as they may not be parsed correctly on the server side. Use String literals if you are
@@ -34,7 +34,7 @@ dealing with really large numbers to be on the safe side.
 
 ## Advanced Scalars
 
-### The Regex Scalar
+### [Regex](src/Regex.php)
 
 The `Regex` class allows you to define a custom scalar that validates that the given
 value matches a regular expression.
@@ -73,7 +73,7 @@ class HexValue extends Regex
 }
 ```
 
-### The StringBase Scalar
+### [StringScalar](StringScalar.php)
 
 The `StringScalar` encapsulate all the boilerplate associated with creating a string-based Scalar type.
 It does the proper string checking for you and let's you focus on the minimal logic that is specific to your use case.

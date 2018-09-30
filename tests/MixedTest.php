@@ -16,14 +16,14 @@ class MixedTest extends \PHPUnit\Framework\TestCase
 {
     /** @var Schema */
     protected $schema;
-    
+
     public function setUp()
     {
         parent::setUp();
-        
-        $mixed = new Mixed;
-        
-        $schemaConfig = new SchemaConfig;
+
+        $mixed = new Mixed();
+
+        $schemaConfig = new SchemaConfig();
         $schemaConfig->setQuery(
             new ObjectType([
                 'name' => 'Query',
@@ -40,10 +40,10 @@ class MixedTest extends \PHPUnit\Framework\TestCase
                 ],
             ])
         );
-        
+
         $this->schema = new Schema($schemaConfig);
     }
-    
+
     /**
      * @dataProvider singleValues
      *
@@ -58,7 +58,7 @@ class MixedTest extends \PHPUnit\Framework\TestCase
             )
         );
     }
-    
+
     /**
      * @dataProvider singleValues
      *
@@ -73,18 +73,20 @@ class MixedTest extends \PHPUnit\Framework\TestCase
             )
         );
     }
-    
+
     public function singleValues()
     {
         return [
             [null],
-            [new class {}],
+            [new class() {
+            }],
             [[]],
-            [function(){}],
-            [[$this, 'singleValues']]
+            [function () {
+            }],
+            [[$this, 'singleValues']],
         ];
     }
-    
+
     /**
      * @dataProvider literalToPhpMap
      *
@@ -96,19 +98,19 @@ class MixedTest extends \PHPUnit\Framework\TestCase
     {
         $graphqlResult = $this->executeQueryWithLiteral($graphQLLiteral);
         $jsonResult = $this->executeQueryWithJsonVariable($jsonLiteral);
-        
+
         $this->assertSame(
             $expected,
             $graphqlResult->data['foo']
         );
-        
+
         // Ensure that values provided as JSON have the same result as GraphQL literals
         $this->assertSame(
             $graphqlResult->data,
             $jsonResult->data
         );
     }
-    
+
     /**
      * Provides a GraphQL literal, a Json literal and the expected PHP value.
      *
@@ -119,7 +121,7 @@ class MixedTest extends \PHPUnit\Framework\TestCase
         return [
             ['1', '1', 1],
             ['"asdf"', '"asdf"', 'asdf'],
-            ['true','true', true],
+            ['true', 'true', true],
             ['123.321', '123.321', 123.321],
             ['null', 'null', null],
             ['[1, 2]', '[1, 2]', [1, 2]],
@@ -155,7 +157,7 @@ class MixedTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
-    
+
     /**
      * @param string $literal
      *
@@ -170,13 +172,13 @@ class MixedTest extends \PHPUnit\Framework\TestCase
         ";
         var_dump(
         SchemaPrinter::doPrint($this->schema));
-        
+
         return GraphQL::executeQuery(
             $this->schema,
             $query
         );
     }
-    
+
     /**
      * @param string $jsonLiteral
      *
@@ -189,7 +191,7 @@ class MixedTest extends \PHPUnit\Framework\TestCase
             foo(bar: $var)
         }
         ';
-        
+
         $json = json_decode("
         {
             \"var\": $jsonLiteral
@@ -197,7 +199,7 @@ class MixedTest extends \PHPUnit\Framework\TestCase
         ",
             true
         );
-        
+
         return GraphQL::executeQuery(
             $this->schema,
             $query,

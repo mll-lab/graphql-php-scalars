@@ -49,7 +49,7 @@ function assertStringLiteral($valueNode): string
 function assertString($value, string $exceptionClass): string
 {
     if (!canBeString($value)) {
-        $safeValue = Utils::printSafe($value);
+        $safeValue = Utils::printSafeJson($value);
 
         throw new $exceptionClass("The given value {$safeValue} can not be serialized.");
     }

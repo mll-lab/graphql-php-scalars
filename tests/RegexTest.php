@@ -18,7 +18,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
         return [
             [
                 new class() extends Regex {
-                    public $name = 'Foo';
+                    public $name = 'MyRegex';
 
                     public $description = 'Bar';
 
@@ -36,7 +36,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
                 },
             ],
             [
-                new class(['name' => 'Foo', 'description' => 'Bar']) extends Regex {
+                new class(['name' => 'MyRegex', 'description' => 'Bar']) extends Regex {
                     /**
                      * Return the Regex that the values are validated against.
                      *
@@ -51,10 +51,10 @@ class RegexTest extends \PHPUnit\Framework\TestCase
                 },
             ],
             [
-                new Foo(),
+                new MyRegex(),
             ],
             [
-                Regex::make('Foo', 'Bar', '/foo/'),
+                Regex::make('MyRegex', 'Bar', '/foo/'),
             ],
         ];
     }
@@ -64,7 +64,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreateNamedRegexClass(Regex $regex)
     {
-        $this->assertSame('Foo', $regex->name);
+        $this->assertSame('MyRegex', $regex->name);
         $this->assertSame('Bar', $regex->description);
     }
 
@@ -87,7 +87,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
     public function testSerializeThrowsIfRegexIsNotMatched(Regex $regex)
     {
         $this->expectException(InvariantViolation::class);
-        $this->expectExceptionMessageRegExp('/did not match the regex/');
+        $this->expectExceptionMessage($regex->unmatchedRegexMessage('bar'));
 
         $regex->serialize('bar');
     }

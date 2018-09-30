@@ -25,7 +25,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
     public function testSerializeThrowsIfEmailIsInvalid()
     {
         $this->expectException(InvariantViolation::class);
-        $this->expectExceptionMessage('The given string foo is not a valid Email.');
+        $this->expectExceptionMessage('The given string "foo" is not a valid Email.');
 
         (new Email())->serialize('foo');
     }

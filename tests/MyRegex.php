@@ -6,7 +6,7 @@ namespace Tests;
 
 use MLL\GraphQLScalars\Regex;
 
-class Foo extends Regex
+class MyRegex extends Regex
 {
     public $description = 'Bar';
 

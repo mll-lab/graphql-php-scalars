@@ -14,13 +14,6 @@ use Spatie\Regex\Regex as RegexValidator;
 abstract class Regex extends ScalarType
 {
     /**
-     * Return the Regex that the values are validated against.
-     *
-     * @return string
-     */
-    abstract protected function regex(): string;
-
-    /**
      * This factory method allows you to create a Regex scalar in a one-liner.
      *
      * @param string $name The name that the scalar type will have in the schema.
@@ -31,7 +24,8 @@ abstract class Regex extends ScalarType
      */
     public static function make(string $name, string $description = null, string $regex): self
     {
-        $regexClass = new class() extends Regex {
+        $regexClass = new class() extends Regex
+        {
             /**
              * Return the Regex that the values are validated against.
              *
@@ -44,14 +38,21 @@ abstract class Regex extends ScalarType
                 return $this->regex;
             }
         };
-
+        
         $regexClass->name = $name;
         $regexClass->description = $description;
         $regexClass->regex = $regex;
-
+        
         return $regexClass;
     }
-
+    
+    /**
+     * Return the Regex that the values are validated against.
+     *
+     * @return string
+     */
+    abstract protected function regex(): string;
+    
     /**
      * Serializes an internal value to include in a response.
      *
@@ -62,14 +63,29 @@ abstract class Regex extends ScalarType
     public function serialize($value): string
     {
         $stringValue = assertString($value, InvariantViolation::class);
-
+        
         if (!$this->matchesRegex($stringValue)) {
-            throw new InvariantViolation("The given string $stringValue did not match the regex {$this->regex()}");
+            throw new InvariantViolation(
+                $this->unmatchedRegexMessage($stringValue)
+            );
         }
-
+        
         return $stringValue;
     }
-
+    
+    /**
+     * @param string $value
+     *
+     * @return bool
+     */
+    protected function matchesRegex(string $value): bool
+    {
+        return RegexValidator::match(
+            $this->regex(),
+            $value
+        )->hasMatch();
+    }
+    
     /**
      * Parses an externally provided value (query variable) to use as an input.
      *
@@ -82,23 +98,18 @@ abstract class Regex extends ScalarType
     public function parseValue($value): string
     {
         $stringValue = assertString($value, Error::class);
-
+        
         if (!$this->matchesRegex($stringValue)) {
-            $safeValue = Utils::printSafeJson($stringValue);
-
-            throw new Error("The given value {$safeValue} did not match the regex {$this->regex()}");
+            throw new Error(
+                $this->unmatchedRegexMessage($stringValue)
+            );
         }
-
+        
         return $value;
     }
-
+    
     /**
      * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
-     *
-     * E.g.
-     * {
-     *   user(email: "user@example.com")
-     * }
      *
      * @param Node $valueNode
      * @param array $variables
@@ -110,26 +121,26 @@ abstract class Regex extends ScalarType
     public function parseLiteral($valueNode, array $variables = null): string
     {
         $value = assertStringLiteral($valueNode);
-
+        
         if (!$this->matchesRegex($value)) {
-            $safeValue = Utils::printSafeJson($value);
-
-            throw new Error("The given value {$safeValue} did not match the regex {$this->regex()}", [$valueNode]);
+            throw new Error(
+                $this->unmatchedRegexMessage($value),
+                [$valueNode]
+            );
         }
-
+        
         return $value;
     }
-
+    
     /**
      * @param string $value
      *
-     * @return bool
+     * @return string
      */
-    protected function matchesRegex(string $value): bool
+    public function unmatchedRegexMessage(string $value): string
     {
-        return RegexValidator::match(
-            $this->regex(),
-            $value
-        )->hasMatch();
+        $safeValue = Utils::printSafeJson($value);
+        
+        return "The given value {$safeValue} did not match the regex {$this->regex()}";
     }
 }

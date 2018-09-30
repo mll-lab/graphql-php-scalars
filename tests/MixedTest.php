@@ -170,9 +170,7 @@ class MixedTest extends \PHPUnit\Framework\TestCase
             foo(bar: {$literal})
         }
         ";
-        var_dump(
-        SchemaPrinter::doPrint($this->schema));
-
+        
         return GraphQL::executeQuery(
             $this->schema,
             $query

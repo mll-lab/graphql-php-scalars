@@ -21,8 +21,7 @@ abstract class StringScalar extends ScalarType
      */
     public static function make(string $name, string $description = null, callable $isValid): self
     {
-        $instance = new class() extends StringScalar
-        {
+        $instance = new class() extends StringScalar {
             /**
              * Check if the given string is a valid email.
              *
@@ -35,14 +34,14 @@ abstract class StringScalar extends ScalarType
                 return call_user_func($this->isValid, $stringValue);
             }
         };
-        
+
         $instance->name = $name;
         $instance->description = $description;
         $instance->isValid = $isValid;
-        
+
         return $instance;
     }
-    
+
     /**
      * Check if the given string is a valid email.
      *
@@ -51,7 +50,7 @@ abstract class StringScalar extends ScalarType
      * @return bool
      */
     abstract protected function isValid(string $stringValue): bool;
-    
+
     /**
      * Serializes an internal value to include in a response.
      *
@@ -62,16 +61,16 @@ abstract class StringScalar extends ScalarType
     public function serialize($value): string
     {
         $stringValue = assertString($value, InvariantViolation::class);
-        
+
         if (!$this->isValid($stringValue)) {
             throw new InvariantViolation(
                 $this->invalidStringMessage($stringValue)
             );
         }
-        
+
         return $stringValue;
     }
-    
+
     /**
      * @param string $stringValue
      *
@@ -80,10 +79,10 @@ abstract class StringScalar extends ScalarType
     public function invalidStringMessage(string $stringValue): string
     {
         $safeValue = Utils::printSafeJson($stringValue);
-        
+
         return "The given string {$safeValue} is not a valid {$this->tryInferName()}.";
     }
-    
+
     /**
      * Parses an externally provided value (query variable) to use as an input.
      *
@@ -96,16 +95,16 @@ abstract class StringScalar extends ScalarType
     public function parseValue($value): string
     {
         $stringValue = assertString($value, Error::class);
-        
+
         if (!$this->isValid($stringValue)) {
             throw new Error(
                 $this->invalidStringMessage($stringValue)
             );
         }
-        
+
         return $stringValue;
     }
-    
+
     /**
      * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
      *
@@ -124,14 +123,14 @@ abstract class StringScalar extends ScalarType
     public function parseLiteral($valueNode, array $variables = null): string
     {
         $stringValue = assertStringLiteral($valueNode);
-        
+
         if (!$this->isValid($stringValue)) {
             throw new Error(
                 $this->invalidStringMessage($stringValue),
                 $valueNode
             );
         }
-        
+
         return $stringValue;
     }
 }

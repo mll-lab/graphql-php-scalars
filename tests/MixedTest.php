@@ -9,7 +9,6 @@ use GraphQL\GraphQL;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Schema;
 use GraphQL\Type\SchemaConfig;
-use GraphQL\Utils\SchemaPrinter;
 use MLL\GraphQLScalars\Mixed;
 
 class MixedTest extends \PHPUnit\Framework\TestCase
@@ -170,7 +169,7 @@ class MixedTest extends \PHPUnit\Framework\TestCase
             foo(bar: {$literal})
         }
         ";
-        
+
         return GraphQL::executeQuery(
             $this->schema,
             $query

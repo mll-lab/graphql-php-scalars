@@ -24,8 +24,7 @@ abstract class Regex extends ScalarType
      */
     public static function make(string $name, string $description = null, string $regex): self
     {
-        $regexClass = new class() extends Regex
-        {
+        $regexClass = new class() extends Regex {
             /**
              * Return the Regex that the values are validated against.
              *
@@ -38,21 +37,21 @@ abstract class Regex extends ScalarType
                 return $this->regex;
             }
         };
-        
+
         $regexClass->name = $name;
         $regexClass->description = $description;
         $regexClass->regex = $regex;
-        
+
         return $regexClass;
     }
-    
+
     /**
      * Return the Regex that the values are validated against.
      *
      * @return string
      */
     abstract protected function regex(): string;
-    
+
     /**
      * Serializes an internal value to include in a response.
      *
@@ -63,16 +62,16 @@ abstract class Regex extends ScalarType
     public function serialize($value): string
     {
         $stringValue = assertString($value, InvariantViolation::class);
-        
+
         if (!$this->matchesRegex($stringValue)) {
             throw new InvariantViolation(
                 $this->unmatchedRegexMessage($stringValue)
             );
         }
-        
+
         return $stringValue;
     }
-    
+
     /**
      * @param string $value
      *
@@ -85,7 +84,7 @@ abstract class Regex extends ScalarType
             $value
         )->hasMatch();
     }
-    
+
     /**
      * Parses an externally provided value (query variable) to use as an input.
      *
@@ -98,16 +97,16 @@ abstract class Regex extends ScalarType
     public function parseValue($value): string
     {
         $stringValue = assertString($value, Error::class);
-        
+
         if (!$this->matchesRegex($stringValue)) {
             throw new Error(
                 $this->unmatchedRegexMessage($stringValue)
             );
         }
-        
+
         return $value;
     }
-    
+
     /**
      * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
      *
@@ -121,17 +120,17 @@ abstract class Regex extends ScalarType
     public function parseLiteral($valueNode, array $variables = null): string
     {
         $value = assertStringLiteral($valueNode);
-        
+
         if (!$this->matchesRegex($value)) {
             throw new Error(
                 $this->unmatchedRegexMessage($value),
                 [$valueNode]
             );
         }
-        
+
         return $value;
     }
-    
+
     /**
      * @param string $value
      *
@@ -140,7 +139,7 @@ abstract class Regex extends ScalarType
     public function unmatchedRegexMessage(string $value): string
     {
         $safeValue = Utils::printSafeJson($value);
-        
+
         return "The given value {$safeValue} did not match the regex {$this->regex()}";
     }
 }

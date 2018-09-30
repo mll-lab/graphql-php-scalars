@@ -21,7 +21,7 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
                     public $name = 'MyStringScalar';
 
                     public $description = 'Bar';
-    
+
                     /**
                      * Check if the given string is a valid email.
                      *
@@ -57,7 +57,7 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
                 StringScalar::make(
                     'MyStringScalar',
                     'Bar',
-                    function(string $string){
+                    function (string $string) {
                         return $string === 'foo';
                     }
                 ),

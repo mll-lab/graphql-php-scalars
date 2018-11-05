@@ -17,7 +17,7 @@ class MyRegex extends Regex
      *
      * @return string
      */
-    protected function regex(): string
+    public static function regex(): string
     {
         return '/foo/';
     }

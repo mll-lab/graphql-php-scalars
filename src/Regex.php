@@ -25,6 +25,9 @@ abstract class Regex extends ScalarType
     public static function make(string $name, string $description = null, string $regex): self
     {
         $regexClass = new class() extends Regex {
+            /** @var string Is set dynamically during this class creation. */
+            public static $regex;
+
             /**
              * Return the Regex that the values are validated against.
              *
@@ -32,15 +35,15 @@ abstract class Regex extends ScalarType
              *
              * @return string
              */
-            protected function regex(): string
+            public static function regex(): string
             {
-                return $this->regex;
+                return static::$regex;
             }
         };
 
         $regexClass->name = $name;
         $regexClass->description = $description;
-        $regexClass->regex = $regex;
+        $regexClass::$regex = $regex;
 
         return $regexClass;
     }
@@ -50,7 +53,7 @@ abstract class Regex extends ScalarType
      *
      * @return string
      */
-    abstract protected function regex(): string;
+    abstract public static function regex(): string;
 
     /**
      * Serializes an internal value to include in a response.
@@ -80,7 +83,7 @@ abstract class Regex extends ScalarType
     protected function matchesRegex(string $value): bool
     {
         return RegexValidator::match(
-            $this->regex(),
+            static::regex(),
             $value
         )->hasMatch();
     }
@@ -140,6 +143,6 @@ abstract class Regex extends ScalarType
     {
         $safeValue = Utils::printSafeJson($value);
 
-        return "The given value {$safeValue} did not match the regex {$this->regex()}";
+        return "The given value {$safeValue} did not match the regex " . static::regex();
     }
 }

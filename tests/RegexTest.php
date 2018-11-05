@@ -29,7 +29,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
                      *
                      * @return string
                      */
-                    protected function regex(): string
+                    public static function regex(): string
                     {
                         return '/foo/';
                     }
@@ -44,7 +44,7 @@ class RegexTest extends \PHPUnit\Framework\TestCase
                      *
                      * @return string
                      */
-                    protected function regex(): string
+                    public static function regex(): string
                     {
                         return '/foo/';
                     }

@@ -143,6 +143,6 @@ abstract class Regex extends ScalarType
     {
         $safeValue = Utils::printSafeJson($value);
 
-        return "The given value {$safeValue} did not match the regex " . static::regex();
+        return "The given value {$safeValue} did not match the regex ".static::regex();
     }
 }

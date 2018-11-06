@@ -66,9 +66,9 @@ abstract class Regex extends ScalarType
     {
         $stringValue = assertString($value, InvariantViolation::class);
 
-        if (!$this->matchesRegex($stringValue)) {
+        if (!static::matchesRegex($stringValue)) {
             throw new InvariantViolation(
-                $this->unmatchedRegexMessage($stringValue)
+                static::unmatchedRegexMessage($stringValue)
             );
         }
 
@@ -80,7 +80,7 @@ abstract class Regex extends ScalarType
      *
      * @return bool
      */
-    protected function matchesRegex(string $value): bool
+    protected static function matchesRegex(string $value): bool
     {
         return RegexValidator::match(
             static::regex(),
@@ -101,9 +101,9 @@ abstract class Regex extends ScalarType
     {
         $stringValue = assertString($value, Error::class);
 
-        if (!$this->matchesRegex($stringValue)) {
+        if (!static::matchesRegex($stringValue)) {
             throw new Error(
-                $this->unmatchedRegexMessage($stringValue)
+                static::unmatchedRegexMessage($stringValue)
             );
         }
 
@@ -124,9 +124,9 @@ abstract class Regex extends ScalarType
     {
         $value = assertStringLiteral($valueNode);
 
-        if (!$this->matchesRegex($value)) {
+        if (!static::matchesRegex($value)) {
             throw new Error(
-                $this->unmatchedRegexMessage($value),
+                static::unmatchedRegexMessage($value),
                 [$valueNode]
             );
         }
@@ -139,7 +139,7 @@ abstract class Regex extends ScalarType
      *
      * @return string
      */
-    public function unmatchedRegexMessage(string $value): string
+    public static function unmatchedRegexMessage(string $value): string
     {
         $safeValue = Utils::printSafeJson($value);
 

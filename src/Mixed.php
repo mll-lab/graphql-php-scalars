@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace MLL\GraphQLScalars;
 
-use GraphQL\Language\AST\FloatValueNode;
-use GraphQL\Language\AST\IntValueNode;
-use GraphQL\Language\AST\ListValueNode;
-use GraphQL\Language\AST\ObjectFieldNode;
-use GraphQL\Language\AST\ObjectValueNode;
 use GraphQL\Language\AST\ValueNode;
 use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Utils\AST;
 
 class Mixed extends ScalarType
 {
@@ -55,37 +51,12 @@ EOT;
      * @param ValueNode $valueNode
      * @param array|null $variables
      *
+     * @throws \Exception
+     *
      * @return \mixed
      */
     public function parseLiteral($valueNode, array $variables = null)
     {
-        if ($valueNode instanceof IntValueNode) {
-            // This is a potentially lossy conversion as GraphQL Int literals
-            // may be arbitrarily large, whereas PHP ints are limited in size
-            $value = (int) $valueNode->value;
-        }
-
-        if ($valueNode instanceof FloatValueNode) {
-            // This is a potentially lossy conversion as GraphQL Float literals
-            // may be arbitrarily large, whereas PHP floats are limited in size
-            $value = (float) $valueNode->value;
-        }
-
-        if ($valueNode instanceof ListValueNode) {
-            $value = [];
-            foreach ($valueNode->values as $singleValue) {
-                $value[] = $this->parseLiteral($singleValue);
-            }
-        }
-
-        if ($valueNode instanceof ObjectValueNode) {
-            $value = [];
-            /** @var ObjectFieldNode $singleValue */
-            foreach ($valueNode->fields as $singleValue) {
-                $value[$singleValue->name->value] = $this->parseLiteral($singleValue->value);
-            }
-        }
-
-        return $value ?? $valueNode->value;
+        return AST::valueFromASTUntyped($valueNode);
     }
 }

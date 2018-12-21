@@ -144,9 +144,9 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @throws Error
-     *
      * @param StringScalar $stringScalar
+     *
+     * @throws Error
      */
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
@@ -160,9 +160,9 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @throws Error
-     *
      * @param StringScalar $stringScalar
+     *
+     * @throws Error
      */
     public function testParseValueThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
@@ -175,9 +175,9 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @throws Error
-     *
      * @param StringScalar $stringScalar
+     *
+     * @throws Error
      */
     public function testParseValuePassesOnMatch(StringScalar $stringScalar): void
     {
@@ -190,9 +190,9 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @throws Error
-     *
      * @param StringScalar $stringScalar
+     *
+     * @throws Error
      */
     public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
     {
@@ -205,9 +205,9 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @throws Error
-     *
      * @param StringScalar $stringScalar
+     *
+     * @throws Error
      */
     public function testParseLiteralThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
@@ -220,9 +220,9 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @throws Error
-     *
      * @param StringScalar $stringScalar
+     *
+     * @throws Error
      */
     public function testParseLiteralPassesOnMatch(StringScalar $stringScalar): void
     {

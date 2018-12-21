@@ -9,7 +9,11 @@ use Egulias\EmailValidator\Validation\RFCValidation;
 
 class Email extends StringScalar
 {
-    /** @var string */
+    /**
+     * The description that is used for schema introspection.
+     *
+     * @var string
+     */
     public $description = 'A RFC 5321 compliant email.';
 
     /**

@@ -10,10 +10,16 @@ use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\NodeKind;
 use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\StringScalar;
+use PHPUnit\Framework\TestCase;
 
-class StringScalarTest extends \PHPUnit\Framework\TestCase
+class StringScalarTest extends TestCase
 {
-    public function stringClassProvider()
+    /**
+     * Provide a StringScalar class instantiated in different ways.
+     *
+     * @return array[]
+     */
+    public function stringClassProvider(): array
     {
         return [
             [
@@ -67,8 +73,10 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testCreateNamedStringScalarClass(StringScalar $stringScalar)
+    public function testCreateNamedStringScalarClass(StringScalar $stringScalar): void
     {
         $this->assertSame('MyStringScalar', $stringScalar->name);
         $this->assertSame('Bar', $stringScalar->description);
@@ -76,8 +84,10 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testSerializeThrowsIfUnserializableValueIsGiven(StringScalar $stringScalar)
+    public function testSerializeThrowsIfUnserializableValueIsGiven(StringScalar $stringScalar): void
     {
         $this->expectException(InvariantViolation::class);
 
@@ -89,8 +99,10 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testSerializeThrowsIfStringScalarIsNotValid(StringScalar $stringScalar)
+    public function testSerializeThrowsIfStringScalarIsNotValid(StringScalar $stringScalar): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given string "bar" is not a valid MyStringScalar.');
@@ -100,8 +112,10 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testSerializePassesWhenStringIsValid(StringScalar $stringScalar)
+    public function testSerializePassesWhenStringIsValid(StringScalar $stringScalar): void
     {
         $serializedResult = $stringScalar->serialize('foo');
 
@@ -110,8 +124,10 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testSerializePassesForStringableObject(StringScalar $stringScalar)
+    public function testSerializePassesForStringableObject(StringScalar $stringScalar): void
     {
         $serializedResult = $stringScalar->serialize(
             new class() {
@@ -127,8 +143,12 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @throws Error
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar)
+    public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageRegExp('/can not be serialized/');
@@ -139,8 +159,12 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @throws Error
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testParseValueThrowsIfValueDoesNotMatch(StringScalar $stringScalar)
+    public function testParseValueThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given string (empty string) is not a valid MyStringScalar.');
@@ -150,8 +174,12 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @throws Error
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testParseValuePassesOnMatch(StringScalar $stringScalar)
+    public function testParseValuePassesOnMatch(StringScalar $stringScalar): void
     {
         $this->assertSame(
             'foo',
@@ -161,8 +189,12 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @throws Error
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar)
+    public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageRegExp('/'.NodeKind::INT.'/');
@@ -172,8 +204,12 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @throws Error
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testParseLiteralThrowsIfValueDoesNotMatch(StringScalar $stringScalar)
+    public function testParseLiteralThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given string "bar" is not a valid MyStringScalar.');
@@ -183,8 +219,12 @@ class StringScalarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider stringClassProvider
+     *
+     * @throws Error
+     *
+     * @param StringScalar $stringScalar
      */
-    public function testParseLiteralPassesOnMatch(StringScalar $stringScalar)
+    public function testParseLiteralPassesOnMatch(StringScalar $stringScalar): void
     {
         $this->assertSame(
             'foo',

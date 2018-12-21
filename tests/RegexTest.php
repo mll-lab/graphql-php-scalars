@@ -10,10 +10,16 @@ use GraphQL\Language\AST\IntValueNode;
 use GraphQL\Language\AST\NodeKind;
 use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\Regex;
+use PHPUnit\Framework\TestCase;
 
-class RegexTest extends \PHPUnit\Framework\TestCase
+class RegexTest extends TestCase
 {
-    public function regexClassProvider()
+    /**
+     * Provide the same Regex class using the different methods for instantiation.
+     *
+     * @return array[]
+     */
+    public function regexClassProvider(): array
     {
         return [
             [
@@ -61,8 +67,10 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @param Regex $regex
      */
-    public function testCreateNamedRegexClass(Regex $regex)
+    public function testCreateNamedRegexClass(Regex $regex): void
     {
         $this->assertSame('MyRegex', $regex->name);
         $this->assertSame('Bar', $regex->description);
@@ -70,8 +78,10 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @param Regex $regex
      */
-    public function testSerializeThrowsIfUnserializableValueIsGiven(Regex $regex)
+    public function testSerializeThrowsIfUnserializableValueIsGiven(Regex $regex): void
     {
         $this->expectException(InvariantViolation::class);
 
@@ -83,8 +93,10 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @param Regex $regex
      */
-    public function testSerializeThrowsIfRegexIsNotMatched(Regex $regex)
+    public function testSerializeThrowsIfRegexIsNotMatched(Regex $regex): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage($regex->unmatchedRegexMessage('bar'));
@@ -94,8 +106,10 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @param Regex $regex
      */
-    public function testSerializePassesWhenRegexMatches(Regex $regex)
+    public function testSerializePassesWhenRegexMatches(Regex $regex): void
     {
         $serializedResult = $regex->serialize('foo');
 
@@ -104,8 +118,10 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @param Regex $regex
      */
-    public function testSerializePassesForStringableObject(Regex $regex)
+    public function testSerializePassesForStringableObject(Regex $regex): void
     {
         $serializedResult = $regex->serialize(
             new class() {
@@ -121,8 +137,12 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @throws Error
+     *
+     * @param Regex $regex
      */
-    public function testParseValueThrowsIfValueCantBeString(Regex $regex)
+    public function testParseValueThrowsIfValueCantBeString(Regex $regex): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageRegExp('/can not be serialized/');
@@ -133,8 +153,12 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @throws Error
+     *
+     * @param Regex $regex
      */
-    public function testParseValueThrowsIfValueDoesNotMatch(Regex $regex)
+    public function testParseValueThrowsIfValueDoesNotMatch(Regex $regex): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageRegExp('/did not match the regex/');
@@ -144,8 +168,12 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @throws Error
+     *
+     * @param Regex $regex
      */
-    public function testParseValuePassesOnMatch(Regex $regex)
+    public function testParseValuePassesOnMatch(Regex $regex): void
     {
         $this->assertSame(
             'foo',
@@ -155,8 +183,12 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @throws Error
+     *
+     * @param Regex $regex
      */
-    public function testParseLiteralThrowsIfNotString(Regex $regex)
+    public function testParseLiteralThrowsIfNotString(Regex $regex): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageRegExp('/'.NodeKind::INT.'/');
@@ -166,8 +198,12 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @throws Error
+     *
+     * @param Regex $regex
      */
-    public function testParseLiteralThrowsIfValueDoesNotMatch(Regex $regex)
+    public function testParseLiteralThrowsIfValueDoesNotMatch(Regex $regex): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageRegExp('/did not match the regex/');
@@ -177,8 +213,12 @@ class RegexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider regexClassProvider
+     *
+     * @throws Error
+     *
+     * @param Regex $regex
      */
-    public function testParseLiteralPassesOnMatch(Regex $regex)
+    public function testParseLiteralPassesOnMatch(Regex $regex): void
     {
         $this->assertSame(
             'foo',

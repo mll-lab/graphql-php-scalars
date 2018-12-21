@@ -8,10 +8,13 @@ use MLL\GraphQLScalars\StringScalar;
 
 class MyStringScalar extends StringScalar
 {
+    /**
+     * @var string
+     */
     public $description = 'Bar';
 
     /**
-     * Check if the given string is a valid email.
+     * Check if the given string is exactly "foo".
      *
      * @param string $stringValue
      *

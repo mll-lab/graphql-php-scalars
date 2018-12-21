@@ -64,9 +64,17 @@ use MLL\GraphQLScalars\Regex;
 // The name is implicitly set through the class name here
 class HexValue extends Regex
 {
-    public $description = 'A hexadecimal color is specified with: #RRGGBB, where RR (red), GG (green) and BB (blue) are hexadecimal integers between 00 and FF specifying the intensity of the color.';
-    
-    protected function regex() : string
+    /**
+     * The description that is used for schema introspection.
+     *
+     * @var string
+     */
+    public $description = <<<'DESCRIPTION'
+A hexadecimal color is specified with: #RRGGBB, where RR (red), GG (green) and BB (blue)
+are hexadecimal integers between 00 and FF specifying the intensity of the color.
+DESCRIPTION;
+
+    public static function regex() : string
     {
         return '/^#?([a-f0-9]{6}|[a-f0-9]{3})$/';
     }
@@ -75,7 +83,7 @@ class HexValue extends Regex
 
 ### [StringScalar](StringScalar.php)
 
-The `StringScalar` encapsulate all the boilerplate associated with creating a string-based Scalar type.
+The `StringScalar` encapsulates all the boilerplate associated with creating a string-based Scalar type.
 It does the proper string checking for you and let's you focus on the minimal logic that is specific to your use case.
 
 All you have to specify is a function that checks if the given string is valid. Use the factory method

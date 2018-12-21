@@ -8,12 +8,13 @@ use MLL\GraphQLScalars\Regex;
 
 class MyRegex extends Regex
 {
+    /**
+     * @var string
+     */
     public $description = 'Bar';
 
     /**
      * Return the Regex that the values are validated against.
-     *
-     * Must be a valid
      *
      * @return string
      */

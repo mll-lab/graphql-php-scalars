@@ -10,13 +10,16 @@ use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Schema;
 use GraphQL\Type\SchemaConfig;
 use MLL\GraphQLScalars\Mixed;
+use PHPUnit\Framework\TestCase;
 
-class MixedTest extends \PHPUnit\Framework\TestCase
+class MixedTest extends TestCase
 {
-    /** @var Schema */
+    /**
+     * @var Schema
+     */
     protected $schema;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -46,9 +49,9 @@ class MixedTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider singleValues
      *
-     * @param $value
+     * @param mixed $value
      */
-    public function testSerializePassesThroughAnything($value)
+    public function testSerializePassesThroughAnything($value): void
     {
         $this->assertSame(
             $value,
@@ -61,9 +64,9 @@ class MixedTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider singleValues
      *
-     * @param $value
+     * @param mixed $value
      */
-    public function testParseValuePassesThroughAnything($value)
+    public function testParseValuePassesThroughAnything($value): void
     {
         $this->assertSame(
             $value,
@@ -73,7 +76,12 @@ class MixedTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function singleValues()
+    /**
+     * Provide an assortment of values that should pass the Mixed type.
+     *
+     * @return array[]
+     */
+    public function singleValues(): array
     {
         return [
             [null],
@@ -91,9 +99,9 @@ class MixedTest extends \PHPUnit\Framework\TestCase
      *
      * @param string $graphQLLiteral
      * @param string $jsonLiteral
-     * @param $expected
+     * @param mixed $expected
      */
-    public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, $expected)
+    public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, $expected): void
     {
         $graphqlResult = $this->executeQueryWithLiteral($graphQLLiteral);
         $jsonResult = $this->executeQueryWithJsonVariable($jsonLiteral);
@@ -113,9 +121,9 @@ class MixedTest extends \PHPUnit\Framework\TestCase
     /**
      * Provides a GraphQL literal, a Json literal and the expected PHP value.
      *
-     * @return array
+     * @return array[]
      */
-    public function literalToPhpMap()
+    public function literalToPhpMap(): array
     {
         return [
             ['1', '1', 1],

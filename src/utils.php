@@ -11,7 +11,7 @@ use GraphQL\Utils\Utils;
 /**
  * Check if a value can be serialized to a string.
  *
- * @param $value
+ * @param mixed $value
  *
  * @return bool
  */
@@ -23,35 +23,43 @@ function canBeString($value): bool
 }
 
 /**
- * @param $valueNode
+ * Get the underlying string from a GraphQL literal and throw if Literal is not a string.
+ *
+ * @param mixed $valueNode
  *
  * @throws Error
  *
  * @return string
  */
-function assertStringLiteral($valueNode): string
+function extractStringFromLiteral($valueNode): string
 {
     if (!$valueNode instanceof StringValueNode) {
-        throw new Error("Query error: Can only parse strings got: {$valueNode->kind}", [$valueNode]);
+        throw new Error(
+            "Query error: Can only parse strings got: {$valueNode->kind}", [$valueNode]
+        );
     }
 
     return $valueNode->value;
 }
 
 /**
- * Ensure the value is a string and throw an exception if not.
+ * Convert the value to a string and throw an exception if it is not possible.
  *
- * @param $value
+ * @param mixed $value
  * @param string $exceptionClass
+ *
+ * @throws <$exceptionClass>
  *
  * @return string
  */
-function assertString($value, string $exceptionClass): string
+function coerceToString($value, string $exceptionClass): string
 {
     if (!canBeString($value)) {
         $safeValue = Utils::printSafeJson($value);
 
-        throw new $exceptionClass("The given value {$safeValue} can not be serialized.");
+        throw new $exceptionClass(
+            "The given value {$safeValue} can not be serialized."
+        );
     }
 
     return strval($value);

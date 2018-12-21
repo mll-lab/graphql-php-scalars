@@ -8,10 +8,11 @@ use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\Email;
+use PHPUnit\Framework\TestCase;
 
-class EmailTest extends \PHPUnit\Framework\TestCase
+class EmailTest extends TestCase
 {
-    public function testSerializeThrowsIfUnserializableValueIsGiven()
+    public function testSerializeThrowsIfUnserializableValueIsGiven(): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessageRegExp('/^The given value .* can not be serialized\./');
@@ -22,7 +23,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testSerializeThrowsIfEmailIsInvalid()
+    public function testSerializeThrowsIfEmailIsInvalid(): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('The given string "foo" is not a valid Email.');
@@ -30,14 +31,14 @@ class EmailTest extends \PHPUnit\Framework\TestCase
         (new Email())->serialize('foo');
     }
 
-    public function testSerializePassesWhenEmailIsInvalid()
+    public function testSerializePassesWhenEmailIsInvalid(): void
     {
         $serializedResult = (new Email())->serialize('foo@bar');
 
         $this->assertSame('foo@bar', $serializedResult);
     }
 
-    public function testParseValueThrowsIfEmailIsInvalid()
+    public function testParseValueThrowsIfEmailIsInvalid(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given string "foo" is not a valid Email.');
@@ -45,7 +46,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
         (new Email())->parseValue('foo');
     }
 
-    public function testParseValuePassesIfEmailIsValid()
+    public function testParseValuePassesIfEmailIsValid(): void
     {
         $this->assertSame(
             'foo@bar',
@@ -53,7 +54,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testParseLiteralThrowsIfNotValidEmail()
+    public function testParseLiteralThrowsIfNotValidEmail(): void
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessage('The given string "foo" is not a valid Email.');
@@ -61,7 +62,7 @@ class EmailTest extends \PHPUnit\Framework\TestCase
         (new Email())->parseLiteral(new StringValueNode(['value' => 'foo']));
     }
 
-    public function testParseLiteralPassesIfEmailIsValid()
+    public function testParseLiteralPassesIfEmailIsValid(): void
     {
         $this->assertSame(
             'foo@bar',

@@ -20,12 +20,18 @@ abstract class Regex extends ScalarType
      * @param string|null $description A description for the type.
      * @param string $regex The regular expression that is validated against.
      *
-     * @return Regex
+     * @return static
      */
-    public static function make(string $name, string $description = null, string $regex): self
+    public static function make(string $name, ?string $description = null, string $regex): self
     {
-        $regexClass = new class() extends Regex {
-            /** @var string Is set dynamically during this class creation. */
+        $concreteRegex = new class() extends Regex {
+            /**
+             * The regex that values are validated against.
+             *
+             * Is set dynamically during this class creation.
+             *
+             * @var string
+             */
             public static $regex;
 
             /**
@@ -41,11 +47,11 @@ abstract class Regex extends ScalarType
             }
         };
 
-        $regexClass->name = $name;
-        $regexClass->description = $description;
-        $regexClass::$regex = $regex;
+        $concreteRegex->name = $name;
+        $concreteRegex->description = $description;
+        $concreteRegex::$regex = $regex;
 
-        return $regexClass;
+        return $concreteRegex;
     }
 
     /**
@@ -64,7 +70,7 @@ abstract class Regex extends ScalarType
      */
     public function serialize($value): string
     {
-        $stringValue = assertString($value, InvariantViolation::class);
+        $stringValue = coerceToString($value, InvariantViolation::class);
 
         if (!static::matchesRegex($stringValue)) {
             throw new InvariantViolation(
@@ -76,6 +82,8 @@ abstract class Regex extends ScalarType
     }
 
     /**
+     * Determine if the given string matches the regex defined in this class.
+     *
      * @param string $value
      *
      * @return bool
@@ -99,7 +107,7 @@ abstract class Regex extends ScalarType
      */
     public function parseValue($value): string
     {
-        $stringValue = assertString($value, Error::class);
+        $stringValue = coerceToString($value, Error::class);
 
         if (!static::matchesRegex($stringValue)) {
             throw new Error(
@@ -114,15 +122,15 @@ abstract class Regex extends ScalarType
      * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
      *
      * @param Node $valueNode
-     * @param array $variables
+     * @param mixed[]|null $variables
      *
      * @throws Error
      *
      * @return string
      */
-    public function parseLiteral($valueNode, array $variables = null): string
+    public function parseLiteral($valueNode, ?array $variables = null): string
     {
-        $value = assertStringLiteral($valueNode);
+        $value = extractStringFromLiteral($valueNode);
 
         if (!static::matchesRegex($value)) {
             throw new Error(
@@ -135,6 +143,8 @@ abstract class Regex extends ScalarType
     }
 
     /**
+     * Construct the error message that occurs when the given string does not match the regex.
+     *
      * @param string $value
      *
      * @return string

@@ -13,15 +13,17 @@ use GraphQL\Utils\Utils;
 abstract class StringScalar extends ScalarType
 {
     /**
+     * Instantiate an anonymous subclass that can be used in a schema.
+     *
      * @param string $name The name that the scalar type will have in the schema.
      * @param string|null $description A description for the type.
      * @param callable $isValid A function that returns a boolean whether a given string is valid.
      *
-     * @return StringScalar
+     * @return static
      */
-    public static function make(string $name, string $description = null, callable $isValid): self
+    public static function make(string $name, ?string $description = null, callable $isValid): self
     {
-        $instance = new class() extends StringScalar {
+        $concreteStringScalar = new class() extends StringScalar {
             /**
              * Check if the given string is a valid email.
              *
@@ -35,15 +37,15 @@ abstract class StringScalar extends ScalarType
             }
         };
 
-        $instance->name = $name;
-        $instance->description = $description;
-        $instance->isValid = $isValid;
+        $concreteStringScalar->name = $name;
+        $concreteStringScalar->description = $description;
+        $concreteStringScalar->isValid = $isValid;
 
-        return $instance;
+        return $concreteStringScalar;
     }
 
     /**
-     * Check if the given string is a valid email.
+     * Check if the given string is valid.
      *
      * @param string $stringValue
      *
@@ -54,13 +56,15 @@ abstract class StringScalar extends ScalarType
     /**
      * Serializes an internal value to include in a response.
      *
-     * @param string $value
+     * @param mixed $value
+     *
+     * @throws InvariantViolation
      *
      * @return string
      */
     public function serialize($value): string
     {
-        $stringValue = assertString($value, InvariantViolation::class);
+        $stringValue = coerceToString($value, InvariantViolation::class);
 
         if (!$this->isValid($stringValue)) {
             throw new InvariantViolation(
@@ -72,6 +76,8 @@ abstract class StringScalar extends ScalarType
     }
 
     /**
+     * Construct an error message that occurs when an invalid string is passed.
+     *
      * @param string $stringValue
      *
      * @return string
@@ -94,7 +100,7 @@ abstract class StringScalar extends ScalarType
      */
     public function parseValue($value): string
     {
-        $stringValue = assertString($value, Error::class);
+        $stringValue = coerceToString($value, Error::class);
 
         if (!$this->isValid($stringValue)) {
             throw new Error(
@@ -114,15 +120,15 @@ abstract class StringScalar extends ScalarType
      * }
      *
      * @param Node $valueNode
-     * @param array $variables
+     * @param mixed[]|null $variables
      *
      * @throws Error
      *
      * @return string
      */
-    public function parseLiteral($valueNode, array $variables = null): string
+    public function parseLiteral($valueNode, ?array $variables = null): string
     {
-        $stringValue = assertStringLiteral($valueNode);
+        $stringValue = extractStringFromLiteral($valueNode);
 
         if (!$this->isValid($stringValue)) {
             throw new Error(

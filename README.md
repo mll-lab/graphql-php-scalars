@@ -24,12 +24,12 @@ This package comes with a bunch of scalars that are ready-to-use and just work o
 
 ### [Email](src/Email.php)
 
-A RFC 5321 compliant email.
+A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.
 
 ### [Mixed](src/Mixed.php)
 
-Loose type that allows any value. Be careful when passing in large Int or Float literals,
-as they may not be parsed correctly on the server side. Use String literals if you are
+Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
+as they may not be parsed correctly on the server side. Use `String` literals if you are
 dealing with really large numbers to be on the safe side.
 
 ## Advanced Scalars
@@ -49,7 +49,7 @@ use MLL\GraphQLScalars\Regex;
 
 $hexValue = Regex::make(
     'HexValue',
-    'A hexadecimal color is specified with: #RRGGBB, where RR (red), GG (green) and BB (blue) are hexadecimal integers between 00 and FF specifying the intensity of the color.',
+    'A hexadecimal color is specified with: `#RRGGBB`, where `RR` (red), `GG` (green) and `BB` (blue) are hexadecimal integers between `00` and `FF` specifying the intensity of the color.',
     '/^#?([a-f0-9]{6}|[a-f0-9]{3})$/'
 );
 ```
@@ -70,8 +70,8 @@ class HexValue extends Regex
      * @var string
      */
     public $description = <<<'DESCRIPTION'
-A hexadecimal color is specified with: #RRGGBB, where RR (red), GG (green) and BB (blue)
-are hexadecimal integers between 00 and FF specifying the intensity of the color.
+A hexadecimal color is specified with: `#RRGGBB`, where `RR` (red), `GG` (green) and `BB` (blue)
+are hexadecimal integers between `00` and `FF` specifying the intensity of the color.
 DESCRIPTION;
 
     public static function regex() : string
@@ -86,8 +86,8 @@ DESCRIPTION;
 The `StringScalar` encapsulates all the boilerplate associated with creating a string-based Scalar type.
 It does the proper string checking for you and let's you focus on the minimal logic that is specific to your use case.
 
-All you have to specify is a function that checks if the given string is valid. Use the factory method
-to generate an instance on the fly.
+All you have to specify is a function that checks if the given string is valid.
+Use the factory method `make` to generate an instance on the fly.
 
 ```php
 <?php

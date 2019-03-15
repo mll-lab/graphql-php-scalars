@@ -16,8 +16,8 @@ class Mixed extends ScalarType
      * @var string
      */
     public $description = <<<'DESCRIPTION'
-Loose type that allows any value. Be careful when passing in large Int or Float literals,
-as they may not be parsed correctly on the server side. Use String literals if you are
+Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
+as they may not be parsed correctly on the server side. Use `String` literals if you are
 dealing with really large numbers to be on the safe side.
 DESCRIPTION;
 

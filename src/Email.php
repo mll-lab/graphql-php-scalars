@@ -14,7 +14,7 @@ class Email extends StringScalar
      *
      * @var string
      */
-    public $description = 'A RFC 5321 compliant email.';
+    public $description = 'A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.';
 
     /**
      * Check if the given string is a valid email.

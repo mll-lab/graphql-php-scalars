@@ -31,7 +31,7 @@ class EmailTest extends TestCase
         (new Email())->serialize('foo');
     }
 
-    public function testSerializePassesWhenEmailIsInvalid(): void
+    public function testSerializePassesWhenEmailIsValid(): void
     {
         $serializedResult = (new Email())->serialize('foo@bar');
 

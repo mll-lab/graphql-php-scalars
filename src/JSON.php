@@ -33,15 +33,15 @@ class JSON extends ScalarType
     }
 
     /**
-     * Parses an externally provided value (query variable) to use as an input
+     * Parses an externally provided value (query variable) to use as an input.
      *
      * In the case of an invalid value this method must throw an Exception
      *
      * @param mixed $value
      *
-     * @return mixed
-     *
      * @throws Error
+     *
+     * @return mixed
      */
     public function parseValue($value)
     {
@@ -49,22 +49,22 @@ class JSON extends ScalarType
     }
 
     /**
-     * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input
+     * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
      *
      * In the case of an invalid node or value this method must throw an Exception
      *
      * @param Node $valueNode
      * @param mixed[]|null $variables
      *
-     * @return mixed
-     *
      * @throws Exception
+     *
+     * @return mixed
      */
     public function parseLiteral($valueNode, ?array $variables = null)
     {
-        if(!property_exists($valueNode, 'value')){
+        if (!property_exists($valueNode, 'value')) {
             throw new Error(
-                'Can only parse literals that contain a value, got ' . Utils::printSafeJson($valueNode)
+                'Can only parse literals that contain a value, got '.Utils::printSafeJson($valueNode)
             );
         }
 
@@ -76,9 +76,9 @@ class JSON extends ScalarType
      *
      * @param mixed $value
      *
-     * @return mixed
-     *
      * @throws Error
+     *
+     * @return mixed
      */
     protected function decodeJSON($value)
     {

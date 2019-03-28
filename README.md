@@ -26,6 +26,10 @@ This package comes with a bunch of scalars that are ready-to-use and just work o
 
 A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.
 
+### [JSON](src/JSON.php)
+
+Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org/.
+
 ### [Mixed](src/Mixed.php)
 
 Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,

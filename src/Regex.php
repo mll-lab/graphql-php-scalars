@@ -105,7 +105,7 @@ abstract class Regex extends ScalarType
      *
      * @throws Error
      *
-     * @return mixed
+     * @return string
      */
     public function parseValue($value): string
     {

@@ -48,7 +48,7 @@ function extractStringFromLiteral($valueNode): string
  * @param mixed $value
  * @param string $exceptionClass
  *
- * @throws <$exceptionClass>
+ * @throws \Exception of type $exceptionClass
  *
  * @return string
  */

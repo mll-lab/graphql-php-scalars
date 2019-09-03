@@ -22,7 +22,7 @@ abstract class Regex extends ScalarType
      *
      * @return static
      */
-    public static function make(string $name, ?string $description = null, string $regex): self
+    public static function make(string $name, ?string $description, string $regex): self
     {
         $concreteRegex = new class() extends Regex {
             /**

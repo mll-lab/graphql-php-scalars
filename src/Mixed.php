@@ -24,9 +24,9 @@ DESCRIPTION;
     /**
      * Serializes an internal value to include in a response.
      *
-     * @param \mixed $value
+     * @param mixed $value
      *
-     * @return \mixed
+     * @return mixed
      */
     public function serialize($value)
     {
@@ -38,9 +38,9 @@ DESCRIPTION;
      *
      * In the case of an invalid value this method must throw an Exception
      *
-     * @param \mixed $value
+     * @param mixed $value
      *
-     * @return \mixed
+     * @return mixed
      */
     public function parseValue($value)
     {
@@ -53,11 +53,11 @@ DESCRIPTION;
      * In the case of an invalid node or value, this method must throw an Exception.
      *
      * @param ValueNode $valueNode
-     * @param \mixed[]|null $variables
+     * @param mixed[]|null $variables
      *
      * @throws \Exception
      *
-     * @return \mixed
+     * @return mixed
      */
     public function parseLiteral($valueNode, ?array $variables = null)
     {

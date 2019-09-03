@@ -25,6 +25,11 @@ abstract class StringScalar extends ScalarType
     {
         $concreteStringScalar = new class() extends StringScalar {
             /**
+             * @var callable
+             */
+            public $isValid;
+
+            /**
              * Check if the given string is a valid email.
              *
              * @param string $stringValue

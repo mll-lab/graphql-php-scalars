@@ -8,6 +8,7 @@ install: composer install --dev --no-interaction
 
 script:
 - vendor/bin/phpunit --coverage-clover=coverage.xml
+- composer stan
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)

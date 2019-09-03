@@ -20,7 +20,8 @@
   "require-dev": {
     "ext-json": "*",
     "phpunit/phpunit": "^7.3",
-    "psy/psysh": "^0.9.8"
+    "psy/psysh": "^0.9.8",
+    "phpstan/phpstan": "^0.11.15"
   },
   "autoload": {
     "files": [
@@ -36,6 +37,7 @@
     }
   },
   "scripts": {
-    "test": "phpunit"
+    "test": "phpunit",
+    "stan": "phpstan analyse"
   }
 }

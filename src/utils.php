@@ -10,10 +10,6 @@ use GraphQL\Utils\Utils;
 
 /**
  * Check if a value can be serialized to a string.
- *
- * @param mixed $value
- *
- * @return bool
  */
 function canBeString($value): bool
 {
@@ -25,11 +21,8 @@ function canBeString($value): bool
 /**
  * Get the underlying string from a GraphQL literal and throw if Literal is not a string.
  *
- * @param mixed $valueNode
  *
  * @throws Error
- *
- * @return string
  */
 function extractStringFromLiteral($valueNode): string
 {
@@ -45,12 +38,8 @@ function extractStringFromLiteral($valueNode): string
 /**
  * Convert the value to a string and throw an exception if it is not possible.
  *
- * @param mixed $value
- * @param string $exceptionClass
  *
  * @throws \Exception of type $exceptionClass
- *
- * @return string
  */
 function coerceToString($value, string $exceptionClass): string
 {

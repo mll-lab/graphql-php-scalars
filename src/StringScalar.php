@@ -31,10 +31,6 @@ abstract class StringScalar extends ScalarType
 
             /**
              * Check if the given string is a valid email.
-             *
-             * @param string $stringValue
-             *
-             * @return bool
              */
             protected function isValid(string $stringValue): bool
             {
@@ -51,21 +47,14 @@ abstract class StringScalar extends ScalarType
 
     /**
      * Check if the given string is valid.
-     *
-     * @param string $stringValue
-     *
-     * @return bool
      */
     abstract protected function isValid(string $stringValue): bool;
 
     /**
      * Serializes an internal value to include in a response.
      *
-     * @param mixed $value
      *
      * @throws InvariantViolation
-     *
-     * @return string
      */
     public function serialize($value): string
     {
@@ -82,10 +71,6 @@ abstract class StringScalar extends ScalarType
 
     /**
      * Construct an error message that occurs when an invalid string is passed.
-     *
-     * @param string $stringValue
-     *
-     * @return string
      */
     public function invalidStringMessage(string $stringValue): string
     {
@@ -97,11 +82,8 @@ abstract class StringScalar extends ScalarType
     /**
      * Parses an externally provided value (query variable) to use as an input.
      *
-     * @param mixed $value
      *
      * @throws Error
-     *
-     * @return string
      */
     public function parseValue($value): string
     {
@@ -128,8 +110,6 @@ abstract class StringScalar extends ScalarType
      * @param mixed[]|null $variables
      *
      * @throws Error
-     *
-     * @return string
      */
     public function parseLiteral($valueNode, ?array $variables = null): string
     {

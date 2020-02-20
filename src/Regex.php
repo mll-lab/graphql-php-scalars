@@ -49,17 +49,11 @@ abstract class Regex extends ScalarType
 
     /**
      * Return the Regex that the values are validated against.
-     *
-     * @return string
      */
     abstract public static function regex(): string;
 
     /**
      * Serializes an internal value to include in a response.
-     *
-     * @param mixed $value
-     *
-     * @return string
      */
     public function serialize($value): string
     {
@@ -76,10 +70,6 @@ abstract class Regex extends ScalarType
 
     /**
      * Determine if the given string matches the regex defined in this class.
-     *
-     * @param string $value
-     *
-     * @return bool
      */
     protected static function matchesRegex(string $value): bool
     {
@@ -94,11 +84,8 @@ abstract class Regex extends ScalarType
     /**
      * Parses an externally provided value (query variable) to use as an input.
      *
-     * @param mixed $value
      *
      * @throws Error
-     *
-     * @return string
      */
     public function parseValue($value): string
     {
@@ -120,8 +107,6 @@ abstract class Regex extends ScalarType
      * @param mixed[]|null $variables
      *
      * @throws Error
-     *
-     * @return string
      */
     public function parseLiteral($valueNode, ?array $variables = null): string
     {
@@ -139,10 +124,6 @@ abstract class Regex extends ScalarType
 
     /**
      * Construct the error message that occurs when the given string does not match the regex.
-     *
-     * @param string $value
-     *
-     * @return string
      */
     public static function unmatchedRegexMessage(string $value): string
     {

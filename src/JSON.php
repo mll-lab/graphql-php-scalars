@@ -22,10 +22,6 @@ class JSON extends ScalarType
 
     /**
      * Serializes an internal value to include in a response.
-     *
-     * @param mixed $value
-     *
-     * @return string
      */
     public function serialize($value): string
     {
@@ -37,11 +33,8 @@ class JSON extends ScalarType
      *
      * In the case of an invalid value this method must throw an Exception
      *
-     * @param mixed $value
      *
      * @throws Error
-     *
-     * @return mixed
      */
     public function parseValue($value)
     {
@@ -57,8 +50,6 @@ class JSON extends ScalarType
      * @param mixed[]|null $variables
      *
      * @throws Exception
-     *
-     * @return mixed
      */
     public function parseLiteral($valueNode, ?array $variables = null)
     {
@@ -74,11 +65,8 @@ class JSON extends ScalarType
     /**
      * Try to decode a user-given value into JSON.
      *
-     * @param mixed $value
      *
      * @throws Error
-     *
-     * @return mixed
      */
     protected function decodeJSON($value)
     {

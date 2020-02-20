@@ -23,10 +23,6 @@ DESCRIPTION;
 
     /**
      * Serializes an internal value to include in a response.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
     public function serialize($value)
     {
@@ -37,10 +33,6 @@ DESCRIPTION;
      * Parses an externally provided value (query variable) to use as an input.
      *
      * In the case of an invalid value this method must throw an Exception
-     *
-     * @param mixed $value
-     *
-     * @return mixed
      */
     public function parseValue($value)
     {
@@ -56,8 +48,6 @@ DESCRIPTION;
      * @param mixed[]|null $variables
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
     public function parseLiteral($valueNode, ?array $variables = null)
     {

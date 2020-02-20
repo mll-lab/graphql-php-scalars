@@ -15,8 +15,6 @@ class MyRegex extends Regex
 
     /**
      * Return the Regex that the values are validated against.
-     *
-     * @return string
      */
     public static function regex(): string
     {

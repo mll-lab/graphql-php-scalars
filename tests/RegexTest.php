@@ -32,8 +32,6 @@ class RegexTest extends TestCase
                      * Return the Regex that the values are validated against.
                      *
                      * Must be a valid
-                     *
-                     * @return string
                      */
                     public static function regex(): string
                     {
@@ -47,8 +45,6 @@ class RegexTest extends TestCase
                      * Return the Regex that the values are validated against.
                      *
                      * Must be a valid
-                     *
-                     * @return string
                      */
                     public static function regex(): string
                     {
@@ -67,8 +63,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @param Regex $regex
      */
     public function testCreateNamedRegexClass(Regex $regex): void
     {
@@ -78,8 +72,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @param Regex $regex
      */
     public function testSerializeThrowsIfUnserializableValueIsGiven(Regex $regex): void
     {
@@ -93,8 +85,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @param Regex $regex
      */
     public function testSerializeThrowsIfRegexIsNotMatched(Regex $regex): void
     {
@@ -106,8 +96,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @param Regex $regex
      */
     public function testSerializePassesWhenRegexMatches(Regex $regex): void
     {
@@ -118,8 +106,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @param Regex $regex
      */
     public function testSerializePassesForStringableObject(Regex $regex): void
     {
@@ -138,8 +124,6 @@ class RegexTest extends TestCase
     /**
      * @dataProvider regexClassProvider
      *
-     * @param Regex $regex
-     *
      * @throws Error
      */
     public function testParseValueThrowsIfValueCantBeString(Regex $regex): void
@@ -154,8 +138,6 @@ class RegexTest extends TestCase
     /**
      * @dataProvider regexClassProvider
      *
-     * @param Regex $regex
-     *
      * @throws Error
      */
     public function testParseValueThrowsIfValueDoesNotMatch(Regex $regex): void
@@ -168,8 +150,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @param Regex $regex
      *
      * @throws Error
      */
@@ -184,8 +164,6 @@ class RegexTest extends TestCase
     /**
      * @dataProvider regexClassProvider
      *
-     * @param Regex $regex
-     *
      * @throws Error
      */
     public function testParseLiteralThrowsIfNotString(Regex $regex): void
@@ -199,8 +177,6 @@ class RegexTest extends TestCase
     /**
      * @dataProvider regexClassProvider
      *
-     * @param Regex $regex
-     *
      * @throws Error
      */
     public function testParseLiteralThrowsIfValueDoesNotMatch(Regex $regex): void
@@ -213,8 +189,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @param Regex $regex
      *
      * @throws Error
      */

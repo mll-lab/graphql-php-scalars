@@ -30,10 +30,6 @@ class StringScalarTest extends TestCase
 
                     /**
                      * Check if the given string is a valid email.
-                     *
-                     * @param string $stringValue
-                     *
-                     * @return bool
                      */
                     protected function isValid(string $stringValue): bool
                     {
@@ -45,10 +41,6 @@ class StringScalarTest extends TestCase
                 new class(['name' => 'MyStringScalar', 'description' => 'Bar']) extends StringScalar {
                     /**
                      * Check if the given string is a valid email.
-                     *
-                     * @param string $stringValue
-                     *
-                     * @return bool
                      */
                     protected function isValid(string $stringValue): bool
                     {
@@ -73,8 +65,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @param StringScalar $stringScalar
      */
     public function testCreateNamedStringScalarClass(StringScalar $stringScalar): void
     {
@@ -84,8 +74,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @param StringScalar $stringScalar
      */
     public function testSerializeThrowsIfUnserializableValueIsGiven(StringScalar $stringScalar): void
     {
@@ -99,8 +87,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @param StringScalar $stringScalar
      */
     public function testSerializeThrowsIfStringScalarIsNotValid(StringScalar $stringScalar): void
     {
@@ -112,8 +98,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @param StringScalar $stringScalar
      */
     public function testSerializePassesWhenStringIsValid(StringScalar $stringScalar): void
     {
@@ -124,8 +108,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @param StringScalar $stringScalar
      */
     public function testSerializePassesForStringableObject(StringScalar $stringScalar): void
     {
@@ -144,8 +126,6 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @param StringScalar $stringScalar
-     *
      * @throws Error
      */
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
@@ -160,8 +140,6 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @param StringScalar $stringScalar
-     *
      * @throws Error
      */
     public function testParseValueThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
@@ -174,8 +152,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @param StringScalar $stringScalar
      *
      * @throws Error
      */
@@ -190,8 +166,6 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @param StringScalar $stringScalar
-     *
      * @throws Error
      */
     public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
@@ -205,8 +179,6 @@ class StringScalarTest extends TestCase
     /**
      * @dataProvider stringClassProvider
      *
-     * @param StringScalar $stringScalar
-     *
      * @throws Error
      */
     public function testParseLiteralThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
@@ -219,8 +191,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @param StringScalar $stringScalar
      *
      * @throws Error
      */

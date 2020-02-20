@@ -15,10 +15,6 @@ class MyStringScalar extends StringScalar
 
     /**
      * Check if the given string is exactly "foo".
-     *
-     * @param string $stringValue
-     *
-     * @return bool
      */
     protected function isValid(string $stringValue): bool
     {

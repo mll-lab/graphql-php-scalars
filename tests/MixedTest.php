@@ -97,8 +97,6 @@ class MixedTest extends TestCase
     /**
      * @dataProvider literalToPhpMap
      *
-     * @param string $graphQLLiteral
-     * @param string $jsonLiteral
      * @param mixed $expected
      */
     public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, $expected): void
@@ -165,11 +163,6 @@ class MixedTest extends TestCase
         ];
     }
 
-    /**
-     * @param string $literal
-     *
-     * @return ExecutionResult
-     */
     protected function executeQueryWithLiteral(string $literal): ExecutionResult
     {
         $query = "
@@ -184,11 +177,6 @@ class MixedTest extends TestCase
         );
     }
 
-    /**
-     * @param string $jsonLiteral
-     *
-     * @return ExecutionResult
-     */
     protected function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
     {
         $query = '

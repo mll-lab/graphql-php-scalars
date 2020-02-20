@@ -18,10 +18,6 @@ class Email extends StringScalar
 
     /**
      * Check if the given string is a valid email.
-     *
-     * @param string $stringValue
-     *
-     * @return bool
      */
     protected function isValid(string $stringValue): bool
     {

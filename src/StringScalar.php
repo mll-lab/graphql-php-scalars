@@ -19,7 +19,7 @@ abstract class StringScalar extends ScalarType
      * @param string|null $description A description for the type.
      * @param callable $isValid A function that returns a boolean whether a given string is valid.
      *
-     * @return static
+     * @return StringScalar
      */
     public static function make(string $name, ?string $description, callable $isValid): self
     {

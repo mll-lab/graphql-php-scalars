@@ -20,7 +20,7 @@ abstract class Regex extends ScalarType
      * @param string|null $description A description for the type.
      * @param string $regex The regular expression that is validated against.
      *
-     * @return static
+     * @return Regex
      */
     public static function make(string $name, ?string $description, string $regex): self
     {
@@ -28,19 +28,12 @@ abstract class Regex extends ScalarType
             /**
              * The regex that values are validated against.
              *
-             * Is set dynamically during this class creation.
+             * Is set dynamically during this class's creation.
              *
              * @var string
              */
             public static $regex;
 
-            /**
-             * Return the Regex that the values are validated against.
-             *
-             * Must be a valid
-             *
-             * @return string
-             */
             public static function regex(): string
             {
                 return static::$regex;

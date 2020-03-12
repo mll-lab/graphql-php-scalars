@@ -28,7 +28,8 @@ function extractStringFromLiteral($valueNode): string
 {
     if (!$valueNode instanceof StringValueNode) {
         throw new Error(
-            "Query error: Can only parse strings got: {$valueNode->kind}", [$valueNode]
+            "Query error: Can only parse strings got: {$valueNode->kind}",
+            [$valueNode]
         );
     }
 

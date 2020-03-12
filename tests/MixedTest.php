@@ -185,7 +185,8 @@ class MixedTest extends TestCase
         }
         ';
 
-        $json = json_decode("
+        $json = json_decode(
+            "
         {
             \"var\": $jsonLiteral
         }

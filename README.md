@@ -85,7 +85,7 @@ DESCRIPTION;
 }
 ```
 
-### [StringScalar](StringScalar.php)
+### [StringScalar](src/StringScalar.php)
 
 The `StringScalar` encapsulates all the boilerplate associated with creating a string-based Scalar type.
 It does the proper string checking for you and let's you focus on the minimal logic that is specific to your use case.

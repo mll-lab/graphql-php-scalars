@@ -131,7 +131,7 @@ class StringScalarTest extends TestCase
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageRegExp('/can not be serialized/');
+        $this->expectExceptionMessageMatches('/can not be serialized/');
 
         $stringScalar->parseValue(new class() {
         });
@@ -171,7 +171,7 @@ class StringScalarTest extends TestCase
     public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageRegExp('/'.NodeKind::INT.'/');
+        $this->expectExceptionMessageMatches('/'.NodeKind::INT.'/');
 
         $stringScalar->parseLiteral(new IntValueNode([]));
     }

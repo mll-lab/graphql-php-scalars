@@ -129,7 +129,7 @@ class RegexTest extends TestCase
     public function testParseValueThrowsIfValueCantBeString(Regex $regex): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageRegExp('/can not be serialized/');
+        $this->expectExceptionMessageMatches('/can not be serialized/');
 
         $regex->parseValue(new class() {
         });
@@ -143,7 +143,7 @@ class RegexTest extends TestCase
     public function testParseValueThrowsIfValueDoesNotMatch(Regex $regex): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageRegExp('/did not match the regex/');
+        $this->expectExceptionMessageMatches('/did not match the regex/');
 
         $regex->parseValue('');
     }
@@ -169,7 +169,7 @@ class RegexTest extends TestCase
     public function testParseLiteralThrowsIfNotString(Regex $regex): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageRegExp('/'.NodeKind::INT.'/');
+        $this->expectExceptionMessageMatches('/'.NodeKind::INT.'/');
 
         $regex->parseLiteral(new IntValueNode([]));
     }
@@ -182,7 +182,7 @@ class RegexTest extends TestCase
     public function testParseLiteralThrowsIfValueDoesNotMatch(Regex $regex): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageRegExp('/did not match the regex/');
+        $this->expectExceptionMessageMatches('/did not match the regex/');
 
         $regex->parseLiteral(new StringValueNode(['value' => 'asdf']));
     }

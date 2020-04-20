@@ -44,7 +44,7 @@ class Utils
      */
     public static function coerceToString($value, string $exceptionClass): string
     {
-        if (!Utils::canBeString($value)) {
+        if (!self::canBeString($value)) {
             $safeValue = GraphQLUtils::printSafeJson($value);
 
             throw new $exceptionClass(

@@ -1,8 +1,11 @@
 {
   "name": "mll-lab/graphql-php-scalars",
-  "description": "A collection of custom scalar types for usage with https://github.com/webonyx/graphql-php",
   "type": "library",
-  "keywords": ["graphql", "php"],
+  "description": "A collection of custom scalar types for usage with https://github.com/webonyx/graphql-php",
+  "keywords": [
+    "graphql",
+    "php"
+  ],
   "license": "MIT",
   "authors": [
     {
@@ -12,22 +15,18 @@
   ],
   "require": {
     "php": ">=7.2",
-    "webonyx/graphql-php": "^0.13.8",
-    "spatie/regex": "^1.4.1",
     "egulias/email-validator": "^2.1.17",
-    "thecodingmachine/safe": "^1.0.3"
+    "spatie/regex": "^1.4.1",
+    "thecodingmachine/safe": "^1.0.3",
+    "webonyx/graphql-php": "^0.13.8"
   },
   "require-dev": {
     "ext-json": "*",
-    "phpunit/phpunit": "^8.5.2",
-    "psy/psysh": "^0.9.12",
-    "phpstan/phpstan": "^0.12.11",
+    "phpstan/phpstan": "^0.12.19",
+    "phpunit/phpunit": "^8.5.3",
     "thecodingmachine/phpstan-safe-rule": "^1.0.0"
   },
   "autoload": {
-    "files": [
-      "src/utils.php"
-    ],
     "psr-4": {
       "MLL\\GraphQLScalars\\": "src"
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MLL\GraphQLScalars;
 
-use GraphQL\Language\AST\ValueNode;
+use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\AST;
 
@@ -44,7 +44,7 @@ DESCRIPTION;
      *
      * In the case of an invalid node or value, this method must throw an Exception.
      *
-     * @param ValueNode $valueNode
+     * @param Node $valueNode
      * @param mixed[]|null $variables
      *
      * @throws \Exception

@@ -8,7 +8,7 @@ use Exception;
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\ScalarType;
-use GraphQL\Utils\Utils;
+use GraphQL\Utils\Utils as GraphQLUtils;
 use Safe\Exceptions\JsonException;
 
 class JSON extends ScalarType
@@ -54,7 +54,7 @@ class JSON extends ScalarType
     {
         if (!property_exists($valueNode, 'value')) {
             throw new Error(
-                'Can only parse literals that contain a value, got '.Utils::printSafeJson($valueNode)
+                'Can only parse literals that contain a value, got '.GraphQLUtils::printSafeJson($valueNode)
             );
         }
 

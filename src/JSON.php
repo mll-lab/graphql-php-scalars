@@ -33,7 +33,6 @@ class JSON extends ScalarType
      *
      * In the case of an invalid value this method must throw an Exception
      *
-     *
      * @throws Error
      */
     public function parseValue($value)
@@ -64,7 +63,6 @@ class JSON extends ScalarType
 
     /**
      * Try to decode a user-given value into JSON.
-     *
      *
      * @throws Error
      */

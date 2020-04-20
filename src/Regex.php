@@ -8,7 +8,7 @@ use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\ScalarType;
-use GraphQL\Utils\Utils;
+use GraphQL\Utils\Utils as GraphQLUtils;
 use Spatie\Regex\Regex as RegexValidator;
 
 abstract class Regex extends ScalarType
@@ -57,7 +57,7 @@ abstract class Regex extends ScalarType
      */
     public function serialize($value): string
     {
-        $stringValue = coerceToString($value, InvariantViolation::class);
+        $stringValue = Utils::coerceToString($value, InvariantViolation::class);
 
         if (!static::matchesRegex($stringValue)) {
             throw new InvariantViolation(
@@ -84,12 +84,11 @@ abstract class Regex extends ScalarType
     /**
      * Parses an externally provided value (query variable) to use as an input.
      *
-     *
      * @throws Error
      */
     public function parseValue($value): string
     {
-        $stringValue = coerceToString($value, Error::class);
+        $stringValue = Utils::coerceToString($value, Error::class);
 
         if (!static::matchesRegex($stringValue)) {
             throw new Error(
@@ -110,7 +109,7 @@ abstract class Regex extends ScalarType
      */
     public function parseLiteral($valueNode, ?array $variables = null): string
     {
-        $value = extractStringFromLiteral($valueNode);
+        $value = Utils::extractStringFromLiteral($valueNode);
 
         if (!static::matchesRegex($value)) {
             throw new Error(
@@ -127,7 +126,7 @@ abstract class Regex extends ScalarType
      */
     public static function unmatchedRegexMessage(string $value): string
     {
-        $safeValue = Utils::printSafeJson($value);
+        $safeValue = GraphQLUtils::printSafeJson($value);
 
         return "The given value {$safeValue} did not match the regex ".static::regex();
     }

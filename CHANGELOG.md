@@ -9,6 +9,12 @@ You can find and compare releases at the [GitHub release page](https://github.co
 
 ## Unreleased
 
+## 3.0.2
+
+### Changed
+
+- Move util functions to class for better autoloading
+
 ## 3.0.1
 
 ### Fixed

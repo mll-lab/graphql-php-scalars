@@ -8,7 +8,7 @@ use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\ScalarType;
-use GraphQL\Utils\Utils;
+use GraphQL\Utils\Utils as GraphQLUtils;
 
 abstract class StringScalar extends ScalarType
 {
@@ -53,12 +53,11 @@ abstract class StringScalar extends ScalarType
     /**
      * Serializes an internal value to include in a response.
      *
-     *
      * @throws InvariantViolation
      */
     public function serialize($value): string
     {
-        $stringValue = coerceToString($value, InvariantViolation::class);
+        $stringValue = Utils::coerceToString($value, InvariantViolation::class);
 
         if (!$this->isValid($stringValue)) {
             throw new InvariantViolation(
@@ -74,7 +73,7 @@ abstract class StringScalar extends ScalarType
      */
     public function invalidStringMessage(string $stringValue): string
     {
-        $safeValue = Utils::printSafeJson($stringValue);
+        $safeValue = GraphQLUtils::printSafeJson($stringValue);
 
         return "The given string {$safeValue} is not a valid {$this->tryInferName()}.";
     }
@@ -82,12 +81,11 @@ abstract class StringScalar extends ScalarType
     /**
      * Parses an externally provided value (query variable) to use as an input.
      *
-     *
      * @throws Error
      */
     public function parseValue($value): string
     {
-        $stringValue = coerceToString($value, Error::class);
+        $stringValue = Utils::coerceToString($value, Error::class);
 
         if (!$this->isValid($stringValue)) {
             throw new Error(
@@ -113,7 +111,7 @@ abstract class StringScalar extends ScalarType
      */
     public function parseLiteral($valueNode, ?array $variables = null): string
     {
-        $stringValue = extractStringFromLiteral($valueNode);
+        $stringValue = Utils::extractStringFromLiteral($valueNode);
 
         if (!$this->isValid($stringValue)) {
             throw new Error(

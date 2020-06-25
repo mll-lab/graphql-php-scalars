@@ -1,21 +1,26 @@
-.PHONY: it help setup up shell stan test
+.PHONY: it
+it: stan test
 
-it: up stan test
-
+.PHONY: help
 help: ## Displays this list of targets with descriptions
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
-setup: up vendor ## Set up the project
+.PHONY: setup
+setup: build vendor ## Set up the project
 
+.PHONY: build
 build: ## Build the dev container
 	docker-compose build
 
+.PHONY: shell
 shell: ## Jump into a shell in the php container
 	docker-compose run php bash
 
+.PHONY: stan
 stan: ## Run static analysis
 	docker-compose run php vendor/bin/phpstan analyse --memory-limit=2048M
 
+.PHONY: test
 test: ## Run PHPUnit tests
 	docker-compose run php vendor/bin/phpunit
 

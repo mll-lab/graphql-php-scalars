@@ -5,6 +5,7 @@ A collection of custom scalar types for usage with https://github.com/webonyx/gr
 [![Continuous Integration](https://github.com/mll-lab/graphql-php-scalars/workflows/Continuous%20Integration/badge.svg)](https://github.com/mll-lab/graphql-php-scalars/actions)
 [![codecov](https://codecov.io/gh/mll-lab/graphql-php-scalars/branch/master/graph/badge.svg)](https://codecov.io/gh/mll-lab/graphql-php-scalars)
 [![StyleCI](https://github.styleci.io/repos/150426104/shield?branch=master)](https://github.styleci.io/repos/150426104)
+
 [![GitHub license](https://img.shields.io/github/license/mll-lab/graphql-php-scalars.svg)](https://github.com/mll-lab/graphql-php-scalars/blob/master/LICENSE)
 [![Packagist](https://img.shields.io/packagist/v/mll-lab/graphql-php-scalars.svg)](https://packagist.org/packages/mll-lab/graphql-php-scalars)
 [![Packagist](https://img.shields.io/packagist/dt/mll-lab/graphql-php-scalars.svg)](https://packagist.org/packages/mll-lab/graphql-php-scalars)
@@ -47,8 +48,6 @@ The quickest way to define a custom scalar is the `make` factory method. Just pr
 a name and a regular expression and you will receive a ready-to-use custom regex scalar.
 
 ```php
-<?php
-
 use MLL\GraphQLScalars\Regex;
 
 $hexValue = Regex::make(
@@ -61,8 +60,6 @@ $hexValue = Regex::make(
 You may also define your regex scalar as a class.
 
 ```php
-<?php
-
 use MLL\GraphQLScalars\Regex;
 
 // The name is implicitly set through the class name here
@@ -78,7 +75,7 @@ A hexadecimal color is specified with: `#RRGGBB`, where `RR` (red), `GG` (green)
 are hexadecimal integers between `00` and `FF` specifying the intensity of the color.
 DESCRIPTION;
 
-    public static function regex() : string
+    public static function regex(): string
     {
         return '/^#?([a-f0-9]{6}|[a-f0-9]{3})$/';
     }
@@ -94,14 +91,12 @@ All you have to specify is a function that checks if the given string is valid.
 Use the factory method `make` to generate an instance on the fly.
 
 ```php
-<?php
-
 use MLL\GraphQLScalars\StringScalar;
 
 $coolName = StringScalar::make(
     'CoolName',
     'A name that is most definitely cool.',
-    function(string $name): bool {
+    static function (string $name): bool {
         return in_array($name, [
            'Vladar',
            'Benedikt',

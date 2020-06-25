@@ -128,25 +128,3 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: bash <(curl -s https://codecov.io/bash)
-
-  mutation-tests:
-    name: "Mutation Tests"
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@master
-
-      - name: "Install PHP with extensions"
-        uses: shivammathur/setup-php@v2
-        with:
-          coverage: pcov
-          extensions: mbstring
-          php-version: 7.4
-
-      - name: "Install locked dependencies with composer"
-        run: composer install --no-interaction --no-progress --no-suggest
-
-      - name: "Run mutation tests with infection/infection"
-        run: vendor/bin/infection --ignore-msi-with-no-mutations --min-covered-msi=100 --min-msi=100

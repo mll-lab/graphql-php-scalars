@@ -22,7 +22,8 @@
   },
   "require-dev": {
     "ext-json": "*",
-    "phpstan/phpstan": "^0.12.31",
+    "ergebnis/composer-normalize": "^2.5",
+    "phpstan/phpstan": "~0.12.31",
     "phpunit/phpunit": "^8.5.3",
     "thecodingmachine/phpstan-safe-rule": "^1.0.0"
   },

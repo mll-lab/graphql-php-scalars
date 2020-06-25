@@ -1,5 +1,5 @@
 .PHONY: it
-it: stan test
+it: stan test normalize
 
 .PHONY: help
 help: ## Displays this list of targets with descriptions
@@ -23,6 +23,10 @@ stan: ## Run static analysis
 .PHONY: test
 test: ## Run PHPUnit tests
 	docker-compose run php vendor/bin/phpunit
+
+.PHONY: normalize
+normalize: ## Normalize composer.json
+	docker-compose run php composer normalize
 
 vendor: composer.json ## Install dependencies through composer
 	docker-compose run php composer install

@@ -38,9 +38,10 @@ class JSON extends ScalarType
      * Try to decode a user-given JSON value.
      *
      * @param mixed $value A user given JSON
-     * @return mixed The decoded value
      *
      * @throws Error
+     *
+     * @return mixed The decoded value
      */
     protected function decodeJSON($value)
     {

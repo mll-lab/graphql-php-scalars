@@ -28,6 +28,7 @@ class Utils
      * Get the underlying string from a GraphQL literal and throw if Literal is not a string.
      *
      * @param Node&ValueNode $valueNode
+     *
      * @throws Error
      */
     public static function extractStringFromLiteral(Node $valueNode): string

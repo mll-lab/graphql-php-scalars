@@ -4,52 +4,25 @@ declare(strict_types=1);
 
 namespace MLL\GraphQLScalars;
 
-use Exception;
 use GraphQL\Error\Error;
-use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils as GraphQLUtils;
 use Safe\Exceptions\JsonException;
 
 class JSON extends ScalarType
 {
-    /**
-     * The description that is used for schema introspection.
-     *
-     * @var string
-     */
     public $description = 'Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org/.';
 
-    /**
-     * Serializes an internal value to include in a response.
-     */
     public function serialize($value): string
     {
         return \Safe\json_encode($value);
     }
 
-    /**
-     * Parses an externally provided value (query variable) to use as an input.
-     *
-     * In the case of an invalid value this method must throw an Exception
-     *
-     * @throws Error
-     */
     public function parseValue($value)
     {
         return $this->decodeJSON($value);
     }
 
-    /**
-     * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
-     *
-     * In the case of an invalid node or value this method must throw an Exception
-     *
-     * @param Node $valueNode
-     * @param mixed[]|null $variables
-     *
-     * @throws Exception
-     */
     public function parseLiteral($valueNode, ?array $variables = null)
     {
         if (!property_exists($valueNode, 'value')) {
@@ -62,20 +35,23 @@ class JSON extends ScalarType
     }
 
     /**
-     * Try to decode a user-given value into JSON.
+     * Try to decode a user-given JSON value.
+     *
+     * @param mixed $value A user given JSON
+     * @return mixed The decoded value
      *
      * @throws Error
      */
     protected function decodeJSON($value)
     {
         try {
-            $parsed = \Safe\json_decode($value);
+            $decoded = \Safe\json_decode($value);
         } catch (JsonException $jsonException) {
             throw new Error(
                 $jsonException->getMessage()
             );
         }
 
-        return $parsed;
+        return $decoded;
     }
 }

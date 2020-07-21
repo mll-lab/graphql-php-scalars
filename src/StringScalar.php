@@ -50,11 +50,6 @@ abstract class StringScalar extends ScalarType
      */
     abstract protected function isValid(string $stringValue): bool;
 
-    /**
-     * Serializes an internal value to include in a response.
-     *
-     * @throws InvariantViolation
-     */
     public function serialize($value): string
     {
         $stringValue = Utils::coerceToString($value, InvariantViolation::class);
@@ -78,11 +73,6 @@ abstract class StringScalar extends ScalarType
         return "The given string {$safeValue} is not a valid {$this->tryInferName()}.";
     }
 
-    /**
-     * Parses an externally provided value (query variable) to use as an input.
-     *
-     * @throws Error
-     */
     public function parseValue($value): string
     {
         $stringValue = Utils::coerceToString($value, Error::class);
@@ -96,19 +86,6 @@ abstract class StringScalar extends ScalarType
         return $stringValue;
     }
 
-    /**
-     * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
-     *
-     * E.g.
-     * {
-     *   user(email: "user@example.com")
-     * }
-     *
-     * @param Node $valueNode
-     * @param mixed[]|null $variables
-     *
-     * @throws Error
-     */
     public function parseLiteral($valueNode, ?array $variables = null): string
     {
         $stringValue = Utils::extractStringFromLiteral($valueNode);

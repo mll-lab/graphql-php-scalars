@@ -6,7 +6,6 @@ namespace MLL\GraphQLScalars;
 
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
-use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils as GraphQLUtils;
 use Spatie\Regex\Regex as RegexValidator;
@@ -52,9 +51,6 @@ abstract class Regex extends ScalarType
      */
     abstract public static function regex(): string;
 
-    /**
-     * Serializes an internal value to include in a response.
-     */
     public function serialize($value): string
     {
         $stringValue = Utils::coerceToString($value, InvariantViolation::class);
@@ -81,11 +77,6 @@ abstract class Regex extends ScalarType
             ->hasMatch();
     }
 
-    /**
-     * Parses an externally provided value (query variable) to use as an input.
-     *
-     * @throws Error
-     */
     public function parseValue($value): string
     {
         $stringValue = Utils::coerceToString($value, Error::class);
@@ -99,14 +90,6 @@ abstract class Regex extends ScalarType
         return $value;
     }
 
-    /**
-     * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
-     *
-     * @param Node $valueNode
-     * @param mixed[]|null $variables
-     *
-     * @throws Error
-     */
     public function parseLiteral($valueNode, ?array $variables = null): string
     {
         $value = Utils::extractStringFromLiteral($valueNode);
@@ -114,7 +97,7 @@ abstract class Regex extends ScalarType
         if (!static::matchesRegex($value)) {
             throw new Error(
                 static::unmatchedRegexMessage($value),
-                [$valueNode]
+                $valueNode
             );
         }
 

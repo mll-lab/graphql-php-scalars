@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace MLL\GraphQLScalars;
 
 use GraphQL\Error\Error;
+use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
+use GraphQL\Language\AST\ValueNode;
 use GraphQL\Utils\Utils as GraphQLUtils;
 
 class Utils
 {
     /**
      * Check if a value can be serialized to a string.
+     *
+     * @param mixed $value Any value
      */
     public static function canBeString($value): bool
     {
@@ -23,14 +27,15 @@ class Utils
     /**
      * Get the underlying string from a GraphQL literal and throw if Literal is not a string.
      *
+     * @param Node&ValueNode $valueNode
      * @throws Error
      */
-    public static function extractStringFromLiteral($valueNode): string
+    public static function extractStringFromLiteral(Node $valueNode): string
     {
         if (!$valueNode instanceof StringValueNode) {
             throw new Error(
                 "Query error: Can only parse strings got: {$valueNode->kind}",
-                [$valueNode]
+                $valueNode
             );
         }
 
@@ -39,6 +44,8 @@ class Utils
 
     /**
      * Convert the value to a string and throw an exception if it is not possible.
+     *
+     * @param mixed $value Any value
      *
      * @throws \Exception of type $exceptionClass
      */
@@ -52,6 +59,6 @@ class Utils
             );
         }
 
-        return strval($value);
+        return (string) $value;
     }
 }

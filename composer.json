@@ -14,7 +14,7 @@
     }
   ],
   "require": {
-    "php": "^7.2|^8.0",
+    "php": "^7.2 || ^8.0",
     "egulias/email-validator": "^2.1.17",
     "spatie/regex": "^1.4.1",
     "thecodingmachine/safe": "^1.0.3",

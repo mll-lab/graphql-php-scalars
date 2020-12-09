@@ -7,7 +7,7 @@ namespace MLL\GraphQLScalars;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\AST;
 
-class Mixed extends ScalarType
+class MixedScalar extends ScalarType
 {
     /**
      * The description that is used for schema introspection.

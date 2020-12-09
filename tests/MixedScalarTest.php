@@ -9,10 +9,10 @@ use GraphQL\GraphQL;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Schema;
 use GraphQL\Type\SchemaConfig;
-use MLL\GraphQLScalars\Mixed;
+use MLL\GraphQLScalars\MixedScalar;
 use PHPUnit\Framework\TestCase;
 
-class MixedTest extends TestCase
+class MixedScalarTest extends TestCase
 {
     /**
      * @var Schema
@@ -23,7 +23,7 @@ class MixedTest extends TestCase
     {
         parent::setUp();
 
-        $mixed = new Mixed();
+        $mixed = new MixedScalar();
 
         $schemaConfig = new SchemaConfig();
         $schemaConfig->setQuery(
@@ -55,7 +55,7 @@ class MixedTest extends TestCase
     {
         $this->assertSame(
             $value,
-            (new Mixed())->serialize(
+            (new MixedScalar())->serialize(
                 $value
             )
         );
@@ -70,14 +70,14 @@ class MixedTest extends TestCase
     {
         $this->assertSame(
             $value,
-            (new Mixed())->serialize(
+            (new MixedScalar())->serialize(
                 $value
             )
         );
     }
 
     /**
-     * Provide an assortment of values that should pass the Mixed type.
+     * Provide an assortment of values that should pass the MixedScalar type.
      *
      * @return array[]
      */
@@ -180,7 +180,7 @@ class MixedTest extends TestCase
     protected function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
     {
         $query = '
-        query Foo($var: Mixed) {
+        query Foo($var: MixedScalar) {
             foo(bar: $var)
         }
         ';

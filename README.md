@@ -31,7 +31,7 @@ A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.
 
 Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org/.
 
-### [Mixed](src/MixedScalar.php)
+### [MixedScalar](src/MixedScalar.php)
 
 Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
 as they may not be parsed correctly on the server side. Use `String` literals if you are

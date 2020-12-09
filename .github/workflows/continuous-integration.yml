@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: "Install PHP with extensions"
         uses: shivammathur/setup-php@v2
@@ -29,7 +29,7 @@ jobs:
         run: composer validate --strict
 
       - name: "Install locked dependencies with composer"
-        run: composer install --no-interaction --no-progress --no-suggest
+        run: composer install --no-interaction --no-progress
 
       - name: "Run localheinz/composer-normalize"
         run: composer normalize --dry-run
@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: "Install PHP with extensions"
         uses: shivammathur/setup-php@v2
@@ -51,31 +51,25 @@ jobs:
           php-version: 7.4
 
       - name: "Install locked dependencies with composer"
-        run: composer install --no-interaction --no-progress --no-suggest
+        run: composer install --no-interaction --no-progress
 
       - name: "Run phpstan"
         run: vendor/bin/phpstan analyse --configuration=phpstan.neon
 
   tests:
-    name: "Tests"
+    name: Test for PHP ${{ matrix.php-version }} (${{ matrix.dependencies }})
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        php-version:
-          - 7.2
-          - 7.3
-          - 7.4
+        php-version: ['7.2', '7.3', '7.4', '8.0']
 
-        dependencies:
-          - lowest
-          - locked
-          - highest
+        dependencies: [prefer-lowest, prefer-stable]
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: "Install PHP with extensions"
         uses: shivammathur/setup-php@v2
@@ -84,17 +78,8 @@ jobs:
           extensions: mbstring
           php-version: ${{ matrix.php-version }}
 
-      - name: "Install lowest dependencies with composer"
-        if: matrix.dependencies == 'lowest'
-        run: composer update --prefer-lowest --no-interaction --no-progress --no-suggest
-
-      - name: "Install locked dependencies with composer"
-        if: matrix.dependencies == 'locked'
-        run: composer install --no-interaction --no-progress --no-suggest
-
-      - name: "Install highest dependencies with composer"
-        if: matrix.dependencies == 'highest'
-        run: composer update --no-interaction --no-progress --no-suggest
+      - name: "Install dependencies with composer"
+        run: composer update --${{ matrix.dependencies }} --no-interaction --no-progress
 
       - name: "Run unit tests with phpunit/phpunit"
         run: vendor/bin/phpunit
@@ -106,7 +91,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: "Install PHP with extensions"
         uses: shivammathur/setup-php@v2
@@ -116,7 +101,7 @@ jobs:
           php-version: 7.4
 
       - name: "Install locked dependencies with composer"
-        run: composer install --no-interaction --no-progress --no-suggest
+        run: composer install --no-interaction --no-progress
 
       - name: "Dump Xdebug filter with phpunit/phpunit"
         run: vendor/bin/phpunit --dump-xdebug-filter=.build/phpunit/xdebug-filter.php

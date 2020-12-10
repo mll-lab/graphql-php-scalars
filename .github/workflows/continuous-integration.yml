@@ -63,9 +63,15 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['7.2', '7.3', '7.4', '8.0']
+        php-version:
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
 
-        dependencies: [prefer-lowest, prefer-stable]
+        dependencies:
+          - "prefer-lowest"
+          - "prefer-stable"
 
     steps:
       - name: "Checkout"

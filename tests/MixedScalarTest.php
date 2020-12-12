@@ -180,7 +180,7 @@ class MixedScalarTest extends TestCase
     protected function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
     {
         $query = '
-        query Foo($var: MixedScalar) {
+        query Foo($var: Mixed) {
             foo(bar: $var)
         }
         ';

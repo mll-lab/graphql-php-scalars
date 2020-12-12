@@ -77,7 +77,7 @@ class MixedScalarTest extends TestCase
     }
 
     /**
-     * Provide an assortment of values that should pass the MixedScalar type.
+     * Provide an assortment of values that should pass the Mixed type.
      *
      * @return array[]
      */
@@ -117,7 +117,7 @@ class MixedScalarTest extends TestCase
     }
 
     /**
-     * Provides a GraphQL literal, a Json literal and the expected PHP value.
+     * Provides a GraphQL literal, a JSON literal and the expected PHP value.
      *
      * @return array[]
      */

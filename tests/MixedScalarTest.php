@@ -186,7 +186,8 @@ class MixedScalarTest extends TestCase
         ';
 
         $json = json_decode(
-        /** @lang JSON */"
+/** @lang JSON */
+            "
         {
             \"var\": $jsonLiteral
         }

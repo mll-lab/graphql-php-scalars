@@ -9,10 +9,10 @@ use GraphQL\GraphQL;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Schema;
 use GraphQL\Type\SchemaConfig;
-use MLL\GraphQLScalars\Mixed;
+use MLL\GraphQLScalars\MixedScalar;
 use PHPUnit\Framework\TestCase;
 
-class MixedTest extends TestCase
+class MixedScalarTest extends TestCase
 {
     /**
      * @var Schema
@@ -23,7 +23,7 @@ class MixedTest extends TestCase
     {
         parent::setUp();
 
-        $mixed = new Mixed();
+        $mixed = new MixedScalar();
 
         $schemaConfig = new SchemaConfig();
         $schemaConfig->setQuery(
@@ -49,13 +49,13 @@ class MixedTest extends TestCase
     /**
      * @dataProvider singleValues
      *
-     * @param mixed $value
+     * @param mixed $value Anything
      */
     public function testSerializePassesThroughAnything($value): void
     {
         $this->assertSame(
             $value,
-            (new Mixed())->serialize(
+            (new MixedScalar())->serialize(
                 $value
             )
         );
@@ -64,13 +64,13 @@ class MixedTest extends TestCase
     /**
      * @dataProvider singleValues
      *
-     * @param mixed $value
+     * @param mixed $value Anything
      */
     public function testParseValuePassesThroughAnything($value): void
     {
         $this->assertSame(
             $value,
-            (new Mixed())->serialize(
+            (new MixedScalar())->serialize(
                 $value
             )
         );
@@ -79,7 +79,7 @@ class MixedTest extends TestCase
     /**
      * Provide an assortment of values that should pass the Mixed type.
      *
-     * @return array[]
+     * @return array<int, array<int, mixed>>
      */
     public function singleValues(): array
     {
@@ -97,7 +97,7 @@ class MixedTest extends TestCase
     /**
      * @dataProvider literalToPhpMap
      *
-     * @param mixed $expected
+     * @param mixed $expected Anything
      */
     public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, $expected): void
     {
@@ -117,9 +117,9 @@ class MixedTest extends TestCase
     }
 
     /**
-     * Provides a GraphQL literal, a Json literal and the expected PHP value.
+     * Provides a GraphQL literal, a JSON literal and the expected PHP value.
      *
-     * @return array[]
+     * @return array<int, array<int, mixed>>
      */
     public function literalToPhpMap(): array
     {

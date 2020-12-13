@@ -9,6 +9,17 @@ You can find and compare releases at the [GitHub release page](https://github.co
 
 ## Unreleased
 
+## 4.0.0
+
+### Added
+
+- Support PHP 8
+
+### Changed
+
+- Rename `Mixed` class to `MixedScalar` because `mixed` is a reserved name in PHP 8.
+  The GraphQL name of the scalar is still `Mixed` so the schema does not change.
+
 ## 3.1.0
 
 ### Added

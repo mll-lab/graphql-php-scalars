@@ -7,13 +7,10 @@ namespace MLL\GraphQLScalars;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\AST;
 
-class Mixed extends ScalarType
+class MixedScalar extends ScalarType
 {
-    /**
-     * The description that is used for schema introspection.
-     *
-     * @var string
-     */
+    public $name = 'Mixed';
+
     public $description = <<<'DESCRIPTION'
 Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
 as they may not be parsed correctly on the server side. Use `String` literals if you are

@@ -48,6 +48,8 @@ class MixedScalarTest extends TestCase
 
     /**
      * @dataProvider singleValues
+     *
+     * @param mixed $value Anything
      */
     public function testSerializePassesThroughAnything($value): void
     {

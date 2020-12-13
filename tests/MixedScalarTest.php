@@ -48,8 +48,6 @@ class MixedScalarTest extends TestCase
 
     /**
      * @dataProvider singleValues
-     *
-     * @param mixed $value
      */
     public function testSerializePassesThroughAnything($value): void
     {
@@ -63,8 +61,6 @@ class MixedScalarTest extends TestCase
 
     /**
      * @dataProvider singleValues
-     *
-     * @param mixed $value
      */
     public function testParseValuePassesThroughAnything($value): void
     {
@@ -96,8 +92,6 @@ class MixedScalarTest extends TestCase
 
     /**
      * @dataProvider literalToPhpMap
-     *
-     * @param mixed $expected
      */
     public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, $expected): void
     {

@@ -61,6 +61,8 @@ class MixedScalarTest extends TestCase
 
     /**
      * @dataProvider singleValues
+     *
+     * @param mixed $value Anything
      */
     public function testParseValuePassesThroughAnything($value): void
     {
@@ -75,7 +77,7 @@ class MixedScalarTest extends TestCase
     /**
      * Provide an assortment of values that should pass the Mixed type.
      *
-     * @return array[]
+     * @return array<int, array<int, mixed>>
      */
     public function singleValues(): array
     {
@@ -92,6 +94,8 @@ class MixedScalarTest extends TestCase
 
     /**
      * @dataProvider literalToPhpMap
+     *
+     * @param mixed $expected Anything
      */
     public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, $expected): void
     {
@@ -113,7 +117,7 @@ class MixedScalarTest extends TestCase
     /**
      * Provides a GraphQL literal, a JSON literal and the expected PHP value.
      *
-     * @return array[]
+     * @return array<int, array<int, mixed>>
      */
     public function literalToPhpMap(): array
     {

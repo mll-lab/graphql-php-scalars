@@ -28,9 +28,6 @@ abstract class StringScalar extends ScalarType
              */
             public $isValid;
 
-            /**
-             * Check if the given string is a valid email.
-             */
             protected function isValid(string $stringValue): bool
             {
                 return call_user_func($this->isValid, $stringValue);

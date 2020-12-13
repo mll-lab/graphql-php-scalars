@@ -15,7 +15,7 @@ class EmailTest extends TestCase
     public function testSerializeThrowsIfUnserializableValueIsGiven(): void
     {
         $this->expectException(InvariantViolation::class);
-        $this->expectExceptionMessageMatches('/^The given value .* can not be serialized\./');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */ '/^The given value .* can not be serialized\./');
 
         (new Email())->serialize(
             new class() {

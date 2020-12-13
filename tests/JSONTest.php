@@ -61,7 +61,7 @@ class JSONTest extends TestCase
     {
         $this->assertSame(
             'bar',
-            (new JSON())->parseLiteral(new StringValueNode(['value' => '{"foo": "bar"}']))->foo
+            (new JSON())->parseLiteral(new StringValueNode(['value' => /** @lang JSON */ '{"foo": "bar"}']))->foo
         );
     }
 }

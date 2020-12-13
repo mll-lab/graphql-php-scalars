@@ -11,7 +11,7 @@ class MixedScalar extends ScalarType
 {
     public $name = 'Mixed';
 
-    public $description = <<<'DESCRIPTION'
+    public $description = /** @lang Markdown */<<<'DESCRIPTION'
 Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
 as they may not be parsed correctly on the server side. Use `String` literals if you are
 dealing with really large numbers to be on the safe side.

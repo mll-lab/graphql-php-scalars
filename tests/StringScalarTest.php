@@ -17,7 +17,7 @@ class StringScalarTest extends TestCase
     /**
      * Provide a StringScalar class instantiated in different ways.
      *
-     * @return array[]
+     * @return array<int, array<int, StringScalar>>
      */
     public function stringClassProvider(): array
     {
@@ -28,9 +28,6 @@ class StringScalarTest extends TestCase
 
                     public $description = 'Bar';
 
-                    /**
-                     * Check if the given string is a valid email.
-                     */
                     protected function isValid(string $stringValue): bool
                     {
                         return $stringValue === 'foo';
@@ -39,9 +36,6 @@ class StringScalarTest extends TestCase
             ],
             [
                 new class(['name' => 'MyStringScalar', 'description' => 'Bar']) extends StringScalar {
-                    /**
-                     * Check if the given string is a valid email.
-                     */
                     protected function isValid(string $stringValue): bool
                     {
                         return $stringValue === 'foo';
@@ -131,7 +125,7 @@ class StringScalarTest extends TestCase
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches('/can not be serialized/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */'/can not be serialized/');
 
         $stringScalar->parseValue(new class() {
         });
@@ -171,7 +165,7 @@ class StringScalarTest extends TestCase
     public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches('/'.NodeKind::INT.'/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */'/'.NodeKind::INT.'/');
 
         $stringScalar->parseLiteral(new IntValueNode([]));
     }

@@ -8,9 +8,6 @@ use MLL\GraphQLScalars\Regex;
 
 class MyRegex extends Regex
 {
-    /**
-     * @var string
-     */
     public $description = 'Bar';
 
     /**
@@ -18,6 +15,6 @@ class MyRegex extends Regex
      */
     public static function regex(): string
     {
-        return '/foo/';
+        return /** @lang RegExp */'/foo/';
     }
 }

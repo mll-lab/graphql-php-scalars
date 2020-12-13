@@ -8,9 +8,6 @@ use MLL\GraphQLScalars\StringScalar;
 
 class MyStringScalar extends StringScalar
 {
-    /**
-     * @var string
-     */
     public $description = 'Bar';
 
     /**

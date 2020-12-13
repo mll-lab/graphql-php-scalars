@@ -124,19 +124,19 @@ class MixedScalarTest extends TestCase
     public function literalToPhpMap(): array
     {
         return [
-            ['1', '1', 1],
-            ['"asdf"', '"asdf"', 'asdf'],
-            ['true', 'true', true],
-            ['123.321', '123.321', 123.321],
-            ['null', 'null', null],
-            ['[1, 2]', '[1, 2]', [1, 2]],
+            [/** @lang GraphQL */'1', /** @lang JSON */'1', 1],
+            [/** @lang GraphQL */'"asdf"', /** @lang JSON */'"asdf"', 'asdf'],
+            [/** @lang GraphQL */'true', /** @lang JSON */'true', true],
+            [/** @lang GraphQL */'123.321', /** @lang JSON */'123.321', 123.321],
+            [/** @lang GraphQL */'null', /** @lang JSON */'null', null],
+            [/** @lang GraphQL */'[1, 2]', /** @lang JSON */'[1, 2]', [1, 2]],
             [
-                '{a: 1}',
-                '{"a": 1}',
+                /** @lang GraphQL */'{a: 1}',
+                /** @lang JSON */'{"a": 1}',
                 ['a' => 1],
             ],
             [
-                '
+                /** @lang GraphQL */'
                 {
                     a: [
                         {
@@ -144,7 +144,7 @@ class MixedScalarTest extends TestCase
                         }
                     ]
                 }',
-                '
+                /** @lang JSON */'
                 {
                     "a": [
                         {
@@ -165,7 +165,7 @@ class MixedScalarTest extends TestCase
 
     protected function executeQueryWithLiteral(string $literal): ExecutionResult
     {
-        $query = "
+        $query = /** @lang GraphQL */"
         {
             foo(bar: {$literal})
         }
@@ -179,14 +179,14 @@ class MixedScalarTest extends TestCase
 
     protected function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
     {
-        $query = '
+        $query = /** @lang GraphQL */'
         query Foo($var: Mixed) {
             foo(bar: $var)
         }
         ';
 
         $json = json_decode(
-            "
+        /** @lang JSON */"
         {
             \"var\": $jsonLiteral
         }

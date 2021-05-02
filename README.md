@@ -19,10 +19,6 @@ A collection of custom scalar types for usage with https://github.com/webonyx/gr
 You can use the provided Scalars just like any other type in your schema definition.
 Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example. 
 
-## Simple Scalars
-
-This package comes with a bunch of scalars that are ready-to-use and just work out of the box.
-
 ### [Email](src/Email.php)
 
 A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.
@@ -36,8 +32,6 @@ Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org/.
 Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
 as they may not be parsed correctly on the server side. Use `String` literals if you are
 dealing with really large numbers to be on the safe side.
-
-## Advanced Scalars
 
 ### [Regex](src/Regex.php)
 

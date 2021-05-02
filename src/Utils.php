@@ -47,6 +47,7 @@ class Utils
      * Convert the value to a string or throw.
      *
      * @template T of \Throwable
+     *
      * @param mixed $value Any value
      * @param class-string<T> $exceptionClass
      *

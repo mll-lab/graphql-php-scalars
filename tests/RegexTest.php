@@ -113,13 +113,11 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @throws Error
      */
     public function testParseValueThrowsIfValueCantBeString(Regex $regex): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches(/** @lang RegExp */'/can not be serialized/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */'/can not be coerced to a string/');
 
         $regex->parseValue(new class() {
         });
@@ -127,8 +125,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @throws Error
      */
     public function testParseValueThrowsIfValueDoesNotMatch(Regex $regex): void
     {
@@ -140,8 +136,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @throws Error
      */
     public function testParseValuePassesOnMatch(Regex $regex): void
     {
@@ -153,8 +147,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @throws Error
      */
     public function testParseLiteralThrowsIfNotString(Regex $regex): void
     {
@@ -166,8 +158,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @throws Error
      */
     public function testParseLiteralThrowsIfValueDoesNotMatch(Regex $regex): void
     {
@@ -179,8 +169,6 @@ class RegexTest extends TestCase
 
     /**
      * @dataProvider regexClassProvider
-     *
-     * @throws Error
      */
     public function testParseLiteralPassesOnMatch(Regex $regex): void
     {

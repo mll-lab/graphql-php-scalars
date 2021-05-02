@@ -10,9 +10,6 @@ class MyStringScalar extends StringScalar
 {
     public $description = 'Bar';
 
-    /**
-     * Check if the given string is exactly "foo".
-     */
     protected function isValid(string $stringValue): bool
     {
         return $stringValue === 'foo';

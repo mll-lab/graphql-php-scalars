@@ -119,13 +119,11 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @throws Error
      */
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches(/** @lang RegExp */'/can not be serialized/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */'/can not be coerced to a string/');
 
         $stringScalar->parseValue(new class() {
         });
@@ -133,8 +131,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @throws Error
      */
     public function testParseValueThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
@@ -146,8 +142,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @throws Error
      */
     public function testParseValuePassesOnMatch(StringScalar $stringScalar): void
     {
@@ -159,8 +153,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @throws Error
      */
     public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
     {
@@ -172,8 +164,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @throws Error
      */
     public function testParseLiteralThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
@@ -185,8 +175,6 @@ class StringScalarTest extends TestCase
 
     /**
      * @dataProvider stringClassProvider
-     *
-     * @throws Error
      */
     public function testParseLiteralPassesOnMatch(StringScalar $stringScalar): void
     {

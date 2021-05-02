@@ -44,11 +44,13 @@ class Utils
     }
 
     /**
-     * Convert the value to a string and throw an exception if it is not possible.
+     * Convert the value to a string or throw.
      *
+     * @template T of \Throwable
      * @param mixed $value Any value
+     * @param class-string<T> $exceptionClass
      *
-     * @throws \Exception of type $exceptionClass
+     * @throws T
      */
     public static function coerceToString($value, string $exceptionClass): string
     {
@@ -56,7 +58,7 @@ class Utils
             $safeValue = GraphQLUtils::printSafeJson($value);
 
             throw new $exceptionClass(
-                "The given value {$safeValue} can not be serialized."
+                "The given value {$safeValue} can not be coerced to a string."
             );
         }
 

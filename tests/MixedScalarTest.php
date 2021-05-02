@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Tests;
 
@@ -79,7 +77,7 @@ class MixedScalarTest extends TestCase
     /**
      * Provide an assortment of values that should pass the Mixed type.
      *
-     * @return array<int, array<int, mixed>>
+     * @return array<int, array{0: mixed}>
      */
     public function singleValues(): array
     {
@@ -119,7 +117,7 @@ class MixedScalarTest extends TestCase
     /**
      * Provides a GraphQL literal, a JSON literal and the expected PHP value.
      *
-     * @return array<int, array<int, mixed>>
+     * @return array<int, array{0: string, 1: string, 2: mixed}>
      */
     public function literalToPhpMap(): array
     {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Tests;
 
@@ -129,12 +131,12 @@ class MixedScalarTest extends TestCase
             [/** @lang GraphQL */'null', /** @lang JSON */'null', null],
             [/** @lang GraphQL */'[1, 2]', /** @lang JSON */'[1, 2]', [1, 2]],
             [
-                /** @lang GraphQL */'{a: 1}',
-                /** @lang JSON */'{"a": 1}',
+/** @lang GraphQL */'{a: 1}',
+/** @lang JSON */'{"a": 1}',
                 ['a' => 1],
             ],
             [
-                /** @lang GraphQL */'
+/** @lang GraphQL */'
                 {
                     a: [
                         {
@@ -142,7 +144,7 @@ class MixedScalarTest extends TestCase
                         }
                     ]
                 }',
-                /** @lang JSON */'
+/** @lang JSON */'
                 {
                     "a": [
                         {

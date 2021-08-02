@@ -8,7 +8,7 @@ use MLL\GraphQLScalars\Regex;
 
 class MyRegex extends Regex
 {
-    public $description = 'Bar';
+    public ?string $description = 'Bar';
 
     public static function regex(): string
     {

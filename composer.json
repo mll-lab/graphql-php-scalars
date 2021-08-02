@@ -19,7 +19,7 @@
     "egulias/email-validator": "^2.1.17",
     "spatie/regex": "^1.4.1",
     "thecodingmachine/safe": "^1.0.3",
-    "webonyx/graphql-php": "^0.13.8 || ^14 || dev-master"
+    "webonyx/graphql-php": "dev-master"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.13",

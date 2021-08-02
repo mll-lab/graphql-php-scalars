@@ -8,7 +8,7 @@ use MLL\GraphQLScalars\StringScalar;
 
 class MyStringScalar extends StringScalar
 {
-    public $description = 'Bar';
+    public ?string $description = 'Bar';
 
     protected function isValid(string $stringValue): bool
     {

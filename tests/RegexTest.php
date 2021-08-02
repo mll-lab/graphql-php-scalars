@@ -24,9 +24,9 @@ class RegexTest extends TestCase
         return [
             [
                 new class() extends Regex {
-                    public $name = 'MyRegex';
+                    public string $name = 'MyRegex';
 
-                    public $description = 'Bar';
+                    public ?string $description = 'Bar';
 
                     public static function regex(): string
                     {

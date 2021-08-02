@@ -24,9 +24,9 @@ class StringScalarTest extends TestCase
         return [
             [
                 new class() extends StringScalar {
-                    public $name = 'MyStringScalar';
+                    public string $name = 'MyStringScalar';
 
-                    public $description = 'Bar';
+                    public ?string $description = 'Bar';
 
                     protected function isValid(string $stringValue): bool
                     {

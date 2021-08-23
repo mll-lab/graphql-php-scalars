@@ -3,3 +3,7 @@ parameters:
   paths:
   - src
   - tests
+
+  ignoreErrors:
+      # Safe\DateTime(Immutable)? - creates overhead and is not stable, prefer native classes
+      - '~Class DateTimeImmutable is unsafe to use. Its methods can return FALSE instead of throwing an exception~'

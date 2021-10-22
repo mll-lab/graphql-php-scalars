@@ -69,8 +69,7 @@ abstract class Regex extends ScalarType
      */
     protected static function matchesRegex(string $value): bool
     {
-        return RegexValidator
-            ::match(
+        return RegexValidator::match(
                 static::regex(),
                 $value
             )

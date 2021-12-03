@@ -9,8 +9,8 @@ use Egulias\EmailValidator\Validation\RFCValidation;
 
 class Email extends StringScalar
 {
-    public ?string $description = /** @lang Markdown */
-        'A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.';
+    public ?string $description /** @lang Markdown */
+        = 'A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.';
 
     protected function isValid(string $stringValue): bool
     {

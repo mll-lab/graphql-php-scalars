@@ -102,8 +102,8 @@ final class MixedScalarTest extends TestCase
         $jsonResult = $this->executeQueryWithJsonVariable($jsonLiteral);
 
         self::assertSame(
-            $expected,
-            $graphqlResult->data['foo']
+            ['foo' => $expected],
+            $graphqlResult->data
         );
 
         // Ensure that values provided as JSON have the same result as GraphQL literals

@@ -9,29 +9,53 @@ on:
 name: "Continuous Integration"
 
 jobs:
-  coding-standards:
-    name: "Coding Standards"
+  composer-validate:
+    name: "Validate composer dependencies"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@master
+
+      - name: "Install PHP with extensions"
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          extensions: mbstring
+          php-version: 7.4
+
+      - name: "Validate composer.json and composer.lock"
+        run: composer validate --strict
+
+  composer-normalize:
+    name: "Normalize composer.json"
 
     runs-on: ubuntu-latest
 
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: "Install PHP with extensions"
         uses: shivammathur/setup-php@v2
         with:
           coverage: none
+          extensions: mbstring
           php-version: 7.4
 
-      - name: "Validate composer.json and composer.lock"
-        run: composer validate --strict
+      - name: "Install locked dependencies with composer"
+        run: composer install --no-interaction --no-progress --no-suggest
 
-      - name: "Install dependencies with composer"
-        run: composer install --no-interaction --no-progress
+      - name: "Run localheinz/composer-normalize"
+        run: composer normalize
 
-      - name: "Normalize composer.json"
-        run: composer normalize --dry-run
+      - name: "Commit fixes"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Normalize composer.json
 
   static-code-analysis:
     name: "Static Code Analysis"
@@ -62,10 +86,9 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "7.2"
-          - "7.3"
           - "7.4"
           - "8.0"
+          - "8.1"
 
         dependencies:
           - "prefer-lowest"
@@ -110,4 +133,3 @@ jobs:
 
       - name: "Send code coverage report to codecov.io"
         uses: codecov/codecov-action@v2
-

@@ -14,9 +14,9 @@ abstract class StringScalar extends ScalarType
     /**
      * Instantiate an anonymous subclass that can be used in a schema.
      *
-     * @param string $name The name that the scalar type will have in the schema.
-     * @param string|null $description A description for the type.
-     * @param callable $isValid A function that returns a boolean whether a given string is valid.
+     * @param string $name the name that the scalar type will have in the schema
+     * @param string|null $description a description for the type
+     * @param callable(string): bool $isValid a function that returns a boolean whether a given string is valid
      *
      * @return StringScalar
      */
@@ -24,13 +24,13 @@ abstract class StringScalar extends ScalarType
     {
         $concreteStringScalar = new class() extends StringScalar {
             /**
-             * @var callable
+             * @var callable(string): bool
              */
             public $isValid;
 
             protected function isValid(string $stringValue): bool
             {
-                return call_user_func($this->isValid, $stringValue);
+                return ($this->isValid)($stringValue);
             }
         };
 
@@ -50,7 +50,7 @@ abstract class StringScalar extends ScalarType
     {
         $stringValue = Utils::coerceToString($value, InvariantViolation::class);
 
-        if (!$this->isValid($stringValue)) {
+        if (! $this->isValid($stringValue)) {
             throw new InvariantViolation(
                 $this->invalidStringMessage($stringValue)
             );
@@ -73,7 +73,7 @@ abstract class StringScalar extends ScalarType
     {
         $stringValue = Utils::coerceToString($value, Error::class);
 
-        if (!$this->isValid($stringValue)) {
+        if (! $this->isValid($stringValue)) {
             throw new Error(
                 $this->invalidStringMessage($stringValue)
             );
@@ -86,7 +86,7 @@ abstract class StringScalar extends ScalarType
     {
         $stringValue = Utils::extractStringFromLiteral($valueNode);
 
-        if (!$this->isValid($stringValue)) {
+        if (! $this->isValid($stringValue)) {
             throw new Error(
                 $this->invalidStringMessage($stringValue),
                 $valueNode

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace MLL\GraphQLScalars\Tests;
 
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\StringValueNode;
@@ -10,9 +10,9 @@ use MLL\GraphQLScalars\JSON;
 use PHPUnit\Framework\TestCase;
 use Safe\Exceptions\JsonException;
 
-class JSONTest extends TestCase
+final class JSONTest extends TestCase
 {
-    const INVALID_UTF8_SEQUENCE = "\xB1\x31";
+    public const INVALID_UTF8_SEQUENCE = "\xB1\x31";
 
     public function testSerializeThrowsIfNonEncodableValueIsGiven(): void
     {
@@ -32,7 +32,7 @@ class JSONTest extends TestCase
     {
         $serializedResult = (new JSON())->serialize(1);
 
-        $this->assertSame('1', $serializedResult);
+        self::assertSame('1', $serializedResult);
     }
 
     public function testParseValueThrowsIfJSONIsInvalid(): void
@@ -44,7 +44,7 @@ class JSONTest extends TestCase
 
     public function testParseValuePassesIfJSONIsValid(): void
     {
-        $this->assertSame(
+        self::assertSame(
             [1, 2],
             (new JSON())->parseValue('[1, 2]')
         );
@@ -59,9 +59,9 @@ class JSONTest extends TestCase
 
     public function testParseLiteralPassesIfJSONIsValid(): void
     {
-        $this->assertSame(
-            'bar',
-            (new JSON())->parseLiteral(new StringValueNode(['value' => /** @lang JSON */ '{"foo": "bar"}']))->foo
-        );
+        $parsed = (new JSON())->parseLiteral(new StringValueNode(['value' => /** @lang JSON */ '{"foo": "bar"}']));
+
+        self::assertInstanceOf(\stdClass::class, $parsed);
+        self::assertSame('bar', $parsed->foo);
     }
 }

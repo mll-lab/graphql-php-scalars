@@ -10,7 +10,7 @@ use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Language\AST\ValueNode;
 use GraphQL\Utils\Utils as GraphQLUtils;
 
-class Utils
+final class Utils
 {
     /**
      * Check if a value can be serialized to a string.
@@ -19,7 +19,7 @@ class Utils
      */
     public static function canBeString($value): bool
     {
-        return $value === null
+        return null === $value
             || is_scalar($value)
             || (is_object($value) && method_exists($value, '__toString'));
     }
@@ -33,7 +33,7 @@ class Utils
      */
     public static function extractStringFromLiteral(Node $valueNode): string
     {
-        if (!$valueNode instanceof StringValueNode) {
+        if (! $valueNode instanceof StringValueNode) {
             throw new Error(
                 "Query error: Can only parse strings got: {$valueNode->kind}",
                 $valueNode
@@ -55,7 +55,7 @@ class Utils
      */
     public static function coerceToString($value, string $exceptionClass): string
     {
-        if (!self::canBeString($value)) {
+        if (! self::canBeString($value)) {
             $safeValue = GraphQLUtils::printSafeJson($value);
 
             throw new $exceptionClass(
@@ -63,6 +63,7 @@ class Utils
             );
         }
 
+        // @phpstan-ignore-next-line we have proven the value can be safely cast
         return (string) $value;
     }
 }

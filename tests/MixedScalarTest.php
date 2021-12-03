@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace MLL\GraphQLScalars\Tests;
 
 use GraphQL\Executor\ExecutionResult;
 use GraphQL\GraphQL;
@@ -12,12 +12,9 @@ use GraphQL\Type\SchemaConfig;
 use MLL\GraphQLScalars\MixedScalar;
 use PHPUnit\Framework\TestCase;
 
-class MixedScalarTest extends TestCase
+final class MixedScalarTest extends TestCase
 {
-    /**
-     * @var Schema
-     */
-    protected $schema;
+    private Schema $schema;
 
     public function setUp(): void
     {
@@ -32,7 +29,7 @@ class MixedScalarTest extends TestCase
                 'fields' => [
                     'foo' => [
                         'type' => $mixed,
-                        'resolve' => function ($root, $args) {
+                        'resolve' => function ($root, array $args) {
                             return reset($args);
                         },
                         'args' => [
@@ -53,7 +50,7 @@ class MixedScalarTest extends TestCase
      */
     public function testSerializePassesThroughAnything($value): void
     {
-        $this->assertSame(
+        self::assertSame(
             $value,
             (new MixedScalar())->serialize(
                 $value
@@ -68,7 +65,7 @@ class MixedScalarTest extends TestCase
      */
     public function testParseValuePassesThroughAnything($value): void
     {
-        $this->assertSame(
+        self::assertSame(
             $value,
             (new MixedScalar())->serialize(
                 $value
@@ -104,13 +101,13 @@ class MixedScalarTest extends TestCase
         $graphqlResult = $this->executeQueryWithLiteral($graphQLLiteral);
         $jsonResult = $this->executeQueryWithJsonVariable($jsonLiteral);
 
-        $this->assertSame(
+        self::assertSame(
             $expected,
             $graphqlResult->data['foo']
         );
 
         // Ensure that values provided as JSON have the same result as GraphQL literals
-        $this->assertSame(
+        self::assertSame(
             $graphqlResult->data,
             $jsonResult->data
         );
@@ -124,19 +121,19 @@ class MixedScalarTest extends TestCase
     public function literalToPhpMap(): array
     {
         return [
-            [/** @lang GraphQL */'1', /** @lang JSON */'1', 1],
-            [/** @lang GraphQL */'"asdf"', /** @lang JSON */'"asdf"', 'asdf'],
-            [/** @lang GraphQL */'true', /** @lang JSON */'true', true],
-            [/** @lang GraphQL */'123.321', /** @lang JSON */'123.321', 123.321],
-            [/** @lang GraphQL */'null', /** @lang JSON */'null', null],
-            [/** @lang GraphQL */'[1, 2]', /** @lang JSON */'[1, 2]', [1, 2]],
+            [/** @lang GraphQL */ '1', /** @lang JSON */ '1', 1],
+            [/** @lang GraphQL */ '"asdf"', /** @lang JSON */ '"asdf"', 'asdf'],
+            [/** @lang GraphQL */ 'true', /** @lang JSON */ 'true', true],
+            [/** @lang GraphQL */ '123.321', /** @lang JSON */ '123.321', 123.321],
+            [/** @lang GraphQL */ 'null', /** @lang JSON */ 'null', null],
+            [/** @lang GraphQL */ '[1, 2]', /** @lang JSON */ '[1, 2]', [1, 2]],
             [
-/** @lang GraphQL */'{a: 1}',
-/** @lang JSON */'{"a": 1}',
+/** @lang GraphQL */ '{a: 1}',
+/** @lang JSON */ '{"a": 1}',
                 ['a' => 1],
             ],
             [
-/** @lang GraphQL */'
+/** @lang GraphQL */ '
                 {
                     a: [
                         {
@@ -144,7 +141,7 @@ class MixedScalarTest extends TestCase
                         }
                     ]
                 }',
-/** @lang JSON */'
+/** @lang JSON */ '
                 {
                     "a": [
                         {
@@ -165,7 +162,7 @@ class MixedScalarTest extends TestCase
 
     protected function executeQueryWithLiteral(string $literal): ExecutionResult
     {
-        $query = /** @lang GraphQL */"
+        $query = /** @lang GraphQL */ "
         {
             foo(bar: {$literal})
         }
@@ -179,17 +176,18 @@ class MixedScalarTest extends TestCase
 
     protected function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
     {
-        $query = /** @lang GraphQL */'
+        $query = /** @lang GraphQL */ '
         query Foo($var: Mixed) {
             foo(bar: $var)
         }
         ';
 
+        /** @var array<string, mixed> $json */
         $json = \Safe\json_decode(/** @lang JSON */ <<<JSON
-        {
-            "var": $jsonLiteral
-        }
-JSON
+                    {
+                        "var": $jsonLiteral
+                    }
+            JSON
 ,
             true
         );

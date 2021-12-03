@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace MLL\GraphQLScalars\Tests;
 
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
@@ -10,7 +10,7 @@ use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\Email;
 use PHPUnit\Framework\TestCase;
 
-class EmailTest extends TestCase
+final class EmailTest extends TestCase
 {
     public function testSerializeThrowsIfUnserializableValueIsGiven(): void
     {
@@ -35,7 +35,7 @@ class EmailTest extends TestCase
     {
         $serializedResult = (new Email())->serialize('foo@bar');
 
-        $this->assertSame('foo@bar', $serializedResult);
+        self::assertSame('foo@bar', $serializedResult);
     }
 
     public function testParseValueThrowsIfEmailIsInvalid(): void
@@ -48,7 +48,7 @@ class EmailTest extends TestCase
 
     public function testParseValuePassesIfEmailIsValid(): void
     {
-        $this->assertSame(
+        self::assertSame(
             'foo@bar',
             (new Email())->parseValue('foo@bar')
         );
@@ -64,7 +64,7 @@ class EmailTest extends TestCase
 
     public function testParseLiteralPassesIfEmailIsValid(): void
     {
-        $this->assertSame(
+        self::assertSame(
             'foo@bar',
             (new Email())->parseLiteral(new StringValueNode(['value' => 'foo@bar']))
         );

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace MLL\GraphQLScalars\Tests;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Schema;
@@ -10,7 +10,7 @@ use GraphQL\Type\SchemaConfig;
 use MLL\GraphQLScalars\Email;
 use PHPUnit\Framework\TestCase;
 
-class SchemaUsageTest extends TestCase
+final class SchemaUsageTest extends TestCase
 {
     public function testUseScalarInSchema(): void
     {
@@ -31,6 +31,6 @@ class SchemaUsageTest extends TestCase
 
         $schema = new Schema($schemaConfig);
 
-        $this->assertEmpty($schema->validate());
+        self::assertEmpty($schema->validate());
     }
 }

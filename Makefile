@@ -1,5 +1,5 @@
 .PHONY: it
-it: stan test normalize
+it: fix stan test normalize
 
 .PHONY: help
 help: ## Displays this list of targets with descriptions
@@ -7,6 +7,10 @@ help: ## Displays this list of targets with descriptions
 
 .PHONY: setup
 setup: vendor ## Set up the project
+
+.PHONY: fix
+fix: vendor
+	vendor/bin/php-cs-fixer fix
 
 .PHONY: stan
 stan: ## Run static analysis

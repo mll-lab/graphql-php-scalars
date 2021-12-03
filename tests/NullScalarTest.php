@@ -9,7 +9,6 @@ use GraphQL\GraphQL;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Schema;
 use GraphQL\Type\SchemaConfig;
-use MLL\GraphQLScalars\MixedScalar;
 use MLL\GraphQLScalars\NullScalar;
 use PHPUnit\Framework\TestCase;
 

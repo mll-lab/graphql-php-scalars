@@ -35,7 +35,7 @@ class NullScalar extends ScalarType
 
     public function parseLiteral(Node $valueNode, ?array $variables = null)
     {
-        if (! $valueNode instanceof NullValueNode) {
+        if (!$valueNode instanceof NullValueNode) {
             // Intentionally without message, as all information already in wrapped Exception
             throw new Error();
         }

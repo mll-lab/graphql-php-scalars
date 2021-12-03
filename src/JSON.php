@@ -11,8 +11,8 @@ use Safe\Exceptions\JsonException;
 
 class JSON extends ScalarType
 {
-    public ?string $description = /** @lang Markdown */
-        'Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org/.';
+    public ?string $description /** @lang Markdown */
+        = 'Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org/.';
 
     public function serialize($value): string
     {
@@ -26,9 +26,9 @@ class JSON extends ScalarType
 
     public function parseLiteral($valueNode, ?array $variables = null)
     {
-        if (!property_exists($valueNode, 'value')) {
+        if (! property_exists($valueNode, 'value')) {
             throw new Error(
-                'Can only parse literals that contain a value, got '.GraphQLUtils::printSafeJson($valueNode)
+                'Can only parse literals that contain a value, got ' . GraphQLUtils::printSafeJson($valueNode)
             );
         }
 
@@ -47,6 +47,7 @@ class JSON extends ScalarType
     protected function decodeJSON($value)
     {
         try {
+            // @phpstan-ignore-next-line we attempt unsafe values and let it throw
             $decoded = \Safe\json_decode($value);
         } catch (JsonException $jsonException) {
             throw new Error(

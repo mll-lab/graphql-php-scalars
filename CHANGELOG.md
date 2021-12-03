@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 5.0.0
+
+### Fixed
+
+- Return coerced string value in `Regex::parseValue()`
+
+### Changed
+
+- Require `egulias/email-validator:^3`
+
+### Removed
+
+- Drop support for PHP 7.2 and 7.3
+
 ## 4.1.1
 
 ### Fixed

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace MLL\GraphQLScalars\Tests;
 
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
@@ -12,7 +12,7 @@ use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\StringScalar;
 use PHPUnit\Framework\TestCase;
 
-class StringScalarTest extends TestCase
+final class StringScalarTest extends TestCase
 {
     /**
      * Provide a StringScalar class instantiated in different ways.
@@ -30,7 +30,7 @@ class StringScalarTest extends TestCase
 
                     protected function isValid(string $stringValue): bool
                     {
-                        return $stringValue === 'foo';
+                        return 'foo' === $stringValue;
                     }
                 },
             ],
@@ -38,7 +38,7 @@ class StringScalarTest extends TestCase
                 new class(['name' => 'MyStringScalar', 'description' => 'Bar']) extends StringScalar {
                     protected function isValid(string $stringValue): bool
                     {
-                        return $stringValue === 'foo';
+                        return 'foo' === $stringValue;
                     }
                 },
             ],
@@ -50,7 +50,7 @@ class StringScalarTest extends TestCase
                     'MyStringScalar',
                     'Bar',
                     function (string $string) {
-                        return $string === 'foo';
+                        return 'foo' === $string;
                     }
                 ),
             ],
@@ -62,8 +62,8 @@ class StringScalarTest extends TestCase
      */
     public function testCreateNamedStringScalarClass(StringScalar $stringScalar): void
     {
-        $this->assertSame('MyStringScalar', $stringScalar->name);
-        $this->assertSame('Bar', $stringScalar->description);
+        self::assertSame('MyStringScalar', $stringScalar->name);
+        self::assertSame('Bar', $stringScalar->description);
     }
 
     /**
@@ -97,7 +97,7 @@ class StringScalarTest extends TestCase
     {
         $serializedResult = $stringScalar->serialize('foo');
 
-        $this->assertSame('foo', $serializedResult);
+        self::assertSame('foo', $serializedResult);
     }
 
     /**
@@ -114,7 +114,7 @@ class StringScalarTest extends TestCase
             }
         );
 
-        $this->assertSame('foo', $serializedResult);
+        self::assertSame('foo', $serializedResult);
     }
 
     /**
@@ -123,7 +123,7 @@ class StringScalarTest extends TestCase
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches(/** @lang RegExp */'/can not be coerced to a string/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */ '/can not be coerced to a string/');
 
         $stringScalar->parseValue(new class() {
         });
@@ -145,7 +145,7 @@ class StringScalarTest extends TestCase
      */
     public function testParseValuePassesOnMatch(StringScalar $stringScalar): void
     {
-        $this->assertSame(
+        self::assertSame(
             'foo',
             $stringScalar->parseValue('foo')
         );
@@ -157,7 +157,7 @@ class StringScalarTest extends TestCase
     public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches(/** @lang RegExp */'/'.NodeKind::INT.'/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */ '/' . NodeKind::INT . '/');
 
         $stringScalar->parseLiteral(new IntValueNode([]));
     }
@@ -178,7 +178,7 @@ class StringScalarTest extends TestCase
      */
     public function testParseLiteralPassesOnMatch(StringScalar $stringScalar): void
     {
-        $this->assertSame(
+        self::assertSame(
             'foo',
             $stringScalar->parseLiteral(new StringValueNode(['value' => 'foo']))
         );

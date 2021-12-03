@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace MLL\GraphQLScalars\Tests;
 
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
@@ -12,7 +12,7 @@ use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\Regex;
 use PHPUnit\Framework\TestCase;
 
-class RegexTest extends TestCase
+final class RegexTest extends TestCase
 {
     /**
      * Provide the same Regex class using the different methods for instantiation.
@@ -30,7 +30,7 @@ class RegexTest extends TestCase
 
                     public static function regex(): string
                     {
-                        return /** @lang RegExp */'/foo/';
+                        return /** @lang RegExp */ '/foo/';
                     }
                 },
             ],
@@ -38,7 +38,7 @@ class RegexTest extends TestCase
                 new class(['name' => 'MyRegex', 'description' => 'Bar']) extends Regex {
                     public static function regex(): string
                     {
-                        return /** @lang RegExp */'/foo/';
+                        return /** @lang RegExp */ '/foo/';
                     }
                 },
             ],
@@ -46,7 +46,7 @@ class RegexTest extends TestCase
                 new MyRegex(),
             ],
             [
-                Regex::make('MyRegex', 'Bar', /** @lang RegExp */'/foo/'),
+                Regex::make('MyRegex', 'Bar', /** @lang RegExp */ '/foo/'),
             ],
         ];
     }
@@ -56,8 +56,8 @@ class RegexTest extends TestCase
      */
     public function testCreateNamedRegexClass(Regex $regex): void
     {
-        $this->assertSame('MyRegex', $regex->name);
-        $this->assertSame('Bar', $regex->description);
+        self::assertSame('MyRegex', $regex->name);
+        self::assertSame('Bar', $regex->description);
     }
 
     /**
@@ -78,8 +78,9 @@ class RegexTest extends TestCase
      */
     public function testSerializeThrowsIfRegexIsNotMatched(Regex $regex): void
     {
-        $this->expectException(InvariantViolation::class);
-        $this->expectExceptionMessage($regex->unmatchedRegexMessage('bar'));
+        $this->expectExceptionObject(new InvariantViolation(
+            $regex::unmatchedRegexMessage('bar')
+        ));
 
         $regex->serialize('bar');
     }
@@ -91,7 +92,7 @@ class RegexTest extends TestCase
     {
         $serializedResult = $regex->serialize('foo');
 
-        $this->assertSame('foo', $serializedResult);
+        self::assertSame('foo', $serializedResult);
     }
 
     /**
@@ -108,7 +109,7 @@ class RegexTest extends TestCase
             }
         );
 
-        $this->assertSame('Contains foo right?', $serializedResult);
+        self::assertSame('Contains foo right?', $serializedResult);
     }
 
     /**
@@ -117,7 +118,7 @@ class RegexTest extends TestCase
     public function testParseValueThrowsIfValueCantBeString(Regex $regex): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches(/** @lang RegExp */'/can not be coerced to a string/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */ '/can not be coerced to a string/');
 
         $regex->parseValue(new class() {
         });
@@ -129,7 +130,7 @@ class RegexTest extends TestCase
     public function testParseValueThrowsIfValueDoesNotMatch(Regex $regex): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches(/** @lang RegExp */'/did not match the regex/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */ '/did not match the regex/');
 
         $regex->parseValue('');
     }
@@ -139,7 +140,7 @@ class RegexTest extends TestCase
      */
     public function testParseValuePassesOnMatch(Regex $regex): void
     {
-        $this->assertSame(
+        self::assertSame(
             'foo',
             $regex->parseValue('foo')
         );
@@ -151,7 +152,7 @@ class RegexTest extends TestCase
     public function testParseLiteralThrowsIfNotString(Regex $regex): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches(/** @lang RegExp */'/'.NodeKind::INT.'/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */ '/' . NodeKind::INT . '/');
 
         $regex->parseLiteral(new IntValueNode([]));
     }
@@ -162,7 +163,7 @@ class RegexTest extends TestCase
     public function testParseLiteralThrowsIfValueDoesNotMatch(Regex $regex): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessageMatches(/** @lang RegExp */'/did not match the regex/');
+        $this->expectExceptionMessageMatches(/** @lang RegExp */ '/did not match the regex/');
 
         $regex->parseLiteral(new StringValueNode(['value' => 'asdf']));
     }
@@ -172,7 +173,7 @@ class RegexTest extends TestCase
      */
     public function testParseLiteralPassesOnMatch(Regex $regex): void
     {
-        $this->assertSame(
+        self::assertSame(
             'foo',
             $regex->parseLiteral(new StringValueNode(['value' => 'foo']))
         );

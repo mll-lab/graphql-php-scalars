@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v5.1.0
+
+### Added
+
+- Add scalar `Null`
+
 ## v5.0.1
 
 ###  Fixed

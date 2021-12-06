@@ -24,7 +24,7 @@ A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.
 
 ### [JSON](src/JSON.php)
 
-Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org/.
+Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org.
 
 ### [Mixed](src/MixedScalar.php)
 
@@ -32,13 +32,17 @@ Loose type that allows any value. Be careful when passing in large `Int` or `Flo
 as they may not be parsed correctly on the server side. Use `String` literals if you are
 dealing with really large numbers to be on the safe side.
 
+### [Null](src/NullScalar.php)
+
+Always `null`. Strictly validates value is non-null, no coercion.
+
 ### [Regex](src/Regex.php)
 
 The `Regex` class allows you to define a custom scalar that validates that the given
 value matches a regular expression.
 
 The quickest way to define a custom scalar is the `make` factory method. Just provide
-a name and a regular expression and you will receive a ready-to-use custom regex scalar.
+a name and a regular expression, you will receive a ready-to-use custom regex scalar.
 
 ```php
 use MLL\GraphQLScalars\Regex;
@@ -78,7 +82,7 @@ DESCRIPTION;
 ### [StringScalar](src/StringScalar.php)
 
 The `StringScalar` encapsulates all the boilerplate associated with creating a string-based Scalar type.
-It does the proper string checking for you and let's you focus on the minimal logic that is specific to your use case.
+It performs basic checks and coercion, you can focus on the minimal logic that is specific to your use case.
 
 All you have to specify is a function that checks if the given string is valid.
 Use the factory method `make` to generate an instance on the fly.

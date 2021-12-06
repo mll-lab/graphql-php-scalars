@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests;
+namespace MLL\GraphQLScalars\Tests;
 
 use GraphQL\Executor\ExecutionResult;
 use GraphQL\GraphQL;
@@ -12,10 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class NullScalarTest extends TestCase
 {
-    /**
-     * @var Schema
-     */
-    private $schema;
+    private Schema $schema;
 
     /**
      * @var mixed will be returned by field mixed

@@ -14,6 +14,9 @@ class NullScalar extends ScalarType
 {
     public $name = 'Null';
 
+    public $description /** @lang Markdown */
+        = 'Always `null`. Strictly validates value is non-null, no coercion.';
+
     public function serialize($value)
     {
         if (null !== $value) {

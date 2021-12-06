@@ -12,7 +12,7 @@ use Safe\Exceptions\JsonException;
 class JSON extends ScalarType
 {
     public $description /** @lang Markdown */
-        = 'Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org/.';
+        = 'Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org.';
 
     public function serialize($value): string
     {

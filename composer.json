@@ -1,12 +1,12 @@
 {
   "name": "mll-lab/graphql-php-scalars",
-  "type": "library",
   "description": "A collection of custom scalar types for usage with https://github.com/webonyx/graphql-php",
+  "license": "MIT",
+  "type": "library",
   "keywords": [
     "graphql",
     "php"
   ],
-  "license": "MIT",
   "authors": [
     {
       "name": "Benedikt Franke",
@@ -16,7 +16,7 @@
   "require": {
     "php": "^7.4 || ^8",
     "ext-json": "*",
-    "egulias/email-validator": "^3",
+    "egulias/email-validator": "^2 || ^3",
     "spatie/regex": "^1.4",
     "thecodingmachine/safe": "^1.3",
     "webonyx/graphql-php": "dev-master"

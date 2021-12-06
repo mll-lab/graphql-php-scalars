@@ -84,8 +84,7 @@ final class NullScalarTest extends TestCase
         $this->return = 1;
         $graphqlResult = GraphQL::executeQuery($this->schema, /** @lang GraphQL */ '{ mixed }');
         self::assertSame('Expected a value of type "Null" but received: 1', $graphqlResult->errors[0]->getMessage());
-        // @phpstan-ignore-next-line graphql-php is wrong
-        self::assertNull($graphqlResult->data);
+        self::assertSame(['mixed' => null], $graphqlResult->data);
     }
 
     protected function executeQueryWithLiteral(string $literal): ExecutionResult

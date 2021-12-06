@@ -60,34 +60,37 @@ final class NullScalarTest extends TestCase
     public function testAllowsNullArguments(): void
     {
         $graphqlResult = $this->executeQueryWithLiteral('null');
-        $this->assertNull($graphqlResult->data['foo']);
+        self::assertNull($graphqlResult->data['foo']);
 
         $jsonResult = $this->executeQueryWithJsonVariable('null');
-        $this->assertNull($jsonResult->data['foo']);
+        self::assertNull($jsonResult->data['foo']);
     }
 
     public function testForbidsNonNullArguments(): void
     {
         $graphqlResult = $this->executeQueryWithLiteral('1');
-        $this->assertNull($graphqlResult->data);
-        $this->assertSame('Field "foo" argument "bar" requires type Null, found 1.', $graphqlResult->errors[0]->getMessage());
+        // @phpstan-ignore-next-line graphql-php is wrong
+        self::assertNull($graphqlResult->data);
+        self::assertSame('Field "foo" argument "bar" requires type Null, found 1.', $graphqlResult->errors[0]->getMessage());
 
         $jsonResult = $this->executeQueryWithJsonVariable('1');
-        $this->assertNull($jsonResult->data);
-        $this->assertSame('Variable "$var" got invalid value 1; Expected type Null; Expected null, got: 1', $jsonResult->errors[0]->getMessage());
+        // @phpstan-ignore-next-line graphql-php is wrong
+        self::assertNull($jsonResult->data);
+        self::assertSame('Variable "$var" got invalid value 1; Expected type Null; Expected null, got: 1', $jsonResult->errors[0]->getMessage());
     }
 
     public function testForbidsNonNullReturn(): void
     {
         $this->return = 1;
         $graphqlResult = GraphQL::executeQuery($this->schema, /** @lang GraphQL */ '{ mixed }');
-        $this->assertSame('Expected a value of type "Null" but received: 1', $graphqlResult->errors[0]->getMessage());
-        $this->assertNull($graphqlResult->data);
+        self::assertSame('Expected a value of type "Null" but received: 1', $graphqlResult->errors[0]->getMessage());
+        // @phpstan-ignore-next-line graphql-php is wrong
+        self::assertNull($graphqlResult->data);
     }
 
     protected function executeQueryWithLiteral(string $literal): ExecutionResult
     {
-        $query = /** @lang GraphQL */"
+        $query = /** @lang GraphQL */ "
         {
             foo(bar: {$literal})
         }
@@ -101,17 +104,18 @@ final class NullScalarTest extends TestCase
 
     protected function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
     {
-        $query = /** @lang GraphQL */'
+        $query = /** @lang GraphQL */ '
         query Foo($var: Null) {
             foo(bar: $var)
         }
         ';
 
+        /** @var array{var: mixed} $json */
         $json = \Safe\json_decode(/** @lang JSON */ <<<JSON
-        {
-            "var": $jsonLiteral
-        }
-JSON
+                    {
+                        "var": $jsonLiteral
+                    }
+            JSON
 ,
             true
         );

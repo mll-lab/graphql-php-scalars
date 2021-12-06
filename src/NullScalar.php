@@ -10,6 +10,8 @@ use GraphQL\Utils\Utils;
 
 class NullScalar extends ScalarType
 {
+    public const ONLY_NULL_IS_ALLOWED = 'Only null is allowed.';
+
     public string $name = 'Null';
 
     public ?string $description /** @lang Markdown */
@@ -18,7 +20,7 @@ class NullScalar extends ScalarType
     public function serialize($value)
     {
         if (null !== $value) {
-            throw new InvariantViolation(static::notNullMessage($value));
+            throw new InvariantViolation(self::ONLY_NULL_IS_ALLOWED);
         }
 
         return null;
@@ -27,7 +29,7 @@ class NullScalar extends ScalarType
     public function parseValue($value)
     {
         if (null !== $value) {
-            throw new Error(static::notNullMessage($value));
+            throw new Error(self::ONLY_NULL_IS_ALLOWED);
         }
 
         return null;
@@ -36,20 +38,9 @@ class NullScalar extends ScalarType
     public function parseLiteral($valueNode, ?array $variables = null)
     {
         if (! $valueNode instanceof NullValueNode) {
-            // Intentionally without message, as all information is already present in the wrapped error
-            throw new Error();
+            throw new Error(self::ONLY_NULL_IS_ALLOWED);
         }
 
         return null;
-    }
-
-    /**
-     * @param mixed $value any non-null value
-     */
-    public static function notNullMessage($value): string
-    {
-        $notNull = Utils::printSafe($value);
-
-        return "Expected null, got: {$notNull}";
     }
 }

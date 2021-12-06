@@ -55,30 +55,28 @@ final class NullScalarTest extends TestCase
     public function testAllowsNullArguments(): void
     {
         $graphqlResult = $this->executeQueryWithLiteral('null');
-        self::assertNull($graphqlResult->data['foo']);
+        self::assertSame(['foo' => null], $graphqlResult->data);
 
         $jsonResult = $this->executeQueryWithJsonVariable('null');
-        self::assertNull($jsonResult->data['foo']);
+        self::assertSame(['foo' => null], $jsonResult->data);
     }
 
     public function testForbidsNonNullArguments(): void
     {
         $graphqlResult = $this->executeQueryWithLiteral('1');
-        // @phpstan-ignore-next-line graphql-php is wrong
         self::assertNull($graphqlResult->data);
-        self::assertSame('Field "foo" argument "bar" requires type Null, found 1.', $graphqlResult->errors[0]->getMessage());
+        self::assertSame('Field "foo" argument "bar" requires type Null, found 1; Only null is allowed.', $graphqlResult->errors[0]->getMessage());
 
         $jsonResult = $this->executeQueryWithJsonVariable('1');
-        // @phpstan-ignore-next-line graphql-php is wrong
         self::assertNull($jsonResult->data);
-        self::assertSame('Variable "$var" got invalid value 1; Expected type Null; Expected null, got: 1', $jsonResult->errors[0]->getMessage());
+        self::assertSame('Variable "$var" got invalid value 1; Expected type Null; Only null is allowed.', $jsonResult->errors[0]->getMessage());
     }
 
     public function testForbidsNonNullReturn(): void
     {
         $this->return = 1;
         $graphqlResult = GraphQL::executeQuery($this->schema, /** @lang GraphQL */ '{ mixed }');
-        self::assertSame('Expected a value of type "Null" but received: 1', $graphqlResult->errors[0]->getMessage());
+        self::assertSame('Expected a value of type Null but received: 1. Only null is allowed.', $graphqlResult->errors[0]->getMessage());
         self::assertSame(['mixed' => null], $graphqlResult->data);
     }
 

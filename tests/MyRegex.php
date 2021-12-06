@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace MLL\GraphQLScalars\Tests;
 
 use MLL\GraphQLScalars\Regex;
 
-class MyRegex extends Regex
+final class MyRegex extends Regex
 {
     public $description = 'Bar';
 
     public static function regex(): string
     {
-        return /** @lang RegExp */'/foo/';
+        return /** @lang RegExp */ '/foo/';
     }
 }

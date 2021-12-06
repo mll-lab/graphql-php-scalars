@@ -7,19 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 4.1.1
+## v5.0.1
+
+###  Fixed
+
+- Allow `egulias/email-validator:^2`
+
+## v5.0.0
+
+### Fixed
+
+- Return coerced string value in `Regex::parseValue()`
+
+### Changed
+
+- Require `egulias/email-validator:^3`
+
+### Removed
+
+- Drop support for PHP 7.2 and 7.3
+
+## v4.1.1
 
 ### Fixed
 
 - Move `ext-json` to `require` section in `composer.json`
 
-## 4.1.0
+## v4.1.0
 
 ### Changed
 
 - Improve error message when values can not be coerced into strings
 
-## 4.0.0
+## v4.0.0
 
 ### Added
 
@@ -30,25 +50,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename `Mixed` class to `MixedScalar` because `mixed` is a reserved name in PHP 8.
   The GraphQL name of the scalar is still `Mixed` so the schema does not change.
 
-## 3.1.0
+## v3.1.0
 
 ### Added
 
 - Support `webonyx/graphql-php@^14.0.0`
 
-## 3.0.2
+## v3.0.2
 
 ### Changed
 
 - Move util functions to class for better autoloading
 
-## 3.0.1
+## v3.0.1
 
 ### Fixed
 
 - Export only minimally needed files in distribution package
 
-## 3.0.0
+## v3.0.0
 
 ### Changed
 

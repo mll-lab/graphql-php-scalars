@@ -37,7 +37,7 @@ class NullScalar extends ScalarType
     {
         if (! $valueNode instanceof NullValueNode) {
             // Intentionally without message, as all information is already present in the wrapped error
-            throw new Error();
+            throw new Error('');
         }
 
         return null;

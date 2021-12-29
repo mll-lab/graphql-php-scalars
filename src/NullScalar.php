@@ -6,7 +6,6 @@ use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\NullValueNode;
 use GraphQL\Type\Definition\ScalarType;
-use GraphQL\Utils\Utils;
 
 class NullScalar extends ScalarType
 {

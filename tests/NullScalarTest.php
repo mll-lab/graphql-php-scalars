@@ -65,7 +65,7 @@ final class NullScalarTest extends TestCase
     {
         $graphqlResult = $this->executeQueryWithLiteral('1');
         self::assertNull($graphqlResult->data);
-        self::assertSame('Field "foo" argument "bar" requires type Null, found 1; Only null is allowed.', $graphqlResult->errors[0]->getMessage());
+        self::assertSame('Only null is allowed.', $graphqlResult->errors[0]->getMessage());
 
         $jsonResult = $this->executeQueryWithJsonVariable('1');
         self::assertNull($jsonResult->data);

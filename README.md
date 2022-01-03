@@ -16,7 +16,7 @@ A collection of custom scalar types for usage with https://github.com/webonyx/gr
 ## Usage
 
 You can use the provided Scalars just like any other type in your schema definition.
-Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example. 
+Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example.
 
 ### [Email](src/Email.php)
 

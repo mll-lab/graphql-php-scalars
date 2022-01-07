@@ -28,35 +28,6 @@ jobs:
       - name: "Validate composer.json and composer.lock"
         run: composer validate --strict
 
-  composer-normalize:
-    name: "Normalize composer.json"
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
-
-      - name: "Install PHP with extensions"
-        uses: shivammathur/setup-php@v2
-        with:
-          coverage: none
-          extensions: mbstring
-          php-version: 7.4
-
-      - name: "Install locked dependencies with composer"
-        run: composer install --no-interaction --no-progress --no-suggest
-
-      - name: "Run localheinz/composer-normalize"
-        run: composer normalize
-
-      - name: "Commit fixes"
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Normalize composer.json
-
   static-code-analysis:
     name: "Static Code Analysis"
 

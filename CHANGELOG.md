@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v5.2.0
+
+### Added
+
+- Add scalars `Date`, `DateTime` and `DateTimeTz`
+
 ## v5.1.0
 
 ### Added
@@ -15,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v5.0.1
 
-###  Fixed
+### Fixed
 
 - Allow `egulias/email-validator:^2`
 

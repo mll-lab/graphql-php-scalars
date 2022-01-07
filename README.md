@@ -16,7 +16,24 @@ A collection of custom scalar types for usage with https://github.com/webonyx/gr
 ## Usage
 
 You can use the provided Scalars just like any other type in your schema definition.
-Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example. 
+Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example.
+
+### [Date](src/Date.php)
+
+A date string with format `Y-m-d`, e.g. `2011-05-23`.
+
+The following conversion applies to all date scalars:
+
+- Outgoing values can either be valid date strings or `\DateTimeInterface` instances.
+- Incoming values must always be valid date strings and will be converted to `\DateTimeImmutable` instances.
+
+### [DateTime](src/DateTime.php)
+
+A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
+
+### [DateTimeTz](src/DateTimeTz.php)
+
+A datetime string with format `Y-m-d\TH:i:s.uP`, e.g. `2020-04-20T16:20:04+04:00`, `2020-04-20T16:20:04Z`.
 
 ### [Email](src/Email.php)
 

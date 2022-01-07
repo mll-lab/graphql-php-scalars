@@ -4,7 +4,7 @@ namespace MLL\GraphQLScalars;
 
 class DateTime extends DateScalar
 {
-    public $description /** @lang Markdown */
+    public ?string $description /** @lang Markdown */
         = 'A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.';
 
     protected static function outputFormat(): string

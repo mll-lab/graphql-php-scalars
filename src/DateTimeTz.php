@@ -4,7 +4,7 @@ namespace MLL\GraphQLScalars;
 
 class DateTimeTz extends DateScalar
 {
-    public $description /** @lang Markdown */
+    public ?string $description /** @lang Markdown */
         = 'A datetime string with format `Y-m-d\TH:i:s.uP`, e.g. `2020-04-20T16:20:04.000000+04:00`.';
 
     protected static function outputFormat(): string

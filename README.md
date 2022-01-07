@@ -23,6 +23,7 @@ Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example.
 A date string with format `Y-m-d`, e.g. `2011-05-23`.
 
 The following conversion applies to all date scalars:
+
 - Outgoing values can either be valid date strings or `\DateTimeInterface` instances.
 - Incoming values must always be valid date strings and will be converted to `\DateTimeImmutable` instances.
 

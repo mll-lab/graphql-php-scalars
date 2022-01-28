@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v5.4.0
+
+### Added
+
+- Support `spatie/regex` versions 2 and 3
+
 ## v5.3.0
 
 ### Added

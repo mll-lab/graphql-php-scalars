@@ -10,9 +10,9 @@ use GraphQL\Utils\Utils;
 
 class NullScalar extends ScalarType
 {
-    public $name = 'Null';
+    public string $name = 'Null';
 
-    public $description /** @lang Markdown */
+    public ?string $description /** @lang Markdown */
         = 'Always `null`. Strictly validates value is non-null, no coercion.';
 
     public function serialize($value)

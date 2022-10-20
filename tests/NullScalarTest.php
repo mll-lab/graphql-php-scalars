@@ -69,7 +69,7 @@ final class NullScalarTest extends TestCase
 
         $jsonResult = $this->executeQueryWithJsonVariable('1');
         self::assertNull($jsonResult->data);
-        self::assertSame('Variable "$var" got invalid value 1; Expected type Null; Expected null, got: 1', $jsonResult->errors[0]->getMessage());
+        self::assertSame('Variable "$var" got invalid value 1; Expected type Null; Expected null, got: 1.', $jsonResult->errors[0]->getMessage());
     }
 
     public function testForbidsNonNullReturn(): void

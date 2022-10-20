@@ -15,8 +15,6 @@ abstract class StringScalar extends ScalarType
      * @param string $name the name that the scalar type will have in the schema
      * @param string|null $description a description for the type
      * @param callable(string): bool $isValid a function that returns a boolean whether a given string is valid
-     *
-     * @return StringScalar
      */
     public static function make(string $name, ?string $description, callable $isValid): self
     {

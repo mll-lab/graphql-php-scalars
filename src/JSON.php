@@ -3,8 +3,8 @@
 namespace MLL\GraphQLScalars;
 
 use GraphQL\Error\Error;
+use GraphQL\Language\Printer;
 use GraphQL\Type\Definition\ScalarType;
-use GraphQL\Utils\Utils as GraphQLUtils;
 use Safe\Exceptions\JsonException;
 
 class JSON extends ScalarType
@@ -25,9 +25,8 @@ class JSON extends ScalarType
     public function parseLiteral($valueNode, ?array $variables = null)
     {
         if (! property_exists($valueNode, 'value')) {
-            throw new Error(
-                'Can only parse literals that contain a value, got ' . GraphQLUtils::printSafeJson($valueNode)
-            );
+            $withoutValue = Printer::doPrint($valueNode);
+            throw new Error("Can not parse literals without a value: {$withoutValue}.");
         }
 
         return $this->decodeJSON($valueNode->value);

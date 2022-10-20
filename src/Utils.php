@@ -55,10 +55,7 @@ final class Utils
     {
         if (! self::canBeString($value)) {
             $safeValue = GraphQLUtils::printSafeJson($value);
-
-            throw new $exceptionClass(
-                "The given value {$safeValue} can not be coerced to a string."
-            );
+            throw new $exceptionClass("The given value can not be coerced to a string: {$safeValue}.");
         }
 
         // @phpstan-ignore-next-line we have proven the value can be safely cast

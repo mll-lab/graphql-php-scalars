@@ -55,13 +55,12 @@ abstract class DateScalar extends ScalarType
         if (is_string($value)) {
             if (1 !== preg_match(static::regex(), $value, $matches)) {
                 $regex = static::regex();
-                throw new $exceptionClass("Value \"${value}\" does not match \"{$regex}\". Make sure it's ISO 8601 compliant ");
+                throw new $exceptionClass("Value \"{$value}\" does not match \"{$regex}\". Make sure it's ISO 8601 compliant ");
             }
 
             if (! $this->validateDate($matches['date'])) {
                 $safeValue = Utils::printSafeJson($value);
-
-                throw new $exceptionClass("Expected input value to be ISO 8601 compliant. Given invalid value \"{$safeValue}\"");
+                throw new $exceptionClass("Given input value is not ISO 8601 compliant: {$safeValue}.");
             }
 
             try {
@@ -72,7 +71,6 @@ abstract class DateScalar extends ScalarType
         }
 
         $safeValue = Utils::printSafeJson($value);
-
         throw new $exceptionClass("Cannot parse non-string into date: {$safeValue}");
     }
 

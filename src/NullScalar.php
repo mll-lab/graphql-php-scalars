@@ -48,8 +48,8 @@ class NullScalar extends ScalarType
      */
     public static function notNullMessage($value): string
     {
-        $notNull = Utils::printSafe($value);
+        $notNull = Utils::printSafeJson($value);
 
-        return "Expected null, got: {$notNull}";
+        return "Expected null, got: {$notNull}.";
     }
 }

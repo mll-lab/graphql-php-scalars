@@ -16,8 +16,6 @@ abstract class Regex extends ScalarType
      * @param string $name the name that the scalar type will have in the schema
      * @param string|null $description a description for the type
      * @param string $regex the regular expression that is validated against
-     *
-     * @return Regex
      */
     public static function make(string $name, ?string $description, string $regex): self
     {
@@ -102,7 +100,8 @@ abstract class Regex extends ScalarType
     public static function unmatchedRegexMessage(string $value): string
     {
         $safeValue = GraphQLUtils::printSafeJson($value);
+        $regex = static::regex();
 
-        return "The given value {$safeValue} did not match the regex " . static::regex();
+        return "The given value {$safeValue} did not match the regex {$regex}.";
     }
 }

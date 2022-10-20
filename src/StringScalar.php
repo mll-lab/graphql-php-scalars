@@ -62,7 +62,7 @@ abstract class StringScalar extends ScalarType
     {
         $safeValue = GraphQLUtils::printSafeJson($stringValue);
 
-        return "The given string {$safeValue} is not a valid {$this->tryInferName()}.";
+        return "The given string {$safeValue} is not a valid {$this->inferName()}.";
     }
 
     public function parseValue($value): string

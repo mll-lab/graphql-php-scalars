@@ -64,12 +64,10 @@ final class NullScalarTest extends TestCase
     public function testForbidsNonNullArguments(): void
     {
         $graphqlResult = $this->executeQueryWithLiteral('1');
-        // @phpstan-ignore-next-line graphql-php is wrong
         self::assertNull($graphqlResult->data);
         self::assertSame('Field "foo" argument "bar" requires type Null, found 1.', $graphqlResult->errors[0]->getMessage());
 
         $jsonResult = $this->executeQueryWithJsonVariable('1');
-        // @phpstan-ignore-next-line graphql-php is wrong
         self::assertNull($jsonResult->data);
         self::assertSame('Variable "$var" got invalid value 1; Expected type Null; Expected null, got: 1', $jsonResult->errors[0]->getMessage());
     }

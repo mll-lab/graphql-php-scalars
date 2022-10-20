@@ -186,7 +186,7 @@ final class MixedScalarTest extends TestCase
                         "var": $jsonLiteral
                     }
             JSON
-,
+            ,
             true
         );
 

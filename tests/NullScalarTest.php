@@ -105,7 +105,7 @@ final class NullScalarTest extends TestCase
         /** @var array{var: mixed} $json */
         $json = \Safe\json_decode(/** @lang JSON */ <<<JSON
             {
-                "var": $jsonLiteral
+                "var": ${jsonLiteral}
             }
             JSON,
             true

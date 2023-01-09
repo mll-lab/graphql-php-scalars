@@ -12,7 +12,6 @@ use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
 use function is_string;
 use function Safe\preg_match;
-use function Safe\substr;
 
 abstract class DateScalar extends ScalarType
 {

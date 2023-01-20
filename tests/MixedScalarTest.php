@@ -183,7 +183,7 @@ final class MixedScalarTest extends TestCase
         /** @var array<string, mixed> $json */
         $json = \Safe\json_decode(/** @lang JSON */ <<<JSON
                     {
-                        "var": $jsonLiteral
+                        "var": ${jsonLiteral}
                     }
             JSON
             ,

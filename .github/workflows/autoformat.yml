@@ -16,7 +16,7 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 8.0
+          php-version: 8.1
 
       - run: composer install --no-interaction --no-progress --no-suggest
 
@@ -33,7 +33,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - uses: creyD/prettier_action@v2.2
+      - uses: creyD/prettier_action@v4.3
         with:
           prettier_options: --write --tab-width=2 *.md **/*.md
           branch: ${{ github.head_ref }}
@@ -52,7 +52,7 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 8.0
+          php-version: 8.1
 
       - run: composer install --no-interaction --no-progress --no-suggest
 

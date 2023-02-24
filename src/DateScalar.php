@@ -2,34 +2,31 @@
 
 namespace MLL\GraphQLScalars;
 
-use DateTimeImmutable;
-use DateTimeInterface;
-use Exception;
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
-use function is_string;
+
 use function Safe\preg_match;
 
 abstract class DateScalar extends ScalarType
 {
     public function serialize($value): string
     {
-        if (! $value instanceof DateTimeInterface) {
+        if (! $value instanceof \DateTimeInterface) {
             $value = $this->tryParsingDate($value, InvariantViolation::class);
         }
 
         return $value->format(static::outputFormat());
     }
 
-    public function parseValue($value): DateTimeInterface
+    public function parseValue($value): \DateTimeInterface
     {
         return $this->tryParsingDate($value, Error::class);
     }
 
-    public function parseLiteral($valueNode, ?array $variables = null): DateTimeInterface
+    public function parseLiteral($valueNode, ?array $variables = null): \DateTimeInterface
     {
         if (! $valueNode instanceof StringValueNode) {
             throw new Error(
@@ -44,14 +41,13 @@ abstract class DateScalar extends ScalarType
     /**
      * @template T of Error|InvariantViolation
      *
-     * @param mixed $value Any value that might be a Date
      * @param class-string<T> $exceptionClass
      *
      * @throws T
      */
-    protected function tryParsingDate($value, string $exceptionClass): DateTimeInterface
+    protected function tryParsingDate(mixed $value, string $exceptionClass): \DateTimeInterface
     {
-        if (is_string($value)) {
+        if (\is_string($value)) {
             if (1 !== preg_match(static::regex(), $value, $matches)) {
                 $regex = static::regex();
                 throw new $exceptionClass("Value \"{$value}\" does not match \"{$regex}\". Make sure it's ISO 8601 compliant ");
@@ -63,8 +59,8 @@ abstract class DateScalar extends ScalarType
             }
 
             try {
-                return new DateTimeImmutable($value);
-            } catch (Exception $e) {
+                return new \DateTimeImmutable($value);
+            } catch (\Exception $e) {
                 throw new $exceptionClass($e->getMessage());
             }
         }

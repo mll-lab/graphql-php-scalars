@@ -12,10 +12,8 @@ final class Utils
 {
     /**
      * Check if a value can be serialized to a string.
-     *
-     * @param mixed $value Any value
      */
-    public static function canBeString($value): bool
+    public static function canBeString(mixed $value): bool
     {
         return null === $value
             || is_scalar($value)
@@ -46,12 +44,11 @@ final class Utils
      *
      * @template T of \Throwable
      *
-     * @param mixed $value Any value
      * @param class-string<T> $exceptionClass
      *
      * @throws T
      */
-    public static function coerceToString($value, string $exceptionClass): string
+    public static function coerceToString(mixed $value, string $exceptionClass): string
     {
         if (! self::canBeString($value)) {
             $safeValue = GraphQLUtils::printSafeJson($value);

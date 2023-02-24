@@ -6,7 +6,7 @@ on:
     branches:
       - master
 
-name: "Continuous Integration"
+name: "Validate"
 
 jobs:
   composer-validate:
@@ -23,7 +23,7 @@ jobs:
         with:
           coverage: none
           extensions: mbstring
-          php-version: 8.0
+          php-version: 8.1
 
       - name: "Validate composer.json and composer.lock"
         run: composer validate --strict
@@ -59,7 +59,7 @@ jobs:
         php-version:
           - "8.0"
           - "8.1"
-
+          - "8.2"
         dependencies:
           - "prefer-lowest"
           - "prefer-stable"
@@ -93,7 +93,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           coverage: pcov
-          php-version: 8.0
+          php-version: 8.1
 
       - name: "Install dependencies with composer"
         run: composer install --no-interaction --no-progress

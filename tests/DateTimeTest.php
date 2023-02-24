@@ -5,9 +5,9 @@ namespace MLL\GraphQLScalars\Tests;
 use MLL\GraphQLScalars\DateScalar;
 use MLL\GraphQLScalars\DateTime;
 
-final class DateTimeTest extends DateScalarTest
+final class DateTimeTest extends DateScalarTestBase
 {
-    public function invalidDateValues(): iterable
+    public static function invalidDateValues(): iterable
     {
         yield from parent::invalidDateValues();
 
@@ -21,7 +21,7 @@ final class DateTimeTest extends DateScalarTest
         return new DateTime();
     }
 
-    public function validDates(): iterable
+    public static function validDates(): iterable
     {
         yield ['2020-04-20 23:51:15', '2020-04-20T23:51:15.000000+00:00'];
     }

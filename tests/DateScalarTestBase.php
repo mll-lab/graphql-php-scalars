@@ -2,7 +2,6 @@
 
 namespace MLL\GraphQLScalars\Tests;
 
-use DateTimeImmutable;
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\IntValueNode;
@@ -10,14 +9,12 @@ use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\DateScalar;
 use PHPUnit\Framework\TestCase;
 
-abstract class DateScalarTest extends TestCase
+abstract class DateScalarTestBase extends TestCase
 {
     /**
      * @dataProvider invalidDateValues
-     *
-     * @param mixed $value An invalid value for a date
      */
-    public function testThrowsIfSerializingInvalidDates($value): void
+    public function testThrowsIfSerializingInvalidDates(mixed $value): void
     {
         $dateScalar = $this->scalarInstance();
 
@@ -27,10 +24,8 @@ abstract class DateScalarTest extends TestCase
 
     /**
      * @dataProvider invalidDateValues
-     *
-     * @param mixed $value An invalid value for a date
      */
-    public function testThrowsIfParseValueInvalidDate($value): void
+    public function testThrowsIfParseValueInvalidDate(mixed $value): void
     {
         $dateScalar = $this->scalarInstance();
 
@@ -43,7 +38,7 @@ abstract class DateScalarTest extends TestCase
      *
      * @return iterable<array-key, array{mixed}>
      */
-    public function invalidDateValues(): iterable
+    public static function invalidDateValues(): iterable
     {
         yield [1];
         yield ['rolf'];
@@ -85,7 +80,7 @@ abstract class DateScalarTest extends TestCase
 
     public function testSerializesDateTimeInterfaceInstance(): void
     {
-        $now = new DateTimeImmutable();
+        $now = new \DateTimeImmutable();
         $result = $this->scalarInstance()->serialize($now);
 
         self::assertNotEmpty($result);
@@ -101,5 +96,5 @@ abstract class DateScalarTest extends TestCase
      *
      * @return iterable<array{string, string}>
      */
-    abstract public function validDates(): iterable;
+    abstract public static function validDates(): iterable;
 }

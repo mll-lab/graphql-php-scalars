@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v6.1.0
+
+### Added
+
+- Support `egulias/email-validator:^4`
+
 ## v6.0.0
 
 ### Changed

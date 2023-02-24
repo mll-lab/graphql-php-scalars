@@ -16,7 +16,7 @@
   "require": {
     "php": "^8",
     "ext-json": "*",
-    "egulias/email-validator": "^2.1.17 || ^3",
+    "egulias/email-validator": "^2.1.17 || ^3 || ^4",
     "spatie/regex": "^1.4 || ^2 || ^3",
     "thecodingmachine/safe": "^1.3 || ^2",
     "webonyx/graphql-php": "^15"

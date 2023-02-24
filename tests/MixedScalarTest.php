@@ -43,10 +43,8 @@ final class MixedScalarTest extends TestCase
 
     /**
      * @dataProvider singleValues
-     *
-     * @param mixed $value Anything
      */
-    public function testSerializePassesThroughAnything($value): void
+    public function testSerializePassesThroughAnything(mixed $value): void
     {
         self::assertSame(
             $value,
@@ -58,10 +56,8 @@ final class MixedScalarTest extends TestCase
 
     /**
      * @dataProvider singleValues
-     *
-     * @param mixed $value Anything
      */
-    public function testParseValuePassesThroughAnything($value): void
+    public function testParseValuePassesThroughAnything(mixed $value): void
     {
         self::assertSame(
             $value,
@@ -74,27 +70,21 @@ final class MixedScalarTest extends TestCase
     /**
      * Provide an assortment of values that should pass the Mixed type.
      *
-     * @return array<int, array{0: mixed}>
+     * @return iterable<array{0: mixed}>
      */
-    public function singleValues(): array
+    public static function singleValues(): iterable
     {
-        return [
-            [null],
-            [new class() {
-            }],
-            [[]],
-            [function () {
-            }],
-            [[$this, 'singleValues']],
-        ];
+        yield [null];
+        yield [new class() {}];
+        yield [[]];
+        yield [fn () => null];
+        yield [[self::class, 'singleValues']];
     }
 
     /**
      * @dataProvider literalToPhpMap
-     *
-     * @param mixed $expected Anything
      */
-    public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, $expected): void
+    public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, mixed $expected): void
     {
         $graphqlResult = $this->executeQueryWithLiteral($graphQLLiteral);
         $jsonResult = $this->executeQueryWithJsonVariable($jsonLiteral);
@@ -114,44 +104,42 @@ final class MixedScalarTest extends TestCase
     /**
      * Provides a GraphQL literal, a JSON literal and the expected PHP value.
      *
-     * @return array<int, array{0: string, 1: string, 2: mixed}>
+     * @return iterable<array{0: string, 1: string, 2: mixed}>
      */
-    public function literalToPhpMap(): array
+    public static function literalToPhpMap(): iterable
     {
-        return [
-            [/** @lang GraphQL */ '1', /** @lang JSON */ '1', 1],
-            [/** @lang GraphQL */ '"asdf"', /** @lang JSON */ '"asdf"', 'asdf'],
-            [/** @lang GraphQL */ 'true', /** @lang JSON */ 'true', true],
-            [/** @lang GraphQL */ '123.321', /** @lang JSON */ '123.321', 123.321],
-            [/** @lang GraphQL */ 'null', /** @lang JSON */ 'null', null],
-            [/** @lang GraphQL */ '[1, 2]', /** @lang JSON */ '[1, 2]', [1, 2]],
-            [
+        yield [/** @lang GraphQL */ '1', /** @lang JSON */ '1', 1];
+        yield [/** @lang GraphQL */ '"asdf"', /** @lang JSON */ '"asdf"', 'asdf'];
+        yield [/** @lang GraphQL */ 'true', /** @lang JSON */ 'true', true];
+        yield [/** @lang GraphQL */ '123.321', /** @lang JSON */ '123.321', 123.321];
+        yield [/** @lang GraphQL */ 'null', /** @lang JSON */ 'null', null];
+        yield [/** @lang GraphQL */ '[1, 2]', /** @lang JSON */ '[1, 2]', [1, 2]];
+        yield [
 /** @lang GraphQL */ '{a: 1}',
 /** @lang JSON */ '{"a": 1}',
-                ['a' => 1],
-            ],
-            [
+            ['a' => 1],
+        ];
+        yield [
 /** @lang GraphQL */ '
-                {
-                    a: [
-                        {
-                            b: "c"
-                        }
-                    ]
-                }',
+            {
+                a: [
+                    {
+                        b: "c"
+                    }
+                ]
+            }',
 /** @lang JSON */ '
-                {
-                    "a": [
-                        {
-                            "b": "c"
-                        }
-                    ]
-                }',
-                [
-                    'a' => [
-                        [
-                            'b' => 'c',
-                        ],
+            {
+                "a": [
+                    {
+                        "b": "c"
+                    }
+                ]
+            }',
+            [
+                'a' => [
+                    [
+                        'b' => 'c',
                     ],
                 ],
             ],

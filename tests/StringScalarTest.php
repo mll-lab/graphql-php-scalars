@@ -15,43 +15,41 @@ final class StringScalarTest extends TestCase
     /**
      * Provide a StringScalar class instantiated in different ways.
      *
-     * @return array<int, array<int, StringScalar>>
+     * @return iterable<array{StringScalar}>
      */
-    public function stringClassProvider(): array
+    public static function stringClassProvider(): iterable
     {
-        return [
-            [
-                new class() extends StringScalar {
-                    public string $name = 'MyStringScalar';
+        yield [
+            new class() extends StringScalar {
+                public string $name = 'MyStringScalar';
 
-                    public ?string $description = 'Bar';
+                public ?string $description = 'Bar';
 
-                    protected function isValid(string $stringValue): bool
-                    {
-                        return 'foo' === $stringValue;
-                    }
-                },
-            ],
-            [
-                new class(['name' => 'MyStringScalar', 'description' => 'Bar']) extends StringScalar {
-                    protected function isValid(string $stringValue): bool
-                    {
-                        return 'foo' === $stringValue;
-                    }
-                },
-            ],
-            [
-                new MyStringScalar(),
-            ],
-            [
-                StringScalar::make(
-                    'MyStringScalar',
-                    'Bar',
-                    function (string $string) {
-                        return 'foo' === $string;
-                    }
-                ),
-            ],
+                protected function isValid(string $stringValue): bool
+                {
+                    return 'foo' === $stringValue;
+                }
+            },
+        ];
+        yield [
+            new class(['name' => 'MyStringScalar', 'description' => 'Bar']) extends StringScalar {
+                protected function isValid(string $stringValue): bool
+                {
+                    return 'foo' === $stringValue;
+                }
+            },
+        ];
+        yield [
+            new MyStringScalar(),
+        ];
+        yield [
+            StringScalar::make(
+                'MyStringScalar',
+                'Bar',
+                function (string $string) {
+                    return 'foo' === $string;
+                }
+            ),
         ];
     }
 

@@ -41,7 +41,7 @@ class JSON extends ScalarType
      *
      * @return mixed The decoded value
      */
-    protected function decodeJSON($value)
+    protected function decodeJSON(mixed $value): mixed
     {
         try {
             // @phpstan-ignore-next-line we attempt unsafe values and let it throw

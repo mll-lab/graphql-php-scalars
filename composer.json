@@ -23,14 +23,13 @@
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.16",
-    "friendsofphp/php-cs-fixer": "3.4.*",
-    "mll-lab/php-cs-fixer-config": "^4.3",
+    "mll-lab/php-cs-fixer-config": "^5",
     "phpstan/extension-installer": "^1",
     "phpstan/phpstan": "^1",
     "phpstan/phpstan-deprecation-rules": "^1",
     "phpstan/phpstan-phpunit": "^1",
     "phpstan/phpstan-strict-rules": "^1",
-    "phpunit/phpunit": "^9",
+    "phpunit/phpunit": "^9 || ^10",
     "symfony/var-dumper": "^5.4 || ^6",
     "thecodingmachine/phpstan-safe-rule": "^1.1"
   },

@@ -15,37 +15,35 @@ final class RegexTest extends TestCase
     /**
      * Provide the same Regex class using the different methods for instantiation.
      *
-     * @return array<int, array<int, Regex>>
+     * @return iterable<array{Regex}>
      */
-    public function regexClassProvider(): array
+    public static function regexClassProvider(): iterable
     {
-        return [
-            [
-                new class() extends Regex {
-                    public string $name = 'MyRegex';
+        yield [
+            new class() extends Regex {
+                public string $name = 'MyRegex';
 
-                    public ?string $description = 'Bar';
+                public ?string $description = 'Bar';
 
-                    public static function regex(): string
-                    {
-                        return /** @lang RegExp */ '/foo/';
-                    }
-                },
-            ],
-            [
-                new class(['name' => 'MyRegex', 'description' => 'Bar']) extends Regex {
-                    public static function regex(): string
-                    {
-                        return /** @lang RegExp */ '/foo/';
-                    }
-                },
-            ],
-            [
-                new MyRegex(),
-            ],
-            [
-                Regex::make('MyRegex', 'Bar', /** @lang RegExp */ '/foo/'),
-            ],
+                public static function regex(): string
+                {
+                    return /** @lang RegExp */ '/foo/';
+                }
+            },
+        ];
+        yield [
+            new class(['name' => 'MyRegex', 'description' => 'Bar']) extends Regex {
+                public static function regex(): string
+                {
+                    return /** @lang RegExp */ '/foo/';
+                }
+            },
+        ];
+        yield [
+            new MyRegex(),
+        ];
+        yield [
+            Regex::make('MyRegex', 'Bar', /** @lang RegExp */ '/foo/'),
         ];
     }
 

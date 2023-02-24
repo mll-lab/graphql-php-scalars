@@ -19,9 +19,10 @@ abstract class DateScalarTest extends TestCase
      */
     public function testThrowsIfSerializingInvalidDates($value): void
     {
-        $this->expectException(InvariantViolation::class);
+        $dateScalar = $this->scalarInstance();
 
-        $this->scalarInstance()->serialize($value);
+        $this->expectException(InvariantViolation::class);
+        $dateScalar->serialize($value);
     }
 
     /**
@@ -31,9 +32,10 @@ abstract class DateScalarTest extends TestCase
      */
     public function testThrowsIfParseValueInvalidDate($value): void
     {
-        $this->expectException(Error::class);
+        $dateScalar = $this->scalarInstance();
 
-        $this->scalarInstance()->parseValue($value);
+        $this->expectException(Error::class);
+        $dateScalar->parseValue($value);
     }
 
     /**
@@ -74,11 +76,11 @@ abstract class DateScalarTest extends TestCase
 
     public function testThrowsIfParseLiteralNonString(): void
     {
-        $this->expectException(Error::class);
+        $dateScalar = $this->scalarInstance();
+        $intValueNode = new IntValueNode([]);
 
-        $this->scalarInstance()->parseLiteral(
-            new IntValueNode([])
-        );
+        $this->expectException(Error::class);
+        $dateScalar->parseLiteral($intValueNode);
     }
 
     public function testSerializesDateTimeInterfaceInstance(): void

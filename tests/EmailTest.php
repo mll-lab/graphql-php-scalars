@@ -12,22 +12,19 @@ final class EmailTest extends TestCase
 {
     public function testSerializeThrowsIfUnserializableValueIsGiven(): void
     {
-        $this->expectExceptionObject(new InvariantViolation(
-            'The given value can not be coerced to a string: object.'
-        ));
+        $email = new Email();
+        $object = new class() {};
 
-        (new Email())->serialize(
-            new class() {
-            }
-        );
+        $this->expectExceptionObject(new InvariantViolation('The given value can not be coerced to a string: object.'));
+        $email->serialize($object);
     }
 
     public function testSerializeThrowsIfEmailIsInvalid(): void
     {
-        $this->expectException(InvariantViolation::class);
-        $this->expectExceptionMessage('The given string "foo" is not a valid Email.');
+        $email = new Email();
 
-        (new Email())->serialize('foo');
+        $this->expectExceptionObject(new InvariantViolation('The given string "foo" is not a valid Email.'));
+        $email->serialize('foo');
     }
 
     public function testSerializePassesWhenEmailIsValid(): void
@@ -39,10 +36,10 @@ final class EmailTest extends TestCase
 
     public function testParseValueThrowsIfEmailIsInvalid(): void
     {
-        $this->expectException(Error::class);
-        $this->expectExceptionMessage('The given string "foo" is not a valid Email.');
+        $email = new Email();
 
-        (new Email())->parseValue('foo');
+        $this->expectExceptionObject(new Error('The given string "foo" is not a valid Email.'));
+        $email->parseValue('foo');
     }
 
     public function testParseValuePassesIfEmailIsValid(): void
@@ -55,10 +52,11 @@ final class EmailTest extends TestCase
 
     public function testParseLiteralThrowsIfNotValidEmail(): void
     {
-        $this->expectException(Error::class);
-        $this->expectExceptionMessage('The given string "foo" is not a valid Email.');
+        $email = new Email();
+        $stringValueNode = new StringValueNode(['value' => 'foo']);
 
-        (new Email())->parseLiteral(new StringValueNode(['value' => 'foo']));
+        $this->expectExceptionObject(new Error('The given string "foo" is not a valid Email.'));
+        $email->parseLiteral($stringValueNode);
     }
 
     public function testParseLiteralPassesIfEmailIsValid(): void

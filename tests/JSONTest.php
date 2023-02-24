@@ -14,16 +14,18 @@ final class JSONTest extends TestCase
 
     public function testSerializeThrowsIfNonEncodableValueIsGiven(): void
     {
-        $this->expectException(JsonException::class);
+        $json = new JSON();
 
-        (new JSON())->serialize(self::INVALID_UTF8_SEQUENCE);
+        $this->expectException(JsonException::class);
+        $json->serialize(self::INVALID_UTF8_SEQUENCE);
     }
 
     public function testSerializeThrowsIfJSONIsInvalid(): void
     {
-        $this->expectException(JsonException::class);
+        $json = new JSON();
 
-        (new JSON())->serialize(self::INVALID_UTF8_SEQUENCE);
+        $this->expectException(JsonException::class);
+        $json->serialize(self::INVALID_UTF8_SEQUENCE);
     }
 
     public function testSerializePassesWhenJSONIsValid(): void
@@ -35,9 +37,10 @@ final class JSONTest extends TestCase
 
     public function testParseValueThrowsIfJSONIsInvalid(): void
     {
-        $this->expectException(Error::class);
+        $json = new JSON();
 
-        (new JSON())->parseValue('foo');
+        $this->expectException(Error::class);
+        $json->parseValue('foo');
     }
 
     public function testParseValuePassesIfJSONIsValid(): void
@@ -50,9 +53,11 @@ final class JSONTest extends TestCase
 
     public function testParseLiteralThrowsIfNotValidJSON(): void
     {
-        $this->expectException(Error::class);
+        $json = new JSON();
+        $stringValueNode = new StringValueNode(['value' => 'foo']);
 
-        (new JSON())->parseLiteral(new StringValueNode(['value' => 'foo']));
+        $this->expectException(Error::class);
+        $json->parseLiteral($stringValueNode);
     }
 
     public function testParseLiteralPassesIfJSONIsValid(): void

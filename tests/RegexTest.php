@@ -63,12 +63,10 @@ final class RegexTest extends TestCase
      */
     public function testSerializeThrowsIfUnserializableValueIsGiven(Regex $regex): void
     {
-        $this->expectException(InvariantViolation::class);
+        $object = new class() {};
 
-        $regex->serialize(
-            new class() {
-            }
-        );
+        $this->expectException(InvariantViolation::class);
+        $regex->serialize($object);
     }
 
     /**
@@ -115,11 +113,11 @@ final class RegexTest extends TestCase
      */
     public function testParseValueThrowsIfValueCantBeString(Regex $regex): void
     {
+        $object = new class() {};
+
         $this->expectException(Error::class);
         $this->expectExceptionMessageMatches(/** @lang RegExp */ '/can not be coerced to a string/');
-
-        $regex->parseValue(new class() {
-        });
+        $regex->parseValue($object);
     }
 
     /**
@@ -129,7 +127,6 @@ final class RegexTest extends TestCase
     {
         $this->expectException(Error::class);
         $this->expectExceptionMessageMatches(/** @lang RegExp */ '/did not match the regex/');
-
         $regex->parseValue('');
     }
 
@@ -149,10 +146,11 @@ final class RegexTest extends TestCase
      */
     public function testParseLiteralThrowsIfNotString(Regex $regex): void
     {
+        $intValueNode = new IntValueNode([]);
+
         $this->expectException(Error::class);
         $this->expectExceptionMessageMatches(/** @lang RegExp */ '/' . NodeKind::INT . '/');
-
-        $regex->parseLiteral(new IntValueNode([]));
+        $regex->parseLiteral($intValueNode);
     }
 
     /**
@@ -160,10 +158,11 @@ final class RegexTest extends TestCase
      */
     public function testParseLiteralThrowsIfValueDoesNotMatch(Regex $regex): void
     {
+        $stringValueNode = new StringValueNode(['value' => 'asdf']);
+
         $this->expectException(Error::class);
         $this->expectExceptionMessageMatches(/** @lang RegExp */ '/did not match the regex/');
-
-        $regex->parseLiteral(new StringValueNode(['value' => 'asdf']));
+        $regex->parseLiteral($stringValueNode);
     }
 
     /**

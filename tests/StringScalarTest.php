@@ -69,12 +69,10 @@ final class StringScalarTest extends TestCase
      */
     public function testSerializeThrowsIfUnserializableValueIsGiven(StringScalar $stringScalar): void
     {
-        $this->expectException(InvariantViolation::class);
+        $object = new class() {};
 
-        $stringScalar->serialize(
-            new class() {
-            }
-        );
+        $this->expectException(InvariantViolation::class);
+        $stringScalar->serialize($object);
     }
 
     /**
@@ -82,9 +80,7 @@ final class StringScalarTest extends TestCase
      */
     public function testSerializeThrowsIfStringScalarIsNotValid(StringScalar $stringScalar): void
     {
-        $this->expectException(InvariantViolation::class);
-        $this->expectExceptionMessage('The given string "bar" is not a valid MyStringScalar.');
-
+        $this->expectExceptionObject(new InvariantViolation('The given string "bar" is not a valid MyStringScalar.'));
         $stringScalar->serialize('bar');
     }
 
@@ -120,11 +116,11 @@ final class StringScalarTest extends TestCase
      */
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
+        $object = new class() {};
+
         $this->expectException(Error::class);
         $this->expectExceptionMessageMatches(/** @lang RegExp */ '/can not be coerced to a string/');
-
-        $stringScalar->parseValue(new class() {
-        });
+        $stringScalar->parseValue($object);
     }
 
     /**
@@ -154,10 +150,11 @@ final class StringScalarTest extends TestCase
      */
     public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
     {
+        $intValueNode = new IntValueNode([]);
+
         $this->expectException(Error::class);
         $this->expectExceptionMessageMatches(/** @lang RegExp */ '/' . NodeKind::INT . '/');
-
-        $stringScalar->parseLiteral(new IntValueNode([]));
+        $stringScalar->parseLiteral($intValueNode);
     }
 
     /**
@@ -165,10 +162,10 @@ final class StringScalarTest extends TestCase
      */
     public function testParseLiteralThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
-        $this->expectException(Error::class);
-        $this->expectExceptionMessage('The given string "bar" is not a valid MyStringScalar.');
+        $stringValueNode = new StringValueNode(['value' => 'bar']);
 
-        $stringScalar->parseLiteral(new StringValueNode(['value' => 'bar']));
+        $this->expectExceptionObject(new Error('The given string "bar" is not a valid MyStringScalar.'));
+        $stringScalar->parseLiteral($stringValueNode);
     }
 
     /**

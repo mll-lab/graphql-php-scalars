@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v6.2.0
+
+### Added
+
+- Add a new scalar `BigInt`
+
 ## v6.1.0
 
 ### Added

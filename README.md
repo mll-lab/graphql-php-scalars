@@ -18,6 +18,10 @@ A collection of custom scalar types for usage with https://github.com/webonyx/gr
 You can use the provided Scalars just like any other type in your schema definition.
 Check [SchemaUsageTest](tests/SchemaUsageTest.php) for an example.
 
+### [BigInt](src/BigInt.php)
+
+An arbitrarily long sequence of digits that represents a big integer.
+
 ### [Date](src/Date.php)
 
 A date string with format `Y-m-d`, e.g. `2011-05-23`.

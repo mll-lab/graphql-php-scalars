@@ -53,18 +53,14 @@ final class StringScalarTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testCreateNamedStringScalarClass(StringScalar $stringScalar): void
     {
         self::assertSame('MyStringScalar', $stringScalar->name);
         self::assertSame('Bar', $stringScalar->description);
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testSerializeThrowsIfUnserializableValueIsGiven(StringScalar $stringScalar): void
     {
         $object = new class() {};
@@ -73,18 +69,14 @@ final class StringScalarTest extends TestCase
         $stringScalar->serialize($object);
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testSerializeThrowsIfStringScalarIsNotValid(StringScalar $stringScalar): void
     {
         $this->expectExceptionObject(new InvariantViolation('The given string "bar" is not a valid MyStringScalar.'));
         $stringScalar->serialize('bar');
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testSerializePassesWhenStringIsValid(StringScalar $stringScalar): void
     {
         $serializedResult = $stringScalar->serialize('foo');
@@ -92,9 +84,7 @@ final class StringScalarTest extends TestCase
         self::assertSame('foo', $serializedResult);
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testSerializePassesForStringableObject(StringScalar $stringScalar): void
     {
         $serializedResult = $stringScalar->serialize(
@@ -109,9 +99,7 @@ final class StringScalarTest extends TestCase
         self::assertSame('foo', $serializedResult);
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
         $object = new class() {};
@@ -121,9 +109,7 @@ final class StringScalarTest extends TestCase
         $stringScalar->parseValue($object);
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testParseValueThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
         $this->expectException(Error::class);
@@ -132,9 +118,7 @@ final class StringScalarTest extends TestCase
         $stringScalar->parseValue('');
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testParseValuePassesOnMatch(StringScalar $stringScalar): void
     {
         self::assertSame(
@@ -143,9 +127,7 @@ final class StringScalarTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testParseLiteralThrowsIfNotString(StringScalar $stringScalar): void
     {
         $intValueNode = new IntValueNode([]);
@@ -155,9 +137,7 @@ final class StringScalarTest extends TestCase
         $stringScalar->parseLiteral($intValueNode);
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testParseLiteralThrowsIfValueDoesNotMatch(StringScalar $stringScalar): void
     {
         $stringValueNode = new StringValueNode(['value' => 'bar']);
@@ -166,9 +146,7 @@ final class StringScalarTest extends TestCase
         $stringScalar->parseLiteral($stringValueNode);
     }
 
-    /**
-     * @dataProvider stringClassProvider
-     */
+    /** @dataProvider stringClassProvider */
     public function testParseLiteralPassesOnMatch(StringScalar $stringScalar): void
     {
         self::assertSame(

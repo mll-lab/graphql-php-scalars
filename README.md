@@ -81,10 +81,8 @@ class HexValue extends Regex
 {
     /**
      * The description that is used for schema introspection.
-     *
-     * @var string
      */
-    public $description = <<<'DESCRIPTION'
+    public ?string $description = <<<'DESCRIPTION'
 A hexadecimal color is specified with: `#RRGGBB`, where `RR` (red), `GG` (green) and `BB` (blue)
 are hexadecimal integers between `00` and `FF` specifying the intensity of the color.
 DESCRIPTION;

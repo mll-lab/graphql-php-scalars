@@ -41,9 +41,7 @@ final class MixedScalarTest extends TestCase
         $this->schema = new Schema($schemaConfig);
     }
 
-    /**
-     * @dataProvider singleValues
-     */
+    /** @dataProvider singleValues */
     public function testSerializePassesThroughAnything(mixed $value): void
     {
         self::assertSame(
@@ -54,9 +52,7 @@ final class MixedScalarTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider singleValues
-     */
+    /** @dataProvider singleValues */
     public function testParseValuePassesThroughAnything(mixed $value): void
     {
         self::assertSame(
@@ -81,9 +77,7 @@ final class MixedScalarTest extends TestCase
         yield [[self::class, 'singleValues']];
     }
 
-    /**
-     * @dataProvider literalToPhpMap
-     */
+    /** @dataProvider literalToPhpMap */
     public function testCastsValuesIntoAppropriatePhpValue(string $graphQLLiteral, string $jsonLiteral, mixed $expected): void
     {
         $graphqlResult = $this->executeQueryWithLiteral($graphQLLiteral);

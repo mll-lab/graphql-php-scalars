@@ -14,9 +14,7 @@ final class NullScalarTest extends TestCase
 {
     private Schema $schema;
 
-    /**
-     * @var mixed will be returned by field mixed
-     */
+    /** @var mixed will be returned by field mixed */
     private $return;
 
     public function setUp(): void

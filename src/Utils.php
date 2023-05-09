@@ -10,9 +10,7 @@ use GraphQL\Utils\Utils as GraphQLUtils;
 
 final class Utils
 {
-    /**
-     * Check if a value can be serialized to a string.
-     */
+    /** Check if a value can be serialized to a string. */
     public static function canBeString(mixed $value): bool
     {
         return null === $value

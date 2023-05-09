@@ -40,9 +40,7 @@ abstract class Regex extends ScalarType
         return $concreteRegex;
     }
 
-    /**
-     * Return the Regex that the values are validated against.
-     */
+    /** Return the Regex that the values are validated against. */
     abstract public static function regex(): string;
 
     public function serialize($value): string
@@ -58,9 +56,7 @@ abstract class Regex extends ScalarType
         return $stringValue;
     }
 
-    /**
-     * Determine if the given string matches the regex defined in this class.
-     */
+    /** Determine if the given string matches the regex defined in this class. */
     protected static function matchesRegex(string $value): bool
     {
         return RegexValidator::match(static::regex(), $value)
@@ -94,9 +90,7 @@ abstract class Regex extends ScalarType
         return $value;
     }
 
-    /**
-     * Construct the error message that occurs when the given string does not match the regex.
-     */
+    /** Construct the error message that occurs when the given string does not match the regex. */
     public static function unmatchedRegexMessage(string $value): string
     {
         $safeValue = GraphQLUtils::printSafeJson($value);

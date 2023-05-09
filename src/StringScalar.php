@@ -19,9 +19,7 @@ abstract class StringScalar extends ScalarType
     public static function make(string $name, ?string $description, callable $isValid): self
     {
         $concreteStringScalar = new class() extends StringScalar {
-            /**
-             * @var callable(string): bool
-             */
+            /** @var callable(string): bool */
             public $isValid;
 
             protected function isValid(string $stringValue): bool
@@ -37,9 +35,7 @@ abstract class StringScalar extends ScalarType
         return $concreteStringScalar;
     }
 
-    /**
-     * Check if the given string is valid.
-     */
+    /** Check if the given string is valid. */
     abstract protected function isValid(string $stringValue): bool;
 
     public function serialize($value): string
@@ -55,9 +51,7 @@ abstract class StringScalar extends ScalarType
         return $stringValue;
     }
 
-    /**
-     * Construct an error message that occurs when an invalid string is passed.
-     */
+    /** Construct an error message that occurs when an invalid string is passed. */
     public function invalidStringMessage(string $stringValue): string
     {
         $safeValue = GraphQLUtils::printSafeJson($stringValue);

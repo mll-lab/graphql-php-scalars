@@ -2,11 +2,8 @@
 
 namespace MLL\GraphQLScalars\Tests;
 
-use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
-use GraphQL\Language\AST\StringValueNode;
 use MLL\GraphQLScalars\BigInt;
-use MLL\GraphQLScalars\Email;
 use PHPUnit\Framework\TestCase;
 
 final class BigIntTest extends TestCase
@@ -23,20 +20,20 @@ final class BigIntTest extends TestCase
     {
         $serializedResult = (new BigInt())->serialize(10000000000000);
 
-        self::assertSame("10000000000000", $serializedResult);
+        self::assertSame('10000000000000', $serializedResult);
     }
 
     public function testSerializePassesWhenBigIntIsValidAsString(): void
     {
-        $serializedResult = (new BigInt())->serialize("10000000000000");
+        $serializedResult = (new BigInt())->serialize('10000000000000');
 
-        self::assertSame("10000000000000", $serializedResult);
+        self::assertSame('10000000000000', $serializedResult);
     }
 
     public function testParseBigIntIsValid(): void
     {
         $parsedResult = (new BigInt())->parseValue(10000000000000);
 
-        self::assertSame("10000000000000", $parsedResult);
+        self::assertSame('10000000000000', $parsedResult);
     }
 }

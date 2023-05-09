@@ -11,9 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DateScalarTestBase extends TestCase
 {
-    /**
-     * @dataProvider invalidDateValues
-     */
+    /** @dataProvider invalidDateValues */
     public function testThrowsIfSerializingInvalidDates(mixed $value): void
     {
         $dateScalar = $this->scalarInstance();
@@ -22,9 +20,7 @@ abstract class DateScalarTestBase extends TestCase
         $dateScalar->serialize($value);
     }
 
-    /**
-     * @dataProvider invalidDateValues
-     */
+    /** @dataProvider invalidDateValues */
     public function testThrowsIfParseValueInvalidDate(mixed $value): void
     {
         $dateScalar = $this->scalarInstance();
@@ -46,9 +42,7 @@ abstract class DateScalarTestBase extends TestCase
         yield [''];
     }
 
-    /**
-     * @dataProvider validDates
-     */
+    /** @dataProvider validDates */
     public function testParsesValueString(string $value, string $expected): void
     {
         $parsedValue = $this->scalarInstance()->parseValue($value);
@@ -56,9 +50,7 @@ abstract class DateScalarTestBase extends TestCase
         self::assertSame($expected, $parsedValue->format('Y-m-d\TH:i:s.uP'));
     }
 
-    /**
-     * @dataProvider validDates
-     */
+    /** @dataProvider validDates */
     public function testParsesLiteral(string $value, string $expected): void
     {
         $dateLiteral = new StringValueNode(
@@ -86,9 +78,7 @@ abstract class DateScalarTestBase extends TestCase
         self::assertNotEmpty($result);
     }
 
-    /**
-     * The specific instance under test.
-     */
+    /** The specific instance under test. */
     abstract protected function scalarInstance(): DateScalar;
 
     /**

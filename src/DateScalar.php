@@ -26,7 +26,7 @@ abstract class DateScalar extends ScalarType
         return $this->tryParsingDate($value, Error::class);
     }
 
-    public function parseLiteral($valueNode, ?array $variables = null): \DateTimeInterface
+    public function parseLiteral($valueNode, array $variables = null): \DateTimeInterface
     {
         if (! $valueNode instanceof StringValueNode) {
             throw new Error(
@@ -48,7 +48,7 @@ abstract class DateScalar extends ScalarType
     protected function tryParsingDate(mixed $value, string $exceptionClass): \DateTimeInterface
     {
         if (\is_string($value)) {
-            if (1 !== preg_match(static::regex(), $value, $matches)) {
+            if (preg_match(static::regex(), $value, $matches) !== 1) {
                 $regex = static::regex();
                 throw new $exceptionClass("Value \"{$value}\" does not match \"{$regex}\". Make sure it's ISO 8601 compliant ");
             }
@@ -105,7 +105,7 @@ abstract class DateScalar extends ScalarType
 
     private function isLeapYear(int $year): bool
     {
-        return (0 === $year % 4 && 0 !== $year % 100)
-            || 0 === $year % 400;
+        return ($year % 4 === 0 && $year % 100 !== 0)
+            || $year % 400 === 0;
     }
 }

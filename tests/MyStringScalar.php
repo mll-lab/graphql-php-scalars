@@ -10,6 +10,6 @@ final class MyStringScalar extends StringScalar
 
     protected function isValid(string $stringValue): bool
     {
-        return 'foo' === $stringValue;
+        return $stringValue === 'foo';
     }
 }

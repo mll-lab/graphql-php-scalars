@@ -13,7 +13,7 @@ final class Utils
     /** Check if a value can be serialized to a string. */
     public static function canBeString(mixed $value): bool
     {
-        return null === $value
+        return $value === null
             || is_scalar($value)
             || (is_object($value) && method_exists($value, '__toString'));
     }

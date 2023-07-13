@@ -18,7 +18,7 @@ class NullScalar extends ScalarType
 
     public function serialize($value)
     {
-        if (null !== $value) {
+        if ($value !== null) {
             throw new InvariantViolation(self::ONLY_NULL_IS_ALLOWED);
         }
 
@@ -27,14 +27,14 @@ class NullScalar extends ScalarType
 
     public function parseValue($value)
     {
-        if (null !== $value) {
+        if ($value !== null) {
             throw new Error(self::ONLY_NULL_IS_ALLOWED);
         }
 
         return null;
     }
 
-    public function parseLiteral($valueNode, ?array $variables = null)
+    public function parseLiteral($valueNode, array $variables = null)
     {
         if (! $valueNode instanceof NullValueNode) {
             throw new Error(self::ONLY_NULL_IS_ALLOWED);

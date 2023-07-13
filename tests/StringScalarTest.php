@@ -27,7 +27,7 @@ final class StringScalarTest extends TestCase
 
                 protected function isValid(string $stringValue): bool
                 {
-                    return 'foo' === $stringValue;
+                    return $stringValue === 'foo';
                 }
             },
         ];
@@ -35,7 +35,7 @@ final class StringScalarTest extends TestCase
             new class(['name' => 'MyStringScalar', 'description' => 'Bar']) extends StringScalar {
                 protected function isValid(string $stringValue): bool
                 {
-                    return 'foo' === $stringValue;
+                    return $stringValue === 'foo';
                 }
             },
         ];
@@ -47,7 +47,7 @@ final class StringScalarTest extends TestCase
                 'MyStringScalar',
                 'Bar',
                 function (string $string) {
-                    return 'foo' === $string;
+                    return $string === 'foo';
                 }
             ),
         ];

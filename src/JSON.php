@@ -22,7 +22,7 @@ class JSON extends ScalarType
         return $this->decodeJSON($value);
     }
 
-    public function parseLiteral($valueNode, ?array $variables = null)
+    public function parseLiteral($valueNode, array $variables = null)
     {
         if (! property_exists($valueNode, 'value')) {
             $withoutValue = Printer::doPrint($valueNode);

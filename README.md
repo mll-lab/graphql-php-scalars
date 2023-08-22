@@ -47,6 +47,30 @@ A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.
 
 Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org.
 
+This expects a string in JSON format, not a GraphQL literal.
+
+```graphql
+type Query {
+    foo(bar: JSON!): JSON!
+}
+
+# Wrong, the given value is a GraphQL literal object
+{ foo(bar: { baz: 2 }) }
+
+# Correct, the given value is a JSON string representing an object
+{ foo(bar: "{ \"bar\": 2 }") }
+```
+
+JSON responses will contain nested JSON strings.
+
+```json
+{
+  "data": {
+    "foo": "{ \"bar\": 2 }"
+  }
+}
+```
+
 ### [Mixed](src/MixedScalar.php)
 
 Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,

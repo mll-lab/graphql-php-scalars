@@ -51,14 +51,18 @@ This expects a string in JSON format, not a GraphQL literal.
 
 ```graphql
 type Query {
-    foo(bar: JSON!): JSON!
+  foo(bar: JSON!): JSON!
 }
 
 # Wrong, the given value is a GraphQL literal object
-{ foo(bar: { baz: 2 }) }
+{
+  foo(bar: { baz: 2 })
+}
 
 # Correct, the given value is a JSON string representing an object
-{ foo(bar: "{ \"bar\": 2 }") }
+{
+  foo(bar: "{ \"bar\": 2 }")
+}
 ```
 
 JSON responses will contain nested JSON strings.

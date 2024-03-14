@@ -73,7 +73,7 @@ type Query {
     "bar": {
       "baz": 2
     }
-  }  
+  }
 }
 
 // Correct, the variable value is a JSON string representing an object

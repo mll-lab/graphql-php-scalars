@@ -76,7 +76,7 @@ abstract class Regex extends ScalarType
         return $stringValue;
     }
 
-    public function parseLiteral($valueNode, array $variables = null): string
+    public function parseLiteral($valueNode, ?array $variables = null): string
     {
         $value = Utils::extractStringFromLiteral($valueNode);
 

@@ -34,7 +34,7 @@ class NullScalar extends ScalarType
         return null;
     }
 
-    public function parseLiteral($valueNode, array $variables = null)
+    public function parseLiteral($valueNode, ?array $variables = null)
     {
         if (! $valueNode instanceof NullValueNode) {
             throw new Error(self::ONLY_NULL_IS_ALLOWED);

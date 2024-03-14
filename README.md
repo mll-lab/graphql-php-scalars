@@ -47,7 +47,7 @@ A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.
 
 Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org.
 
-This expects a string in JSON format, not a GraphQL literal.
+This expects a string in JSON format, not an arbitrary JSON value or GraphQL literal.
 
 ```graphql
 type Query {
@@ -62,6 +62,26 @@ type Query {
 # Correct, the given value is a JSON string representing an object
 {
   foo(bar: "{ \"bar\": 2 }")
+}
+```
+
+```json
+// Wrong, the variable value is a JSON object
+{
+  "query": "query ($bar: JSON!) { foo(bar: $bar) }",
+  "variables": {
+    "bar": {
+      "baz": 2
+    }
+  }  
+}
+
+// Correct, the variable value is a JSON string representing an object
+{
+  "query": "query ($bar: JSON!) { foo(bar: $bar) }",
+  "variables": {
+    "bar": "{ \"bar\": 2 }"
+  }
 }
 ```
 

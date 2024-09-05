@@ -17,8 +17,6 @@ abstract class IntRange extends ScalarType
     /** The maximum allowed value. */
     abstract protected function max(): int;
 
-    public ?string $description = 'Checks if the given column is of the format 96-well column';
-
     public function serialize($value)
     {
         if (is_int($value) && $this->isValueInExpectedRange($value)) {
@@ -26,7 +24,7 @@ abstract class IntRange extends ScalarType
         }
 
         $notInRange = Utils::printSafe($value);
-        throw new \InvalidArgumentException("Value not in range: {$notInRange}.");
+        throw new \InvalidArgumentException("Value not in range {$this->rangeDescription()}: {$notInRange}.");
     }
 
     public function parseValue($value)
@@ -36,7 +34,7 @@ abstract class IntRange extends ScalarType
         }
 
         $notInRange = Utils::printSafe($value);
-        throw new Error("Value not in range: {$notInRange}.");
+        throw new Error("Value not in range {$this->rangeDescription()}: {$notInRange}.");
     }
 
     public function parseLiteral(Node $valueNode, ?array $variables = null)
@@ -49,11 +47,19 @@ abstract class IntRange extends ScalarType
         }
 
         $notInRange = Printer::doPrint($valueNode);
-        throw new Error("Value not in range: {$notInRange}.", $valueNode);
+        throw new Error("Value not in range {$this->rangeDescription()}: {$notInRange}.", $valueNode);
     }
 
     private function isValueInExpectedRange(int $value): bool
     {
         return $value <= static::max() && $value >= static::min();
+    }
+
+    private function rangeDescription(): string
+    {
+        $min = static::min();
+        $max = static::max();
+
+        return "{$min}-{$max}";
     }
 }

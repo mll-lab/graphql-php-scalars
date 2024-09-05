@@ -10,7 +10,7 @@ final class IntRangeTest extends TestCase
     public function testSerializeThrowsIfNotAnInt(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Value not in range: "12".');
+        $this->expectExceptionMessage('Value not in range 1-12: "12".');
 
         (new UpToADozen())->serialize('12');
     }
@@ -18,7 +18,7 @@ final class IntRangeTest extends TestCase
     public function testSerializeThrowsIfInvalid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Value not in range: 13.');
+        $this->expectExceptionMessage('Value not in range 1-12: 13.');
 
         (new UpToADozen())->serialize(13);
     }
@@ -33,7 +33,7 @@ final class IntRangeTest extends TestCase
     public function testParseValueThrowsIfInvalid(): void
     {
         $this->expectException(Error::class);
-        $this->expectExceptionMessage('Value not in range: 13.');
+        $this->expectExceptionMessage('Value not in range 1-12: 13.');
 
         (new UpToADozen())->parseValue(13);
     }

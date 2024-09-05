@@ -27,9 +27,7 @@ final class MixedScalarTest extends TestCase
                 'fields' => [
                     'foo' => [
                         'type' => $mixed,
-                        'resolve' => function ($root, array $args) {
-                            return reset($args);
-                        },
+                        'resolve' => fn ($root, array $args) => reset($args),
                         'args' => [
                             'bar' => $mixed,
                         ],

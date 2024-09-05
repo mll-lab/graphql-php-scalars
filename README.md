@@ -11,7 +11,9 @@ A collection of custom scalar types for usage with https://github.com/webonyx/gr
 
 ## Installation
 
-    composer require mll-lab/graphql-php-scalars
+```sh
+composer require mll-lab/graphql-php-scalars
+```
 
 ## Usage
 
@@ -42,6 +44,27 @@ A datetime string with format `Y-m-d\TH:i:s.uP`, e.g. `2020-04-20T16:20:04+04:00
 ### [Email](src/Email.php)
 
 A [RFC 5321](https://tools.ietf.org/html/rfc5321) compliant email.
+
+### [IntRange](src/IntRange.php)
+
+Allows defining numeric scalars where the values must lie between a defined minimum and maximum.
+
+```php
+use MLL\GraphQLScalars\IntRange;
+
+final class UpToADozen extends IntRange
+{
+    protected function min(): int
+    {
+        return 1;
+    }
+
+    protected function max(): int
+    {
+        return 12;
+    }
+}
+```
 
 ### [JSON](src/JSON.php)
 
@@ -131,13 +154,11 @@ use MLL\GraphQLScalars\Regex;
 // The name is implicitly set through the class name here
 class HexValue extends Regex
 {
-    /**
-     * The description that is used for schema introspection.
-     */
-    public ?string $description = <<<'DESCRIPTION'
-A hexadecimal color is specified with: `#RRGGBB`, where `RR` (red), `GG` (green) and `BB` (blue)
-are hexadecimal integers between `00` and `FF` specifying the intensity of the color.
-DESCRIPTION;
+    /** The description that is used for schema introspection. */
+    public ?string $description = /** @lang Markdown */<<<'MARKDOWN'
+    A hexadecimal color is specified with: `#RRGGBB`, where `RR` (red), `GG` (green) and `BB` (blue)
+    are hexadecimal integers between `00` and `FF` specifying the intensity of the color.
+    MARKDOWN;
 
     public static function regex(): string
     {
@@ -160,13 +181,11 @@ use MLL\GraphQLScalars\StringScalar;
 $coolName = StringScalar::make(
     'CoolName',
     'A name that is most definitely cool.',
-    static function (string $name): bool {
-        return in_array($name, [
-           'Vladar',
-           'Benedikt',
-           'Christopher',
-        ]);
-    }
+    static fn (string $name): bool => in_array($name, [
+       'Vladar',
+       'Benedikt',
+       'Christopher',
+    ]),
 );
 ```
 

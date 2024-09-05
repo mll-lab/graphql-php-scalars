@@ -12,10 +12,10 @@ use GraphQL\Utils\Utils;
 abstract class IntRange extends ScalarType
 {
     /** The minimum allowed value. */
-    abstract protected function min(): int;
+    abstract protected static function min(): int;
 
     /** The maximum allowed value. */
-    abstract protected function max(): int;
+    abstract protected static function max(): int;
 
     public function serialize($value)
     {

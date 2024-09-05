@@ -54,12 +54,12 @@ use MLL\GraphQLScalars\IntRange;
 
 final class UpToADozen extends IntRange
 {
-    protected function min(): int
+    protected static function min(): int
     {
         return 1;
     }
 
-    protected function max(): int
+    protected static function max(): int
     {
         return 12;
     }

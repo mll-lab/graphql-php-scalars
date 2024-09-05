@@ -2,7 +2,7 @@
 
 A collection of custom scalar types for usage with https://github.com/webonyx/graphql-php
 
-[![Continuous Integration](https://github.com/mll-lab/graphql-php-scalars/workflows/Continuous%20Integration/badge.svg)](https://github.com/mll-lab/graphql-php-scalars/actions)
+[![Validate](https://github.com/mll-lab/graphql-php-scalars/workflows/Validate/badge.svg)](https://github.com/mll-lab/graphql-php-scalars/actions)
 [![codecov](https://codecov.io/gh/mll-lab/graphql-php-scalars/branch/master/graph/badge.svg)](https://codecov.io/gh/mll-lab/graphql-php-scalars)
 
 [![GitHub license](https://img.shields.io/github/license/mll-lab/graphql-php-scalars.svg)](https://github.com/mll-lab/graphql-php-scalars/blob/master/LICENSE)

@@ -46,9 +46,7 @@ final class StringScalarTest extends TestCase
             StringScalar::make(
                 'MyStringScalar',
                 'Bar',
-                function (string $string) {
-                    return $string === 'foo';
-                }
+                fn (string $string) => $string === 'foo'
             ),
         ];
     }

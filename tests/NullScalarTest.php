@@ -30,18 +30,14 @@ final class NullScalarTest extends TestCase
                 'fields' => [
                     'foo' => [
                         'type' => $null,
-                        'resolve' => function ($root, array $args) {
-                            return reset($args);
-                        },
+                        'resolve' => fn ($root, array $args) => reset($args),
                         'args' => [
                             'bar' => $null,
                         ],
                     ],
                     'mixed' => [
                         'type' => $null,
-                        'resolve' => function () {
-                            return $this->return;
-                        },
+                        'resolve' => fn () => $this->return,
                     ],
                 ],
             ])

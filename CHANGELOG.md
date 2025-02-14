@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Support `thecodingmachine/safe` 3
+
 ## v6.3.0
 
 ### Added

@@ -29,10 +29,7 @@ abstract class DateScalar extends ScalarType
     public function parseLiteral($valueNode, ?array $variables = null): \DateTimeInterface
     {
         if (! $valueNode instanceof StringValueNode) {
-            throw new Error(
-                "Query error: Can only parse strings, got {$valueNode->kind}",
-                $valueNode
-            );
+            throw new Error("Query error: Can only parse strings, got {$valueNode->kind}", $valueNode);
         }
 
         return $this->tryParsingDate($valueNode->value, Error::class);

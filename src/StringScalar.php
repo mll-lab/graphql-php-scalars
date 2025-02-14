@@ -43,9 +43,7 @@ abstract class StringScalar extends ScalarType
         $stringValue = Utils::coerceToString($value, InvariantViolation::class);
 
         if (! $this->isValid($stringValue)) {
-            throw new InvariantViolation(
-                $this->invalidStringMessage($stringValue)
-            );
+            throw new InvariantViolation($this->invalidStringMessage($stringValue));
         }
 
         return $stringValue;
@@ -64,9 +62,7 @@ abstract class StringScalar extends ScalarType
         $stringValue = Utils::coerceToString($value, Error::class);
 
         if (! $this->isValid($stringValue)) {
-            throw new Error(
-                $this->invalidStringMessage($stringValue)
-            );
+            throw new Error($this->invalidStringMessage($stringValue));
         }
 
         return $stringValue;
@@ -77,10 +73,7 @@ abstract class StringScalar extends ScalarType
         $stringValue = Utils::extractStringFromLiteral($valueNode);
 
         if (! $this->isValid($stringValue)) {
-            throw new Error(
-                $this->invalidStringMessage($stringValue),
-                $valueNode
-            );
+            throw new Error($this->invalidStringMessage($stringValue), $valueNode);
         }
 
         return $stringValue;

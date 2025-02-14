@@ -28,10 +28,7 @@ final class Utils
     public static function extractStringFromLiteral(Node $valueNode): string
     {
         if (! $valueNode instanceof StringValueNode) {
-            throw new Error(
-                "Query error: Can only parse strings got: {$valueNode->kind}",
-                $valueNode
-            );
+            throw new Error("Query error: Can only parse strings got: {$valueNode->kind}", $valueNode);
         }
 
         return $valueNode->value;

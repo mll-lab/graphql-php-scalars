@@ -48,9 +48,7 @@ abstract class Regex extends ScalarType
         $stringValue = Utils::coerceToString($value, InvariantViolation::class);
 
         if (! static::matchesRegex($stringValue)) {
-            throw new InvariantViolation(
-                static::unmatchedRegexMessage($stringValue)
-            );
+            throw new InvariantViolation(static::unmatchedRegexMessage($stringValue));
         }
 
         return $stringValue;
@@ -68,9 +66,7 @@ abstract class Regex extends ScalarType
         $stringValue = Utils::coerceToString($value, Error::class);
 
         if (! static::matchesRegex($stringValue)) {
-            throw new Error(
-                static::unmatchedRegexMessage($stringValue)
-            );
+            throw new Error(static::unmatchedRegexMessage($stringValue));
         }
 
         return $stringValue;
@@ -81,10 +77,7 @@ abstract class Regex extends ScalarType
         $value = Utils::extractStringFromLiteral($valueNode);
 
         if (! static::matchesRegex($value)) {
-            throw new Error(
-                static::unmatchedRegexMessage($value),
-                $valueNode
-            );
+            throw new Error(static::unmatchedRegexMessage($value), $valueNode);
         }
 
         return $value;

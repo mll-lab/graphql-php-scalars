@@ -47,9 +47,7 @@ class JSON extends ScalarType
             // @phpstan-ignore-next-line we attempt unsafe values and let it throw
             $decoded = \Safe\json_decode($value);
         } catch (JsonException $jsonException) {
-            throw new Error(
-                $jsonException->getMessage()
-            );
+            throw new Error($jsonException->getMessage());
         }
 
         return $decoded;

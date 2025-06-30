@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v6.4.1
+
+### Fixed
+
+- Consider variables in Mixed scalar https://github.com/mll-lab/graphql-php-scalars/pull/35
+
 ## v6.4.0
 
 ### Added

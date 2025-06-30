@@ -14,7 +14,7 @@ final class MixedScalarTest extends TestCase
 {
     private Schema $schema;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -138,7 +138,7 @@ final class MixedScalarTest extends TestCase
         ];
     }
 
-    protected function executeQueryWithLiteral(string $literal): ExecutionResult
+    private function executeQueryWithLiteral(string $literal): ExecutionResult
     {
         $query = /** @lang GraphQL */ "
         {
@@ -152,10 +152,10 @@ final class MixedScalarTest extends TestCase
         );
     }
 
-    protected function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
+    private function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
     {
         $query = /** @lang GraphQL */ '
-        query Foo($var: Mixed) {
+        query ($var: Mixed) {
             foo(bar: $var)
         }
         ';

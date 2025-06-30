@@ -14,10 +14,9 @@ final class NullScalarTest extends TestCase
 {
     private Schema $schema;
 
-    /** @var mixed will be returned by field mixed */
-    private $return;
+    private mixed $return;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -74,7 +73,7 @@ final class NullScalarTest extends TestCase
         self::assertSame(['mixed' => null], $graphqlResult->data);
     }
 
-    protected function executeQueryWithLiteral(string $literal): ExecutionResult
+    private function executeQueryWithLiteral(string $literal): ExecutionResult
     {
         $query = /** @lang GraphQL */ "
         {
@@ -88,10 +87,10 @@ final class NullScalarTest extends TestCase
         );
     }
 
-    protected function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
+    private function executeQueryWithJsonVariable(string $jsonLiteral): ExecutionResult
     {
         $query = /** @lang GraphQL */ '
-        query Foo($var: Null) {
+        query ($var: Null) {
             foo(bar: $var)
         }
         ';

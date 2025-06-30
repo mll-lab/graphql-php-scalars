@@ -27,6 +27,6 @@ class MixedScalar extends ScalarType
 
     public function parseLiteral($valueNode, ?array $variables = null)
     {
-        return AST::valueFromASTUntyped($valueNode);
+        return AST::valueFromASTUntyped($valueNode, $variables);
     }
 }

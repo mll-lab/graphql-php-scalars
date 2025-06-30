@@ -135,6 +135,40 @@ final class MixedScalarTest extends TestCase
         ];
     }
 
+    public function testIncludesVariablesInLiterals(): void
+    {
+        $query = /** @lang GraphQL */ '
+        query ($a: Mixed, $b1: Mixed, $b3: Mixed) {
+            foo(bar: {
+                a: $a,
+                bs: [$b1, 2, $b3]
+            })
+        }
+        ';
+
+        $result = GraphQL::executeQuery(
+            $this->schema,
+            $query,
+            null,
+            null,
+            [
+                'a' => 'foo',
+                'b1' => 1,
+                'b3' => 3,
+            ]
+        );
+
+        self::assertSame(
+            [
+                'foo' => [
+                    'a' => 'foo',
+                    'bs' => [1, 2, 3],
+                ],
+            ],
+            $result->data
+        );
+    }
+
     private function executeQueryWithLiteral(string $literal): ExecutionResult
     {
         $query = /** @lang GraphQL */ "

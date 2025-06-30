@@ -62,7 +62,9 @@ final class JSONTest extends TestCase
 
     public function testParseLiteralPassesIfJSONIsValid(): void
     {
-        $parsed = (new JSON())->parseLiteral(new StringValueNode(['value' => /** @lang JSON */ '{"foo": "bar"}']));
+        $parsed = (new JSON())->parseLiteral(new StringValueNode([
+            'value' => /** @lang JSON */ '{"foo": "bar"}',
+        ]));
 
         self::assertInstanceOf(\stdClass::class, $parsed);
         self::assertSame('bar', $parsed->foo);

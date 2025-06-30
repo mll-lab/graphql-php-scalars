@@ -87,10 +87,7 @@ final class MixedScalarTest extends TestCase
         );
 
         // Ensure that values provided as JSON have the same result as GraphQL literals
-        self::assertSame(
-            $graphqlResult->data,
-            $jsonResult->data
-        );
+        self::assertSame($graphqlResult->data, $jsonResult->data);
     }
 
     /**
@@ -162,11 +159,10 @@ final class MixedScalarTest extends TestCase
 
         /** @var array<string, mixed> $json */
         $json = \Safe\json_decode(/** @lang JSON */ <<<JSON
-                    {
-                        "var": {$jsonLiteral}
-                    }
-            JSON
-            ,
+            {
+                "var": {$jsonLiteral}
+            }
+            JSON,
             true
         );
 

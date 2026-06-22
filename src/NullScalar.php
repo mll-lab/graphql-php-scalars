@@ -7,6 +7,9 @@ use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\NullValueNode;
 use GraphQL\Type\Definition\ScalarType;
 
+/**
+ * @phpstan-import-type ScalarConfig from ScalarType
+ */
 class NullScalar extends ScalarType
 {
     public const ONLY_NULL_IS_ALLOWED = 'Only null is allowed.';
@@ -15,6 +18,12 @@ class NullScalar extends ScalarType
 
     public ?string $description /** @lang Markdown */
         = 'Always `null`. Strictly validates value is non-null, no coercion.';
+
+    /** @phpstan-param ScalarConfig $config */
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config + SpecifiesByReadme::readmeSpecification('null'));
+    }
 
     public function serialize($value)
     {

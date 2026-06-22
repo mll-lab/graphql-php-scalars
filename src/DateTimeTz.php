@@ -2,10 +2,21 @@
 
 namespace MLL\GraphQLScalars;
 
+use GraphQL\Type\Definition\ScalarType;
+
+/**
+ * @phpstan-import-type ScalarConfig from ScalarType
+ */
 class DateTimeTz extends DateScalar
 {
     public ?string $description /** @lang Markdown */
         = 'A datetime string with format `Y-m-d\TH:i:s.uP`, e.g. `2020-04-20T16:20:04.000000+04:00`.';
+
+    /** @phpstan-param ScalarConfig $config */
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config + SpecifiesByReadme::readmeSpecification('datetimetz'));
+    }
 
     protected static function outputFormat(): string
     {

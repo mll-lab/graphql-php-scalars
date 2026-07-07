@@ -18,7 +18,7 @@ abstract class StringScalar extends ScalarType
      */
     public static function make(string $name, ?string $description, callable $isValid): self
     {
-        $concreteStringScalar = new class() extends StringScalar {
+        $concreteStringScalar = new class extends StringScalar {
             /** @var callable(string): bool */
             public $isValid;
 

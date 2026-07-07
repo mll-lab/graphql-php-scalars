@@ -13,7 +13,7 @@ final class EmailTest extends TestCase
     public function testSerializeThrowsIfUnserializableValueIsGiven(): void
     {
         $email = new Email();
-        $object = new class() {};
+        $object = new class {};
 
         $this->expectExceptionObject(new InvariantViolation('The given value can not be coerced to a string: object.'));
         $email->serialize($object);

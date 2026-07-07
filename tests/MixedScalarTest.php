@@ -69,7 +69,7 @@ final class MixedScalarTest extends TestCase
     public static function singleValues(): iterable
     {
         yield [null];
-        yield [new class() {}];
+        yield [new class {}];
         yield [[]];
         yield [fn () => null];
         yield [[self::class, 'singleValues']];

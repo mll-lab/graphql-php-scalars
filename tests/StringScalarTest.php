@@ -20,7 +20,7 @@ final class StringScalarTest extends TestCase
     public static function stringClassProvider(): iterable
     {
         yield [
-            new class() extends StringScalar {
+            new class extends StringScalar {
                 public string $name = 'MyStringScalar';
 
                 public ?string $description = 'Bar';
@@ -61,7 +61,7 @@ final class StringScalarTest extends TestCase
     /** @dataProvider stringClassProvider */
     public function testSerializeThrowsIfUnserializableValueIsGiven(StringScalar $stringScalar): void
     {
-        $object = new class() {};
+        $object = new class {};
 
         $this->expectException(InvariantViolation::class);
         $stringScalar->serialize($object);
@@ -86,7 +86,7 @@ final class StringScalarTest extends TestCase
     public function testSerializePassesForStringableObject(StringScalar $stringScalar): void
     {
         $serializedResult = $stringScalar->serialize(
-            new class() {
+            new class {
                 public function __toString(): string
                 {
                     return 'foo';
@@ -100,7 +100,7 @@ final class StringScalarTest extends TestCase
     /** @dataProvider stringClassProvider */
     public function testParseValueThrowsIfValueCantBeString(StringScalar $stringScalar): void
     {
-        $object = new class() {};
+        $object = new class {};
 
         $this->expectException(Error::class);
         $this->expectExceptionMessageMatches(/** @lang RegExp */ '/can not be coerced to a string/');

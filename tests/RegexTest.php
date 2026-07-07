@@ -20,7 +20,7 @@ final class RegexTest extends TestCase
     public static function regexClassProvider(): iterable
     {
         yield [
-            new class() extends Regex {
+            new class extends Regex {
                 public string $name = 'MyRegex';
 
                 public ?string $description = 'Bar';
@@ -57,7 +57,7 @@ final class RegexTest extends TestCase
     /** @dataProvider regexClassProvider */
     public function testSerializeThrowsIfUnserializableValueIsGiven(Regex $regex): void
     {
-        $object = new class() {};
+        $object = new class {};
 
         $this->expectException(InvariantViolation::class);
         $regex->serialize($object);
@@ -85,7 +85,7 @@ final class RegexTest extends TestCase
     public function testSerializePassesForStringableObject(Regex $regex): void
     {
         $serializedResult = $regex->serialize(
-            new class() {
+            new class {
                 public function __toString(): string
                 {
                     return 'Contains foo right?';
@@ -99,7 +99,7 @@ final class RegexTest extends TestCase
     /** @dataProvider regexClassProvider */
     public function testParseValueThrowsIfValueCantBeString(Regex $regex): void
     {
-        $object = new class() {};
+        $object = new class {};
 
         $this->expectException(Error::class);
         $this->expectExceptionMessageMatches(/** @lang RegExp */ '/can not be coerced to a string/');

@@ -19,7 +19,7 @@ abstract class Regex extends ScalarType
      */
     public static function make(string $name, ?string $description, string $regex): self
     {
-        $concreteRegex = new class() extends Regex {
+        $concreteRegex = new class extends Regex {
             /**
              * The regex that values are validated against.
              *

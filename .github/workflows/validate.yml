@@ -87,6 +87,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      code-quality: write
+
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
@@ -101,7 +105,12 @@ jobs:
         run: composer install --no-interaction --no-progress
 
       - name: "Collect code coverage"
-        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+        run: vendor/bin/phpunit --coverage-cobertura=coverage.xml
 
-      - name: "Send code coverage report to codecov.io"
-        uses: codecov/codecov-action@v2
+      - name: "Upload code coverage"
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/upload-code-coverage@v1
+        with:
+          file: coverage.xml
+          language: PHP
+          label: code-coverage/phpunit

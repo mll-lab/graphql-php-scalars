@@ -7,10 +7,19 @@ use GraphQL\Language\Printer;
 use GraphQL\Type\Definition\ScalarType;
 use Safe\Exceptions\JsonException;
 
+/**
+ * @phpstan-import-type ScalarConfig from ScalarType
+ */
 class JSON extends ScalarType
 {
     public ?string $description /** @lang Markdown */
         = 'Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org.';
+
+    /** @phpstan-param ScalarConfig $config */
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config + SpecifiesByReadme::readmeSpecification('json'));
+    }
 
     public function serialize($value): string
     {

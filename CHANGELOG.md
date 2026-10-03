@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+
+- Throw `LogicException` when the regex of a `DateScalar` subclass lacks the named group `date`
+
 ## v6.4.1
 
 ### Fixed

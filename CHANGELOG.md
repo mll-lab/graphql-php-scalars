@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v6.5.0
+
+### Added
+
+- Add `specifiedByURL` to the built-in scalars, pointing to their README section https://github.com/mll-lab/graphql-php-scalars/pull/36
+
 ## v6.4.2
 
 ### Fixed

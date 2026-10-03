@@ -50,7 +50,10 @@ abstract class DateScalar extends ScalarType
                 throw new $exceptionClass("Value \"{$value}\" does not match \"{$regex}\". Make sure it's ISO 8601 compliant ");
             }
 
-            if (! $this->validateDate($matches['date'])) {
+            $date = $matches['date']
+                ?? throw new \LogicException('Regex must define a named group "date": ' . static::class . '.');
+
+            if (! $this->validateDate($date)) {
                 $safeValue = Utils::printSafeJson($value);
                 throw new $exceptionClass("Given input value is not ISO 8601 compliant: {$safeValue}.");
             }

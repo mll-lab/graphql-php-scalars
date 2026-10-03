@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## v6.4.2
+
+### Fixed
+
+- Throw `LogicException` when the regex of a `DateScalar` subclass lacks the named group `date` https://github.com/mll-lab/graphql-php-scalars/pull/39
+
 ## v6.4.1
 
 ### Fixed

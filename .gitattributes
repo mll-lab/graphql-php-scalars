@@ -5,3 +5,6 @@ tests export-ignore
 Makefile export-ignore
 phpstan.neon export-ignore
 phpunit.xml export-ignore
+package.json export-ignore
+package-lock.json export-ignore
+.releaserc.json export-ignore

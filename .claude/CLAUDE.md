@@ -25,4 +25,5 @@ Use native `DateTimeImmutable`, not the `Safe` variant.
 
 ## Changes
 
-A new or changed scalar gets a section in `README.md` and an entry under `## Unreleased` in `CHANGELOG.md`.
+A new or changed scalar gets a section in `README.md`.
+The PR title becomes the `CHANGELOG.md` entry, so do not edit `CHANGELOG.md`.
